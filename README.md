@@ -1,4 +1,7 @@
 # Lean-proof-assistant
+
+## Harmonogram semestra 2019/2020
+
 Ročníky končiace inžinierske štúdium – úprava dĺžky letného semestra
 * Výučba (12 týždňov)                             od 17.02.2020 do 07.05.2020
 * Odovzdanie diplomovej práce                     do 14.05.2020
