@@ -1,0 +1,10 @@
+induction t with d hd,
+repeat {rw mul_zero},
+rw add_zero,
+refl,
+
+rw mul_succ,
+rw hd,
+rw mul_succ,
+rw mul_succ,
+simp,

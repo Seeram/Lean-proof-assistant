@@ -1,0 +1,12 @@
+induction n with d hd,
+rw add_zero,
+rw pow_zero,
+rw mul_one,
+refl,
+
+rw add_succ,
+rw pow_succ,
+rw hd,
+rw pow_succ,
+rw ← mul_assoc,
+refl,

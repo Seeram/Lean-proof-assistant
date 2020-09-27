@@ -1,0 +1,12 @@
+induction a with d hd,
+rw zero_mul,
+rw zero_mul,
+rw mul_zero,
+refl,
+
+rw mul_comm,
+rw mul_assoc,
+rw mul_comm,
+rw mul_comm,
+rw mul_comm c,
+refl,
