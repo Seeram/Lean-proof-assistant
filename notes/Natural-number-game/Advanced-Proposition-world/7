@@ -1,0 +1,6 @@
+intro p,
+cases p with a b,
+right,
+exact a,
+left,
+exact b,

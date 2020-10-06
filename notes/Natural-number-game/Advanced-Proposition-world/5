@@ -1,0 +1,6 @@
+intros hpq hqr,
+split,
+intro p,
+apply hqr.1,
+cc,
+cc,

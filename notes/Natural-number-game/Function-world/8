@@ -1,0 +1,6 @@
+intro p,
+intro q,
+intro j,
+apply q,
+have a := p(j),
+exact a,

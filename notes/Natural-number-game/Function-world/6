@@ -1,0 +1,7 @@
+intro a,
+intro b,
+intro c,
+have d := b(c),
+have e := a(c),
+have r := e(d),
+exact r,

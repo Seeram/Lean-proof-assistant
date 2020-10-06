@@ -1,0 +1,5 @@
+repeat { rw not_iff_imp_false },
+intros p q r,
+have a := p(r),
+have b := q(a),
+exact b,

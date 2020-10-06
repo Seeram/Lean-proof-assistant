@@ -1,0 +1,6 @@
+intro a,
+cases a with b c,
+rw not_iff_imp_false at c,
+exfalso,
+apply c,
+exact b,

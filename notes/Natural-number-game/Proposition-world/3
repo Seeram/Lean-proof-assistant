@@ -1,0 +1,4 @@
+have a := h(p),
+have b := h(a),
+have c := h(b),
+exact c,

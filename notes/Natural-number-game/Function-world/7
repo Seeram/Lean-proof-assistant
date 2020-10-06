@@ -1,0 +1,4 @@
+intros p q f,
+have a := p(f),
+have b := q(a),
+exact b,

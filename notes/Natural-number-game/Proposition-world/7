@@ -1,0 +1,6 @@
+intro hpq,
+intro hqr,
+intro p,
+have a := hpq(p),
+have b := hqr(a),
+exact b,

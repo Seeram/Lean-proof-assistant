@@ -1,0 +1,11 @@
+intro p,
+induction t with d hd,
+rw zero_add at p,
+rw zero_add at p,
+exact p,
+
+rw succ_add at p,
+rw succ_add at p,
+have q := succ_inj(p),
+have l := hd(q),
+exact l,

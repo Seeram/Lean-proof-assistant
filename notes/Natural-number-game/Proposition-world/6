@@ -1,0 +1,5 @@
+intros f h p,
+have j : Q → R := f p,
+have a := h(p),
+have b := j(a),
+exact b,
