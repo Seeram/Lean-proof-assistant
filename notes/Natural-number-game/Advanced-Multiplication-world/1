@@ -1,0 +1,15 @@
+intro i,
+intro j,
+intro k,
+cases b with n,
+
+apply j,
+refl,
+
+cases a with m,
+apply i,
+refl,
+
+rw mul_succ at k,
+rw add_succ at k,
+exact succ_ne_zero _ k,

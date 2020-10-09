@@ -1,0 +1,11 @@
+cases a with b d,
+intro c,
+refl,
+
+intro d,
+rw succ_add at d,
+
+exfalso,
+apply succ_ne_zero,
+exact d,
+
