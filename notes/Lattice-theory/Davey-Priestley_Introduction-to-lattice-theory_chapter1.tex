@@ -1,0 +1,270 @@
+\documentclass[a4paper,12pt,oneside]{report}%pridat twoside, do [] pre obojstrannu tlac
+\pagestyle{headings}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2cm]{geometry} %odporucane okraje
+\linespread{1.50}
+
+%% Generally used
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+%% Generally used
+
+%% Covering
+\usepackage{pict2e,picture}
+
+\newcommand{\coveringA}{%
+  \mathrel{-\mkern-4mu}<%
+}
+\newcommand{\coveringB}{\mathrel{\text{$\vcenter{\hbox{\pictcoveringB}}$}}}
+
+\newcommand{\pictcoveringB}{%
+  \begin{picture}(1em,.5em)
+  \roundcap
+  \put(0,.25em){\line(1,0){.6em}}
+  \put(.6em,.25em){\line(3,1){.4em}}
+  \put(.6em,.25em){\line(3,-1){.4em}}
+  \end{picture}%
+}
+%% Covering
+
+%% Powerset
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
+%% Powerset
+
+\newtheorem{theorem}{Theorem}
+
+\author{Mat\'u\v{s} Behun}
+\title{Lattice theory notes}
+
+\begin{document}
+\section{Chapter 1}
+
+\begin{theorem}
+Let $P$ be a set. An order (or \textbf{partial order}) on $P$ is a binary
+    relation $\leq$ on $P$ such that, for all $x, y, z \in P$,
+\begin{enumerate}
+    \item $x \leq x$,
+    \item $x \leq y$ and $y \leq x$ imply $x = y$,
+    \item $x \leq y$ and $y \leq z$ imply $x \leq z$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set. Then $P$ is a \textbf{chain} if, for all
+    $x, y \in P$, either $x \leq y$ or $y \leq x$ (that is, if any two elements
+    of $P$ are comparable).
+    Alternative names for a chain are \textbf{linearly ordered set} and
+    \textbf{totally ordered set}.
+The ordered set is an \textbf{antichain} if $x \leq y$ in $P$ only if $x ==y$.
+\end{theorem}
+
+\begin{theorem}
+We say that $P$ and $Q$ are (\textbf{order-})\textbf{isomorphic}, and write
+    $P \cong Q$, if there exists a map $\varphi$ from $P$ onto $Q$ such that
+    $x \leq y$ in $P$ if and only if $\varphi(x) \leq \varphi(y)$ in $Q$. 
+Then $\varphi$ is called \textbf{order-isomorphism}.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set and let $x,y \in P$. We say $x$ is \textbf{covered by}
+    $y$ (or $y$ \textbf{covers} $x$), and write $x \coveringA y$, if $x \le y$
+    and $x \leq z \le y$ implies $z = x$.
+The latter condition is demanding that there be no element $z$ of $P$ with
+    $x \le z \le y$.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be a finite ordered set. We can represent $P$ by a configuration of
+    circles (representing the elements of $P$) and interconnecting lines
+    (indicating the covering relation). The construction goes as follows.
+    \begin{enumerate}
+        \item To each point $x \in P$, associate a point $p(x)$ of the Euclidean
+            plane, depicted by a small circles with centre at $p(x)$.
+        \item For each covering pair $x \coveringA y$ in $P$, take a line
+            segment $\ell(x, y)$ joining the circle at $p(x)$ to the circle at
+            $p(y)$.
+        \item Carry out 1 and 2 in such a way that
+            \begin{itemize}
+                \item if $x \coveringA y$, then $p(x)$ is `lower' than $p(y)$
+                    (that is, in standard Cartesian coordinates, has strictly
+                    smaller second coordinate),
+                \item the circle at $p(z)$ does not intersect the line segment
+                    $\ell(x,y)$ if $z \ne x$ and $z \ne y$.
+            \end{itemize}
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $P$ and $Q$ be finite ordered sets and let $\varphi: P \mapsto Q$ be a
+    bijective map.
+Then the following are equivalent:
+    \begin{enumerate}
+        \item $\varphi$ is an order-isomorphism;
+        \item $x \le y$ in $P$  if and only  if $\varphi(x) \le \varphi(y)$ in
+            $Q$
+        \item $x \coveringA y$ in $P$ if and only if
+            $\varphi(x) \coveringA \varphi(y)$ in $Q$
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Given any ordered set $P$ we can form a new orderer set $P^{\partial}$ (the
+    \textbf{dual} of $P$) by defining $x \leq y$ to hold in $P^{\partial}$ if
+    and only if $y \leq x$ hold in $P$.
+For $P$ finite, we obtain a diagram for $P^{\partial}$ simply by
+    `turning upside down' a diagram for $P$.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set. We say $P$ has a bottom element if there exists
+    $\bot \in P$ (called \textbf{bottom}) with the property that $\bot \leq x$
+    for all $x \in P$.
+Dually,  $P$ has a top element if there exists $\top \in P$ such that
+    $x \leq \top$ for all $x \in P$.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set. We say $P$ has a bottom element if there exists
+    $\bot \in P$ (called \textbf{bottom}) with the property that $\bot \leq x$
+    for all $x \in P$.
+Dually,  $P$ has a top element if there exists $\top \in P$ such that
+    $x \leq \top$ for all $x \in P$.
+\end{theorem}
+
+\begin{theorem}
+Given an ordered set $P$ (with or without $\bot$), we form $P_{\bot}$ (called
+    $P$ `lifted') as follows. Take an element $\textbf{0} \notin P$ and define
+    $\leq$ on $P_{\bot} := P \cup \lbrace\textbf{0}\rbrace$ by
+    \begin{center}
+        $x \leq y$ if and only if $x = \textbf{0}$ or $x \leq y$ in $P$
+    \end{center}
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set and let $Q \subseteq P$. Then $a \in Q$ is a
+    \textbf{maximal element} of $Q$ if $a \leq x$ and $x \in Q$ imply $a = x$.
+We denote the set of maximal elements of $Q$ by $MaxQ$.If $Q$ (with the order
+    inherited from $P$) has a top element, $\top_{Q}$, then 
+    $MaxQ = \lbrace \top_{Q} \rbrace$; in this case $\top_{Q}$ is called the
+    \textbf{greatest} (or \textbf{maximum}) element of $Q$, and we write
+    $\top_{Q} = maxQ$. 
+A \textbf{minimal} elment of $Q \subseteq P$ and $minQ$, the \textbf{least} (or 
+    \textbf{minimum}) element of $Q$ (when these exist) are defined dually, that 
+    is by reversing the order.
+\end{theorem}
+
+\begin{theorem}
+Suppose that $P$ and $Q$ are (disjoint) ordered sets. The
+    \textbf{disjoint union} $P \cup Q$ of $P$ and $Q$ is the ordered set formed
+    by defining $x \leq y$ in $P \cup Q$ if and only if either $x,y \in P$ and
+    $x \leq y$ in $P$ or $x,y \in Q$ and $x \leq y$ in $Q$.
+A diagram for $P \cup Q$ is formed by placing side by side diagrams for $P$ and 
+    $Q$.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ and $Q$ be (disjoint) ordered sets. \textbf{The linear sum}
+    $P \oplus Q$ is defined by taking the following order relation on
+    $P \cup Q: x \leq y$ if and only if
+    \begin{align*}
+                         &x,y \in P \textnormal{ and } x \leq y \textnormal{ in } P, \\
+        \textnormal{or } &x,y \in P \textnormal{ and } x \leq y \textnormal{ in } Q, \\
+        \textnormal{or } &x   \in P \textnormal{ and } y \in Q
+    \end{align*}
+A diagram for $P \oplus Q$ (when $P$ and $Q$ are finite) is obtained by placing
+    a diagram for $P$ directly below a diagram for $Q$ and then adding a line
+    segment from each \emph{each} maximal element of $P$ to \emph{each} minimal
+    element of $Q$.
+\end{theorem}
+
+\begin{theorem}
+    Let $P_{1}, \ldots, P_{n}$ be ordered sets. The Cartesian product
+    $P_{1} \times \ldots \times P_{n}$ can be made into an ordered set by imposing
+    the coodinatewise order by
+    \begin{align*}
+        (x_{1}, \ldots, x_{n}) \leq (y_{1}, \ldots, y_{n})
+            \iff (\forall i) x_{i} \leq y_{i} \textnormal{ in } P_{i}.
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}
+Let $X = \lbrace 1,2, \ldots ,n \rbrace$ and define
+    $\varphi: \powerset(X) \rightarrow \powerset{2}^{n}$ by
+    $\varphi(A) = ( \epsilon_{1}, \ldots, \epsilon_{n} )$ where
+    \[
+        \epsilon_{i} =
+        \begin{cases}
+            1 \textnormal{ if } i \in A, \\
+            0 \textnormal{ if } i \notin A. \\
+        \end{cases}
+    \]
+Then $\varphi$ is an order-isomorphism.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set and $Q \subseteq P$.
+    \begin{itemize}
+        \item $Q$ is a \textbf{down-set} (alternative term include
+            \textbf{decreasing set} and \textbf{order ideal}) if, whenever
+            $x \in Q$, $y \in P$ and $y \leq x$, we have $y \in Q$.
+        \item Dually, $Q$ is an \textbf{up-set} (alternative terms are
+            \textbf{increasing set} and \textbf{order filter}) if, whenever
+            $x \in Q$, $y \in P$ and $y \geq x$, we have $y \in Q$.
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}
+    \begin{center}
+    $\downarrow Q := \lbrace y \in P | ( \exists x \in Q ) y \leq x \rbrace$ and
+    $\uparrow   Q := \lbrace y \in P | ( \exists x \in Q ) y \geq x \rbrace$,
+    \end{center}
+
+    \begin{center}
+    $\downarrow x := \lbrace y \in P | y \leq x \rbrace$ and
+    $\uparrow   x := \lbrace y \in P | y \geq x \rbrace$.
+    \end{center}
+\end{theorem}
+
+\begin{theorem}
+The family of all down-sets of $P$ is denoted by $\mathcal{O}(P)$. It is itself
+    an ordered set, under the inclusion order.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set and $x,y \in P$. Then the following are equivalent:
+    \begin{enumerate}
+        \item $x \leq y$;
+        \item $\downarrow x \subseteq \downarrow y$;
+        \item $(\forall Q \in \mathcal{O}(P)) y \in Q \implies x \in Q$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    \begin{align*}
+        \mathcal{O}(P)^{\partial} = \mathcal{O}(P^{\partial})
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be an ordered set. Then
+    \begin{enumerate}
+        \item $\mathcal{O}(P \oplus \textbf{1}) \cong \mathcal{O}(P) \oplus \textbf 1$
+            and $\mathcal{O}(\textbf{1} \oplus P) \cong \textbf{1} \oplus \mathcal{O}(P)$;
+        \item $\mathcal{O}(P_{1} \cup P_{2}) \cong \mathcal{O}(P_1) \times \mathcal{O}(P_{2})$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $P$ and $Q$ be ordered sets. A map $\varphi: P \rightarrow Q$ is said to be
+    \begin{enumerate}
+        \item \textbf{order-preserving} (or alternatively, \textbf{monotone}) if
+            $x \leq y$ in $P$ implies $\varphi(x) \leq \varphi(y) in Q$;
+        \item an \textbf{order-embedding} (and we write 
+            $\varphi: P \rightarrow Q$) if $x \leq y$ in $P$ if and only if
+            $\varphi(x) \leq \varphi(y)$ in $Q$;
+        \item an \textbf{order-isomorphism} if it is an order-embedding which
+            maps $P$ onto $Q$.
+    \end{enumerate}
+\end{theorem}
+\end{document}

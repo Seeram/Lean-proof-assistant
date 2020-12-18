@@ -1,0 +1,217 @@
+\documentclass[a4paper,12pt,oneside]{report}%pridat twoside, do [] pre obojstrannu tlac
+\pagestyle{headings}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2cm]{geometry} %odporucane okraje
+\linespread{1.50}
+
+%% Generally used
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+%% Generally used
+
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+
+
+%% Covering
+\usepackage{pict2e,picture}
+
+\newcommand{\coveringA}{%
+  \mathrel{-\mkern-4mu}<%
+}
+\newcommand{\coveringB}{\mathrel{\text{$\vcenter{\hbox{\pictcoveringB}}$}}}
+
+\newcommand{\pictcoveringB}{%
+  \begin{picture}(1em,.5em)
+  \roundcap
+  \put(0,.25em){\line(1,0){.6em}}
+  \put(.6em,.25em){\line(3,1){.4em}}
+  \put(.6em,.25em){\line(3,-1){.4em}}
+  \end{picture}%
+}
+%% Covering
+
+%% Powerset
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
+%% Powerset
+
+\newtheorem{theorem}{Theorem}
+
+\author{Mat\'u\v{s} Behun}
+\title{Lattice theory notes}
+
+\begin{document}
+\section{Chapter 2}
+
+\begin{theorem}
+Let $P$ be an ordered set and let $S \subseteq P$.
+An element $x \in P$ is an \textbf{upper bound} of $S$ if $s \leq x$ for all
+    $s \in S$.
+A \textbf{lower bound} is defined dually.
+The set of all upper bounds of $S$ is denoted by $S^{u}$ (read as `S upper`) and
+    the set of all lower bounds by $S^{l}$ (read as `$S$ \textbf{lower}'):
+    \begin{align*}
+        S^{u} := \lbrace x \in P | ( \forall s \in S) s \leq x \rbrace
+        \textnormal{ and }
+        S^{l} := \lbrace x \in P | ( \forall s \in S) s \geq x \rbrace
+    \end{align*}
+Since $\leq$ is transitive, $S^{u}$ is always an up-set and $S^{l}$ is a
+    down-set. If $S^{u}$ has a least element $x$, then $x$ is called the 
+    \textbf{least upper bound} of $S$.
+Equivalently, $x$ is the least upper bound of $S$ if
+    \begin{enumerate}
+        \item $x$ is an upper bound of S and
+        \item $x \leq y$ for all upper bounds $y$ of $S$.
+    \end{enumerate}
+The least upper bounds of $S$ exists if and only if there exists $x \in P$ such
+    that
+    \begin{align*}
+        ( \forall y \in P)[ ( ( \forall s \in S) s \leq y) \Longleftrightarrow x \leq y ]
+    \end{align*}
+Dually, if $S^{l}$ has a greatest element, $x$, then $x$ is called the 
+    \textbf{greatest lower bound} of $S$.
+The least upper bound of $S$ is also called the \textbf{supremum} of $S$ and is
+    denoted by $\sup S$; the greatest lower bound of $S$ if also called the
+    \textbf{infinum} of $S$ and is denoted by $\inf S$.
+\end{theorem}
+
+\begin{theorem}
+We write $x \vee y$( read as `$x$ \textbf{join} $y$') in place of
+    $\sup \lbrace x, y \rbrace$ when it exists and $x \wedge y$ (read as
+    `$x$ \textbf{meet} $y$' in place of $\inf \lbrace x, y \rbrace$ when it
+    exists.
+    Similiarly we write $\bigvee S$ (the `\textbf{join of} $S$') and
+    $\bigwedge S$ (the `\textbf{meet of} $S$') instead of $\sup S$ and
+    $\inf S$ when these exist.
+It is sometimes necessary to indicate that the join or meet is being found in a
+    particular ordered set $P$, in which case we write $\bigvee_{P} S$ or
+    $\bigwedge_{P} S$.
+\end{theorem}
+
+\begin{theorem}
+Let $P$ be a non-empty ordered set.
+    \begin{enumerate}
+        \item If $x \vee y$ and $x \wedge y$ exists for all $x,y \in P$, then 
+            $P$ is called \textbf{latttice}
+        \item If $\bigvee S$ and $\bigwedge S$ exist for all $S \subseteq P$,
+            then $P$ is called a \textbf{complete lattice}.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $L$ be a lattice and let $a,b \in L$. Then the following are equivalent:
+    \begin{enumerate}
+        \item $a \leq b$;
+        \item $a \vee b = b$;
+        \item $a \wedge b = a$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $L$ be a lattice. Then $\vee$ and $\wedge$ satisfy, for all $a,b,c, \in L$,
+    \begin{enumerate}[start=1,label={(\bfseries L\arabic*)}]
+        \item $(a \vee b) \vee c = a \vee (b \vee c)$
+            (associative law)
+        \item $a \vee = b \vee a$
+            (commutative law)
+        \item $a \vee a = a$
+            (idempotency law)
+        \item $a \vee (a \wedge b) = a$
+            (absorption law)
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $\langle L, \vee, \wedge \rangle$ be a non-empty set equipped with two
+    binary operations which satisfy \textbf{(L1)-(L4)}
+    \begin{enumerate}[label=(\roman*)]
+        \item For all $a,b \in L$, we hae $a \vee b = b$ if and only if
+            $a \wedge b = a$.
+        \item Defined $\leq$ on $L$ by $a \leq b$ if $a \vee b = b$. Then
+            $\leq$ is an order relation.
+        \item With $\leq$ as in (ii), $\langle L; \leq \rangle$ is a lattice in
+            which the original operations agree with the induced operations,
+            that is, for all $a, b \in L$,
+            \begin{align*}
+                a \vee b = \sup \lbrace a, b \rbrace \textnormal{ and }
+                a \wedge b = \inf \lbrace a, b \rbrace.
+            \end{align*}
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $L$ be a lattice and $\o \neq M \subseteq L$. Then $M$ is a
+    \textbf{sublattice} of $L$ if
+    \begin{align*}
+        a, b \in M \textnormal{ implies } a \vee b \in M \textnormal{ and }
+        a \wedge b \in M
+    \end{align*}
+We denote the collection of all sublattices of L by $sub L$ and let
+    $Sub_{0} L = Sub L \cup \lbrace \o \rbrace$; both are ordered by inclusion.
+\end{theorem}
+
+\begin{theorem}
+Let $L$ and $K$ be lattices. Define $\vee$ and $\wedge$ coordinatewise on
+    $L \times K$, as follows:
+    \begin{align*}
+        (\ell_{1}, k_{1}) \vee (\ell_{2}, k_{2}) =
+            (\ell_{1} \vee \ell_{2}, k_{1} \vee k_{2}) \\
+        (\ell_{1}, k_{1}) \wedge (\ell_{2}, k_{2}) =
+            (\ell_{1} \wedge \ell_{2}, k_{1} \wedge k_{2})
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}
+Let $L$ and $K$ be a lattices. A map $f: L \rightarrow K$ is said to be a
+    \textbf{homomorphism} (or, for emphasis, \textbf{lattice homomorphism}) if\
+    $f$ is a \textbf{join-preserving} and \textbf{meet-preserving}, that is,
+    for all $a,b \in L$,
+    \begin{align*}
+        f(a \vee b) = f(a) \vee f(b) \textnormal{ and }
+        f(a \wedge b) = f(a) \wedge f(b).
+    \end{align*}
+A bijective homomorphism is a (\textbf{lattice}) \textbf{isomorphism}. If
+    $f: L \rightarrow K$ is a one-to-one homomorphism, then the sublattice
+    $f(L)$ of $K$ is isomorphic to $L$ and we refer to $f$ as an
+    \textbf{embeding} ($\textbf{of } $L$ $\textbf{ into } $K$).
+\end{theorem}
+
+\begin{theorem}
+Let $L$ and $K$ be lattices and $f: L \rightarrow K$ a map.
+    \begin{enumerate}[label=(\roman*)]
+        \item The following are equivalent:
+            \begin{enumerate}
+                \item $f$ is order-preserving;
+                \item $(\forall a,b \in L) f(a \vee b) \geq f(a) \vee f(b)$;
+                \item $(\forall a,b \in L) f(a \wedge b) \leq f(a) \wedge f(b)$.
+            \\ In particular, if $f$ is homomorphism, then $f$ is order-perserving.
+            \end{enumerate}
+        \item  $f$ is a lattice isomorphism if and only if it is an 
+            order-isomorphism.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let L be a lattice. A non-empty subset J of L is call an \textbf{ideal} if
+    \begin{enumerate}[label=(\roman*)]
+        \item $a,b \in J$ implies $a \vee b \in J$,
+        \item $a \in L, b \in J$ and $a \leq b$ imply $a \in J$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Non-empty sdubset $G$ of $L$ is called a \textbf{filter} if
+    \begin{enumerate}[label=(\roman*)]
+        \item $a,b \in G$ implies $a \wedge b \in G$,
+        \item $a \in L, b \in G$ and $a \geq b$ imply $a \in G$
+    \end{enumerate}
+The set of all ideals (filters) of L is denoted by $\mathcal{I}(L)$ (by 
+    $\mathcal{F}(L)$, and carries the usual inclusion order.
+\end{theorem}
+
+\begin{theorem}
+An ideal of filter is called \mathbf{proper} if it does not coincide with $L$.
+\end{theorem}
+
+\end{document}
