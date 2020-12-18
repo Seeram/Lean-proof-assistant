@@ -1,0 +1,68 @@
+\documentclass[a4paper,12pt,oneside]{report}%pridat twoside, do [] pre obojstrannu tlac
+\pagestyle{headings}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2cm]{geometry} %odporucane okraje
+\linespread{1.50}
+
+%% Generally used
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+%% Generally used
+
+%% Covering
+\usepackage{pict2e,picture}
+
+\newcommand{\coveringA}{%
+  \mathrel{-\mkern-4mu}<%
+}
+\newcommand{\coveringB}{\mathrel{\text{$\vcenter{\hbox{\pictcoveringB}}$}}}
+
+\newcommand{\pictcoveringB}{%
+  \begin{picture}(1em,.5em)
+  \roundcap
+  \put(0,.25em){\line(1,0){.6em}}
+  \put(.6em,.25em){\line(3,1){.4em}}
+  \put(.6em,.25em){\line(3,-1){.4em}}
+  \end{picture}%
+}
+%% Covering
+
+%% Powerset
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
+%% Powerset
+
+\newtheorem{theorem}{Theorem}
+
+\author{Mat\'u\v{s} Behun}
+\title{Lattice theory notes}
+
+\begin{document}
+\begin{theorem}
+Let $L$ be a modular lattice and let $a,b \in L$. Then
+    \begin{align*}
+        \varphi_{b}: x \mapsto x \wedge b, x \in [a, a \vee b],
+    \end{align*}
+is an isomorphism between the intervals $[a, a \vee b]$ and $[a \wedge b, b]$.
+The inverse isomorphism is
+    \begin{align*}
+        \psi_{a}: y \mapsto x \vee a, y \in [a \vee b, b].
+    \end{align*}
+\emph{Proof.} It is sufficient to show that $\psi_{a}\varphi{b}(x)$ = x for
+all $x \in [a, a \vee b]$.
+Indeed, if this is true, then by duality, $\varphi_{b}\psi_{a}(y) = y$, for all 
+    $y \in [a \wedge b, b]$, is also true.
+The isotone maps $\varphi_{b}$ and $\psi_{a}$,  thus compose into the identity maps,
+hence they are isomorphisms, as claimed. \\
+So let $x \in [a, a \vee b]$.
+Then $\psi_{a}\varphi{b}(x) = (x \wedge b) \vee a$.
+Since $x \in [a, a \vee b]$, the inequality $a \leq x$ holds, and so modularity 
+    applies:
+    \begin{align*}
+        \psi_{a}\varphi_{b}(x) = ( x \wedge b) \vee a = x \wedge ( b \ vee a ) = x,
+    \end{align*}
+because $x \leq a \vee b$. \qedsymbol
+\end{theorem}
+
+
+\end{document}
