@@ -1,0 +1,74 @@
+\documentclass[a4paper,12pt,oneside]{report}%pridat twoside, do [] pre obojstrannu tlac
+\pagestyle{headings}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2cm]{geometry} %odporucane okraje
+\linespread{1.50}
+
+%% Generally used
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+%% Generally used
+
+%% Covering
+\usepackage{pict2e,picture}
+
+\newcommand{\coveringA}{%
+  \mathrel{-\mkern-4mu}<%
+}
+\newcommand{\coveringB}{\mathrel{\text{$\vcenter{\hbox{\pictcoveringB}}$}}}
+
+\newcommand{\pictcoveringB}{%
+  \begin{picture}(1em,.5em)
+  \roundcap
+  \put(0,.25em){\line(1,0){.6em}}
+  \put(.6em,.25em){\line(3,1){.4em}}
+  \put(.6em,.25em){\line(3,-1){.4em}}
+  \end{picture}%
+}
+%% Covering
+
+%% Powerset
+\newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
+%% Powerset
+
+\newtheorem{theorem}{Theorem}
+
+\author{Mat\'u\v{s} Behun}
+\title{Lattice theory notes}
+
+\begin{document}
+
+\section{Chapter 1}
+
+\begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
+Nech L je modulárnym zväzom a $a, b \in L$. Potom
+    \begin{equation}
+        \varphi_{b}: x \mapsto x \wedge b, x \in [a, a \vee b],
+    \end{equation}
+Je izomorfizmom medzi intervalmi $[a, a \vee b]$ a $[ a \wedge b, b]$.
+Inverzným izomorfizmom je
+    \begin{equation}
+        \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
+    \end{equation}
+\end{theorem}
+\emph{Dôkaz}.
+Stačí ukázať že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
+Z duality vyplýva že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
+    $y \in [a \wedge b, b]$,
+Majme $x \in [a, a \vee b]$. Potom
+    $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
+    potom aj modularita
+    \begin{equation}
+        \varphi_{a}\psi_{b}(x) =
+        ( x \wedge b ) \vee a =
+        x \wedge ( b \vee a) =
+        x
+    \end{equation}
+    pretože
+    \[
+        \pushQED{\qed}
+        x \leq a \vee b. \qedhere
+        \popQED
+    \]
+\end{document}
