@@ -3,7 +3,7 @@
 Celkovo sa mi začína rysovať projekt Vašej diplomovky v konkrétnych obrysoch.
 
 Snažil som sa v piatok a v nedeľu pochopiť to,
-ako sú v mathlib implemenované podmonoidy. Sú tam aj
+ako sú v mathlib implementované podmonoidy. Sú tam aj
 podgrupy, ale tie majú aj inverziu a pre pochopenie veci
 mi stačili monoidy.
 
@@ -13,7 +13,7 @@ podzväzy, či tam nie je nejaký zádrhel. Nejaký som našiel (viď koniec
 
 ## Čo je v tomto adresári
 
- * `odd_submonoid.lean` -- skúšobný súbor, implementoval som fakt, že nepárne prirodzené čísla sú submonoidom prirodzených čísel vybavených náseobením a jednotkou. Definoval som submonoid ako štruktúru a potom som z neho vyrobil
+ * `odd_submonoid.lean` -- skúšobný súbor, implementoval som fakt, že nepárne prirodzené čísla sú submonoidom prirodzených čísel vybavených násobením a jednotkou. Definoval som submonoid ako štruktúru a potom som z neho vyrobil
 monoid. Išlo mi o to, aby som pochopil veci, o nič iné. 
  * `odd_submonoid2.lean` -- to isté, ale inak: využil som už implementované veci v mathlib, aby som odviedol rovnakú robotu. Je tam funkcia, ktorá vezme submonoid a vráti monoid. Tento je potom možné zaregistrovať ako inštanciu typeclass monoid.
  * `sublattice.lean` -- takto si predstavujem, že budú zavedené podzväzy ako štruktúra. Je to priama analógia s monoidmi. Hral som sa s tým pojmom, napísal som tam všeobecnú funkciu ktorá vyrobí z uzavretého intervalu vo zväze podzväz.
