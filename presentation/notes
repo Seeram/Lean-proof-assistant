@@ -1,0 +1,33 @@
+- computer assisted proofs
+    - viac vseobecne, za pomoci pocitaca sa snazime dokazat formalnu vec
+    - co nas napadne pri takychto dokazoch je dokaz vymenovanim proof-by-exhaustion
+    - four color theorem first major theorem proved by computer
+- proof assistants -
+    - human-machine interaction to prove things
+
+  - Tu sa popiseme curry howard correspondence
+  - what is possibility of these systems
+  - curry howard-korenspondencia
+
+- lean
+    - mathlib + community + XENA
+    - stand between both it is interactive
+    - and it helps with automation with so called tactics
+    - lean combination of both
+    - while software is interactive there is part automation using so called tactics
+
+- forward proving and backward proving
+- Lean is based on the calculus of constructions with inductive types
+- popisanie prostredia
+- ine typy dokazov
+    - ex falso
+    - law of excluded middle 
+
+- lattice theory
+- dokaz
+- na papieri + ako je to dokazane v lean-e
+
+
+
+
+
