@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,oneside]{report}%pridat twoside, do [] pre obojstrannu tlac
+\documentclass[a4paper,10pt,oneside]{report}%pridat twoside, do [] pre obojstrannu tlac
 \pagestyle{headings}
 \usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2cm]{geometry} %odporucane okraje
 \linespread{1.50}
@@ -8,6 +8,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{listings}
 %% Generally used
 
 %% Covering
@@ -39,7 +40,134 @@
 
 \begin{document}
 
-\section{Chapter 1}
+\section{Úvod}
+
+Pri procese rozširovania matematickej teórie vytvárame tvrdenia generalizujúce jej princípy.
+Ak chceme aby náša teória bola správna, všetky jej tvrdenia musia byť logicky odvodené z postulátov alebo tvrdení z nich odvodených.
+Potvrdenie správnosti tvrdenia, vyslovením predpokladu, axiómu alebo napísaním formule ktorú dostaneme aplikáciou dedukčného pravidla na niektoré v postupnosti predchádzajúce formule nazývame dôkazom.
+
+% Je to pravda?
+Z kvalitatívneho hľadiska pri vyslovení dôkazu uvažujeme o všeobecnosti dôkazu a správnosti aplikácie dedukčného pravidla.
+% Je to vhodný príklad(chcel som uviest priklad na prvy pohlad spravneho tvrdenia ktore bolo dokazane ako nespravne ? Ako správne citovať? Nápad som mal odtiaľto https://en.wikipedia.org/wiki/List_of_disproved_mathematical_ideas
+O nutnosti korektného dokazovania tvrdení hovorí napríklad tvrdenie z teórie čísel o hornom ohraničení počtu prvočísel logaritmickým integrálom.
+
+\begin{equation}
+    \pi(x) \leq \int_{0}^{x} \frac{1}{ \ln{t} } dt
+\end{equation}
+
+Tvrdenie bolo považované za správne Bernhardom Riemannom a evidencia to taktiež naznačovala.
+Neskôr sa ukázalo že tvrdenie nie je správne pri čísle pod hodnotou $10^{317}$.
+% Doplniť rok
+Veta o 4 farbách ktorá bola vyslovená v roku 1852 Francisom Guthrie ktorá hovorí, že každá rovinná mapa je zafarbiteľná 4 farbami.
+% 18-faces
+Táto veta bola nesprávne dokázaná v roku Kempom (1879) and Taitom (1880). Kempov dôkaz bol vyvrátený o 10 rokov mapov s 18 stenami.
+% Je lepšie skloňovať cudzie mená?
+Pri dôkaze tejto vety bol neskôr v roku 1977 Appelom and Hakenom z časti využitý počítač pre kontrolu špeciálnych diskrétnych prípadov.
+
+\section{Počítačom asistované dokazovanie}
+
+Specializacia 
+Typy softverov a na akych principoch su zalozene, napr. programy pre asistovane dokazovanie je zalozena na dependent type theory
+
+
+\subsection{Výroková logika}
+
+V prípade že chceme aby výrokove formuly korenšpondovali s typmi.
+Ich booleova reprezentácia s hodnotami $1,0$ je nahradená otázkou existencie prvkov v množine.
+V prípade implikácie o existencii funkcie v množine.
+Funkcie v programoch ale môžu mať pri rovnakých vstupoch a výstupoch mať rôznu výpočtovú zložitosť.
+Dôvod prečo by sme sa mali pozerať na dôkazy(podľa publikácie Gir11) v troch rovinách.
+
+1. Booleovský - tvrdenia sú booleovské hodnoty, zaujímame sa o dokázateľnosť tvrdenia
+2. Existenčný - tvrdenia sú množiny, aké funkcie môžu byť
+3. Úmyselný - zaujímame sa o zložitosť vytvoreného dôkazu a ako sa zjednoduší cez (cut eliminitation)
+
+\subsubsection{Intuicionizmus}
+
+Tento posunu od eixstencie dôkazu k dokázateľnosti začal z filozfie Brouwer s počiatkom v 20. storočí sa nazývy intuitionizmus.
+
+Z intuionistického pohľadu by mali byť premennné výrokových formúl interpretované ich dôkazy. Interpretácia formúl sa potom zmení
+
+$ A \wedge B $ ako $ A \times B $
+
+$ A \vee B $ ako $ A \sqcup B $ zjednotenie rozdielu
+
+$ A \implies B $ spôsob skonštruovania dôkazu $ B $ z dôkazu $ A $
+
+$ \neg A = A \implies \perp $ existencie kontrapríkladu
+
+Z tohto pohľadu bolo Brouwerom odmietnutý princíp ktorý platí v klasickej logike $ \neg \neg A $ 
+
+[Gir11] Jean-Yves Girard.The Blind Spot: lectures on logic. EuropeanMathematical Society, 2011
+% sekcia 7.1
+
+\subsubsection{Formalizovanie dôkazu}
+
+Dôkaz z teórie usporiadania. Tak ako je Program = Proof
+
+Otázka ohľadom konzistentnosti dôkazu.
+
+Otázka kontrola typov by mala byť rozhodnuteľná.
+
+Definicia formuly, postupnosti, kontextu, fragmentov ktoré navazuju na typovy lambda calculus
+
+\subsection{Typový lambda calculus}
+
+\subsection{Predikátová logika}
+
+\subsection{Teória zavislostných typov}
+
+\section{Lean-theorem-prover}
+\subsection{Constracting proof}
+\subsection{Forward proofs}
+    \subsubsection{assume}
+    \subsubsection{calc}
+    \subsubsection{fix}
+    \subsubsection{have}
+    \subsubsection{let}
+    \subsubsection{show}
+\subsection{Backward proofs}
+    \subsubsection{cc}
+    \subsubsection{clear}
+    \subsubsection{exact}
+    \subsubsection{induction}
+    \subsubsection{intro}
+    \subsubsection{refl}
+    \subsubsection{refl}
+\subsubsection{Inductive types}
+
+% sposob ukladania kodu
+\begin{verbatim}
+    structure point :=
+      ( x : nat )
+      ( y : nat )
+
+    /-- alternative notation -/
+    structure point_alternative :=
+      mk :: (x : nat) (Y : nat)
+
+    def p1 : point :=
+    {
+      x   := 10,
+      y   := 20,
+    }
+
+    /- same point, different notation, same notation for ordered seti -/
+    def p2 : point := $\langle 10, 20 \rangle$
+
+    /- instance only one part of structure, rest implicitly from other instance
+    def p3 : point := {
+        x := 20,
+        ..p
+    }
+\end{verbatim}
+
+\subsubsection{Type classes}
+
+
+
+
+\end{document}
 
 \begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
 Nech L je modulárnym zväzom a $a, b \in L$. Potom
@@ -71,4 +199,3 @@ Majme $x \in [a, a \vee b]$. Potom
         x \leq a \vee b. \qedhere
         \popQED
     \]
-\end{document}

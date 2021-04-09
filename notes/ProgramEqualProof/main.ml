@@ -63,8 +63,8 @@ let to_string = function
 type unit =
     | T;;
 
-type empty =
-    | ;;
+(* type empty = *)
+(*    | ;; *)
 
 let rec add m n =
     match m with
@@ -160,7 +160,7 @@ let comm : ('a * 'b) -> ('b * 'a) = fun (a, b) -> b, a;;
 
 let unit_intro : 'a -> unit = fun x -> ();;
 
-type empty = | ;;
+(* type empty = | ;; *)
 
 (* False => A *)
 (* '.' "refutation case" meaning that the compiler should ensure that this case should
