@@ -4,6 +4,7 @@
 \linespread{1.50}
 
 %% Generally used
+\usepackage{ebproof}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -32,6 +33,7 @@
 %% Powerset
 \newcommand{\powerset}{\raisebox{.15\baselineskip}{\Large\ensuremath{\wp}}}
 %% Powerset
+\newcommand{\nothing}{\varnothing}
 
 \newtheorem{theorem}{Theorem}
 
@@ -40,37 +42,209 @@
 
 \begin{document}
 
+\tableofcontents
+
 \section{Úvod}
 
-Pri procese rozširovania matematickej teórie vytvárame tvrdenia generalizujúce jej princípy.
-Ak chceme aby náša teória bola správna, všetky jej tvrdenia musia byť logicky odvodené z postulátov alebo tvrdení z nich odvodených.
-Potvrdenie správnosti tvrdenia, vyslovením predpokladu, axiómu alebo napísaním formule ktorú dostaneme aplikáciou dedukčného pravidla na niektoré v postupnosti predchádzajúce formule nazývame dôkazom.
+%Pri procese rozširovania matematickej teórie vytvárame tvrdenia generalizujúce jej princípy.
+%Ak chceme aby náša teória bola správna, všetky jej tvrdenia musia byť logicky odvodené z postulátov alebo tvrdení z nich odvodených.
+%Potvrdenie správnosti tvrdenia, vyslovením predpokladu, axiómu alebo napísaním formule ktorú dostaneme aplikáciou dedukčného pravidla na niektoré v postupnosti predchádzajúce formule nazývame dôkazom.
 
-% Je to pravda?
-Z kvalitatívneho hľadiska pri vyslovení dôkazu uvažujeme o všeobecnosti dôkazu a správnosti aplikácie dedukčného pravidla.
-% Je to vhodný príklad(chcel som uviest priklad na prvy pohlad spravneho tvrdenia ktore bolo dokazane ako nespravne ? Ako správne citovať? Nápad som mal odtiaľto https://en.wikipedia.org/wiki/List_of_disproved_mathematical_ideas
-O nutnosti korektného dokazovania tvrdení hovorí napríklad tvrdenie z teórie čísel o hornom ohraničení počtu prvočísel logaritmickým integrálom.
+%% Je to pravda?
+%Z kvalitatívneho hľadiska pri vyslovení dôkazu uvažujeme o všeobecnosti dôkazu a správnosti aplikácie dedukčného pravidla.
+%% Je to vhodný príklad(chcel som uviest priklad na prvy pohlad spravneho tvrdenia ktore bolo dokazane ako nespravne ? Ako správne citovať? Nápad som mal odtiaľto https://en.wikipedia.org/wiki/List_of_disproved_mathematical_ideas
+%O nutnosti korektného dokazovania tvrdení hovorí napríklad tvrdenie z teórie čísel o hornom ohraničení počtu prvočísel logaritmickým integrálom.
 
-\begin{equation}
-    \pi(x) \leq \int_{0}^{x} \frac{1}{ \ln{t} } dt
-\end{equation}
+%\begin{equation}
+    %\pi(x) \leq \int_{0}^{x} \frac{1}{ \ln{t} } dt
+%\end{equation}
 
-Tvrdenie bolo považované za správne Bernhardom Riemannom a evidencia to taktiež naznačovala.
-Neskôr sa ukázalo že tvrdenie nie je správne pri čísle pod hodnotou $10^{317}$.
-% Doplniť rok
-Veta o 4 farbách ktorá bola vyslovená v roku 1852 Francisom Guthrie ktorá hovorí, že každá rovinná mapa je zafarbiteľná 4 farbami.
-% 18-faces
-Táto veta bola nesprávne dokázaná v roku Kempom (1879) and Taitom (1880). Kempov dôkaz bol vyvrátený o 10 rokov mapov s 18 stenami.
-% Je lepšie skloňovať cudzie mená?
-Pri dôkaze tejto vety bol neskôr v roku 1977 Appelom and Hakenom z časti využitý počítač pre kontrolu špeciálnych diskrétnych prípadov.
+%Tvrdenie bolo považované za správne Bernhardom Riemannom a evidencia to taktiež naznačovala.
+%Neskôr sa ukázalo že tvrdenie nie je správne pri čísle pod hodnotou $10^{317}$.
+%% Doplniť rok
+%Veta o 4 farbách ktorá bola vyslovená v roku 1852 Francisom Guthrie ktorá hovorí, že každá rovinná mapa je zafarbiteľná 4 farbami.
+%% 18-faces
+%Táto veta bola nesprávne dokázaná v roku Kempom (1879) and Taitom (1880). Kempov dôkaz bol vyvrátený o 10 rokov mapov s 18 stenami.
+%% Je lepšie skloňovať cudzie mená?
+%Pri dôkaze tejto vety bol neskôr v roku 1977 Appelom and Hakenom z časti využitý počítač pre kontrolu špeciálnych diskrétnych prípadov.
 
 \section{Počítačom asistované dokazovanie}
 
-Specializacia 
-Typy softverov a na akych principoch su zalozene, napr. programy pre asistovane dokazovanie je zalozena na dependent type theory
+\section{Prirodzená intuionistická logika}
 
+\subsection{Prirodzená dedukcia}
 
-\subsection{Výroková logika}
+% Formula vyrokoveho poctu
+\begin{theorem}
+    Majme spočítateľnú množinu $\mathcal{X}$ výrokových premenných. Množina
+    $\mathcal{A}$ tvorenú formulami alebo výrokmi.
+    \begin{equation}
+        A, B ::= X | A \implies B | A \wedge B | A \vee B | \neg A | \top | \bot
+    \end{equation}
+    Kde $X \in \mathcal{X}$ reprezentuje výrokovú premennú, a $A, B \in \mathcal{A}$
+    výrok.
+\end{theorem}
+
+\begin{theorem}
+    precedencia
+\end{theorem}
+
+\begin{theorem}
+    Kontextom(systém predpokladov) rozuemieme zoznam výrokov značených
+    \begin{equation}
+        \Gamma = P_{1}, \dots , P_{n}
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}
+    Dokazateľnosťou nazývame dvojicu
+    \begin{equation}
+        \Gamma \vdash A
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}
+    Dedukcne pravidlo
+   \begin{equation}
+        \begin{prooftree}
+            \hypo{\Gamma_{1} \vdash A_{1}}
+            \hypo{\dots}
+            \hypo{\Gamma_{n} \vdash A_{n}}
+            \infer3[]{\Gamma \vdash A}
+        \end{prooftree}
+    \end{equation}
+    Ako sa vola horna cast a dolna cast "zlomku".
+    dedukcny sposob zhora dole.
+    induktivny zdola hore.
+\end{theorem}
+
+\begin{theorem}
+    co je introduction co je elimination
+    priklad a ze to je dokazom mozno podla 2.2.5
+
+\end{theorem}
+
+\begin{theorem}
+    elimination cuts because they corespond to beta-reduction a pozriet co robia beta-redukcie
+\end{theorem}
+
+\subsubsection{Prirodzená dedukcia}
+
+% axiom
+\begin{prooftree}
+    \infer0[(ax)]{\Gamma,A,\Gamma' \vdash: A}
+\end{prooftree}
+
+% implikacia elimination
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \implies B}
+        \hypo{\Gamma \vdash A}
+        \infer2[$(\implies_{E})$]{\Gamma : B}
+    \end{prooftree}
+\end{flushleft}
+
+% implikacia introduction
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{\Gamma, A \vdash B}
+        \infer1[$\implies_{I}$)]{\Gamma : B}
+    \end{prooftree}
+\end{flushright}
+
+% konjukcia elimination left
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{\Gamma, A \vdash B}
+        \infer1[$(\wedge^{l}_{E})$]{\Gamma : A}
+    \end{prooftree}
+\end{flushleft}
+
+% konjukcia elimination right
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{\Gamma, A \vdash B}
+        \infer1[$(\wedge^{r}_{E})$]{\Gamma : B}
+    \end{prooftree}
+\end{flushright}
+
+% konjukcia introduction
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A}
+        \hypo{\Gamma \vdash B}
+        \infer2[$(\wedge_{I})$]{\Gamma \vdash A \wedge B}
+    \end{prooftree}
+\end{flushleft}
+
+% disjunkcia elimination
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \vee B}
+        \hypo{\Gamma, A \vdash C}
+        \hypo{\Gamma, B \vdash C}
+        \infer3[$(\vee_{E})$]{\Gamma \vdash C}
+    \end{prooftree}
+\end{flushleft}
+
+% disjunkcia introduction left
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A}
+        \infer1[$(\vee_{I}^{l})$]{\Gamma \vdash A \vee B}
+    \end{prooftree}
+\end{flushright}
+
+% disjunkcia introduction right
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash B}
+        \infer1[$(\vee_{E}^{r})$]{\Gamma \vdash A \vee B}
+    \end{prooftree}
+\end{flushleft}
+
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \bot}
+        \infer1[$(\bot_{E})$]{\Gamma \vdash A}
+    \end{prooftree}
+\end{flushright}
+
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \neg A}
+        \hypo{\Gamma \vdash A}
+        \infer2[$(\neg_{E})$]{\Gamma \vdash \bot}
+    \end{prooftree}
+\end{flushleft}
+
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{\Gamma, A \vdash \bot}
+        \hypo{\Gamma \vdash A}
+        \infer2[$(\neg_{I})$]{\Gamma \vdash \neg A}
+    \end{prooftree}
+\end{flushright}
+
+V prípade že tieto pravidlá čítame zhora nadol hovoríme o dedukcii.
+Ak čítame pravidlá zdola nahor hovoríme o indukčnom spôsobe.
+
+\begin{theorem}
+    Fragmentom intuionistickej logiky nazývame, systém ktorý dostaneme ak ho obmedzíme
+        len na niektoré z predchádzajúcich pravidiel.
+\end{theorem}
+
+\begin{theorem}
+    Implikačným fragmentom intuionistickej logiky dostaneme v prípade ak formuly
+        budú tvorené gramatikou
+    \begin{equation}
+        A,B ::= X | A \implies B
+    \end{equation}
+    a pravidlami (ax), ($\implies_{E}$), ($\implies_{I}$)
+\end{theorem}
+
+% TODO spravit priklad
+% (𝐴∧𝐵)→((𝐴→𝐶)→¬(𝐵→¬𝐶))
 
 V prípade že chceme aby výrokove formuly korenšpondovali s typmi.
 Ich booleova reprezentácia s hodnotami $1,0$ je nahradená otázkou existencie prvkov v množine.
@@ -78,28 +252,49 @@ V prípade implikácie o existencii funkcie v množine.
 Funkcie v programoch ale môžu mať pri rovnakých vstupoch a výstupoch mať rôznu výpočtovú zložitosť.
 Dôvod prečo by sme sa mali pozerať na dôkazy(podľa publikácie Gir11) v troch rovinách.
 
-1. Booleovský - tvrdenia sú booleovské hodnoty, zaujímame sa o dokázateľnosť tvrdenia
-2. Existenčný - tvrdenia sú množiny, aké funkcie môžu byť
-3. Úmyselný - zaujímame sa o zložitosť vytvoreného dôkazu a ako sa zjednoduší cez (cut eliminitation)
+\begin{itemize}
+    \item 1. Booleovský - tvrdenia sú booleovské hodnoty, zaujímame sa o dokázateľnosť tvrdenia
+    \item 2. Existenčný - tvrdenia sú množiny, aké funkcie môžu byť
+    \item 3. Úmyselný/Zámerový(Intentional) - zaujímame sa o zložitosť vytvoreného dôkazu a ako sa zjednoduší cez (cut eliminitation)
+\end{itemize}
 
-\subsubsection{Intuicionizmus}
+\subsection{Intuicionizmus}
 
-Tento posunu od eixstencie dôkazu k dokázateľnosti začal z filozfie Brouwer s počiatkom v 20. storočí sa nazývy intuitionizmus.
+Jedným zo smerov matematickej filozofie týkajucej sa rozvoja teórie je konštruktivizmus.
+Konštruktivizmus hovorí o potrebe nájsť alebo zostrojiť matematický objekt k tomu
+    aby bola dokázaná jeho existencia.
+Jeden z motivačných príkladov takéhoto prístupu je možnosť dokázania pravdivosti
+výroku $p \vee \neg p$ cez dôkaz sporom $\neg p$ ktorý nehovorí ako zostrojiť objekt
+$p$ len o jeho existencii.
+Tento smer tvorí viacero "škôl" okrem iných finitizmus, predikativizmus, intuicionizmus.
+Intuitionizmus je teda konštruktívny prístup k matematike v duchu
+    Brouwera(1881-1966) a Heytinga(1898-1980).
+Filozofickým základom tochto prístupu princíp že matematika je výtvorom mentálnej
+činnosti a nepozostáva z výsledkov  formálnej manipulácie symbolov ktoré sú iba
+sekundárne.
+Jedným z princípov intuicionizmus je odmietnutie tvrdenia postulátu klasickej
+logiky a to zákona vylúčenia tretieho.
 
-Z intuionistického pohľadu by mali byť premennné výrokových formúl interpretované ich dôkazy. Interpretácia formúl sa potom zmení
+\begin{equation}
+    p \vee \neg p
+\end{equation}
 
-$ A \wedge B $ ako $ A \times B $
+Dôvodom je z konštruktívneho pohľadu nezmyselnosť uvažovania nad pravdivosťou
+    výroku nezávisle od uvažovaného tvrdenia.
+Výrok je teda pravdivý ak existuje dôkaz o jeho pravidovsti a nepravdivé
+    ak existuje dôkaz ktorý vedie k sporu.
 
-$ A \vee B $ ako $ A \sqcup B $ zjednotenie rozdielu
+\begin{itemize}
+    \item konjukcii $ p \wedge q $ ako o výroku hovoriacom o existencii dôkazov $p$ a zároveň $q$,
+    \item disjunkcii $ p \wedge q $ ako existencii konštrukcii dôkazu jedného z výrokov $p, q$,
+    \item $ p \implies q $ je metóda(funkcia) transformácie každej konštrukcie $p$ k dôkazu $q$,
+    \item neexistencie dôkazu nepravdivého tvrdenia, iba dôkazu ktorý vedie k sporu $p \implies \bot$
+    \item konštrukcia $\neg p$ je metóda ktorá vytvorí každú konštrukciu $p$ na neexistujúci objekt
+\end{itemize}
 
-$ A \implies B $ spôsob skonštruovania dôkazu $ B $ z dôkazu $ A $
-
+konjukcii $ A \wedge B $ ako $ A \times B $
+$ A \vee B $ ako $ A \sqcup B $ disjunktne zjednotenie
 $ \neg A = A \implies \perp $ existencie kontrapríkladu
-
-Z tohto pohľadu bolo Brouwerom odmietnutý princíp ktorý platí v klasickej logike $ \neg \neg A $ 
-
-[Gir11] Jean-Yves Girard.The Blind Spot: lectures on logic. EuropeanMathematical Society, 2011
-% sekcia 7.1
 
 \subsubsection{Formalizovanie dôkazu}
 
@@ -111,11 +306,272 @@ Otázka kontrola typov by mala byť rozhodnuteľná.
 
 Definicia formuly, postupnosti, kontextu, fragmentov ktoré navazuju na typovy lambda calculus
 
-\subsection{Typový lambda calculus}
+\section{Lambda kalkulus}
 
-\subsection{Predikátová logika}
+\begin{theorem}
+    Majme nekonečnú množinu $ \mathcal{X}={x,y,z,\dots}$ ktorých elementy nazývame premenné.
+Množinu $\Lambda$ tvorenú $\lambda$-termínmy je potom generovaná nasledovnou gramatikou:
+    \begin{equation}
+        t, u ::= x | t u | \lambda x.t
+    \end{equation}
+\end{theorem}
 
-\subsection{Teória zavislostných typov}
+Význam jednotlivých termínov je
+\begin{itemize}
+    \item $x$ - je premennou
+    \item $t u$ - je aplikáciou termínu $t$ s argumentom $u$
+    \item $\lambda x.t$ je abstrakciou $t$ nad $x$
+\end{itemize}
+
+Príklady lambda termínov:
+
+% TODO tieto príklady daj do jedného riadku a skontroluj že sú ekvivalentné
+\begin{equation}
+    t x
+\end{equation}
+
+\begin{equation}
+    (\lambda y . \lambda x . t y ))
+\end{equation}
+
+\begin{equation}
+    (\lambda y.y x) (\lambda x . x)
+\end{equation}
+
+Aplikácia $\lambda$-termínov je implicitne aplikovaná zľava.
+
+\begin{equation}
+    t u v = ( t u ) v
+\end{equation}
+
+Pri výraze
+\begin{equation}
+    \lambda x . t x = \lambda x . (t x)
+\end{equation}
+je precedencia aplikácie vyššia ako abstrakcia.
+
+A abstrakciu s troma argumentmi je možné prepísať do troch po sebe nasledujúcich.
+\begin{equation}
+    \lambda x y z . t = \lambda x . \lambda y . \lambda z . t
+\end{equation}
+
+\begin{theorem}
+    Premenná x sa vo výraze
+    \begin{equation}
+        \lambda x . t
+    \end{equation}
+    abstrakciou viaže na termín $t$. O premennej $x$ hovoríme že je viazaná.
+    O premenných ktoré nie sú viazané sú voľné.
+    \begin{align*}
+        VP(x) &= {x} \\
+        VP(\lambda x.t) &= VP(t)  \setminus \{x\} \\
+        VP(t v) &= VP(t) \cup VP(v)
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}
+    Premenovaním nazývame nahradenie voľných premenných v termíne.
+    \begin{equation}
+        t \{ y / x \}
+    \end{equation}
+\end{theorem}
+V termíne $t$ je premenovaná premenná $x$ za $y$.
+
+\subsubsection{$\alpha$-ekvivalencia}
+\begin{theorem}
+    O výrazov hovoríme že sú alfa-ekvivalentné ak sa výrazy rovnajú až na premenovanie.
+\end{theorem}
+
+\begin{theorem}
+    O substutícii hovoríme pri nahradení jednej premenej druhou.
+    \begin{equation}
+        t [ y / x ]
+    \end{equation}
+\end{theorem}
+
+Nahradenie je silnejšie a vieme nahradiť aj premmenné viazanné abstrakciou.
+
+\subsubsection{$\beta$-redukcia}
+
+\begin{flushleft}
+    \begin{prooftree}
+        \infer0[($\beta_{s}$)]{(\lambda x.t)u \to_{\beta} t [ u / x ]}
+    \end{prooftree}
+\end{flushleft}
+
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{t \to_{\beta} t'}
+        \infer1[($\beta_{\lambda}$)]{(\lambda x.t)u \rightarrow_{\beta} t [ u / x ]}
+    \end{prooftree}
+\end{flushright}
+
+\begin{flushleft}
+    \begin{prooftree}
+        \hypo{t \to_{\beta} t'}
+        \infer1[($\beta_{l}$)]{t u \rightarrow_{\beta} t' u}
+    \end{prooftree}
+\end{flushleft}
+
+\begin{flushright}
+    \begin{prooftree}
+        \hypo{u \to_{\beta} u'}
+        \infer1[($\beta_{r}$)]{t u \rightarrow_{\beta} t u'}
+    \end{prooftree}
+\end{flushright}
+
+% TODO vymysliet iny strom, tento je prevzaty
+\begin{equation}
+    \begin{prooftree}
+        \infer0[($\beta_{s}$)]{(\lambda y.y)x \to_{\beta} x}
+        \infer1[($\beta_{l}$)]{(\lambda y.y)xz \to_{\beta} xz}
+        \infer1[($\beta_{\alpha}$)]{\lambda x.(\lambda y.y)xz \to_{\beta} \lambda x . xz}
+    \end{prooftree}
+\end{equation}
+
+\begin{theorem}
+    Definujme rekurziu volania funkcie nasledovne
+    \begin{align}
+        f^{0}x &= x \\
+        f^{n}x &= f(f^{n-1}x) \\
+    \end{align}
+    Potom Churchove číslo $c_{n}$ je $\lambda$-termín
+    \begin{equation}
+        c_{n} = \lambda s . \lambda z . s^{n} (z)
+    \end{equation}
+\end{theorem}
+
+Prirodzené čísla je potom definovať 
+\begin{align*}
+    0 &= \lambda f x . x \\
+    1 &= \lambda f x . f x \\
+    1 &= \lambda f x . f (f x) \\
+    2 &= \lambda f x . f ( f (f x))
+\end{align*}
+
+\begin{align*}
+    succ(n) &=           (\lambda n f x .  f( n f x ))(\lambda f x . f^{n} x) \\
+           &\to_{\beta} \lambda f x . f (( \lambda f x . f^{n} x ) f x)      \\
+           &\to_{\beta} \lambda f x . f (( \lambda x . f^{n} x) x)           \\
+           &\to_{\beta} \lambda f x . f (f^{n} x)                            \\
+           &=           \lambda f x . f^{n+1} x                              \\
+           &= n + 1
+\end{align*}
+
+Operáciu sčítania je potom možné definovať vykonať
+\begin{theorem}
+    $f_{+} = \lambda x. \lambda y. \lambda s. \lambda z. x s (y s z)$
+\end{theorem}
+
+Podobným spôsobom môžeme vytvoriť 
+\begin{theorem}
+    \begin{align}
+        True &= \lambda x y . x
+        False &= \lambda x y . y
+    \end{align}
+\end{theorem}
+
+\begin{align}
+    if = \lambda b x y . b x y
+\end{align}
+
+\begin{align*}
+    if True t u = (\lambda bxy.bxy)(\lambda xy.x) tu & \to_{\beta} (\lambda xy.(\lambda xy.x)xy)tu \\
+                                                     & \to_{\beta} (\lambda y.( \lambda xy.x)ty)u \\
+                                                     & \to_{\beta} (\lambda xy.x)tu \\
+                                                     & \to_{\beta} (\lambda y.t)u \\
+                                                     & \to_{\beta} t
+\end{align*}
+
+\begin{theorem}
+    Jednoduchý $\lambda$ kalkulus je ekvivalentný výpočtovej sile turingovho stroja.
+    Bez dôkazu
+\end{theorem}
+
+\section{Typovo jednoduchý $\lambda$-calculus}
+
+Typový lambda calculus je rozšírením jednoduchého o typy
+
+\begin{theorem}
+    Majme množinu $U$ spočítateľnú nekonečnú abecedu obsahujúcu typové premenné.
+    Potom množina $\Pi$ obsahuje reťazce jednoduchých typov ktoré su generované
+    gramatikov:
+    \begin{equation}
+        \Pi ::= U | (\Pi \to \Pi)
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}
+    Kontextom rozumieme množinu $C$ tvoriacu 
+    \begin{equation}
+        { x_{1} : \tau_{1}, \dots, x_{n} : \tau_{n} }
+    \end{equation}
+    kde $\tau_{1}, \dots, \tau_{n} \in \Pi$ a $x_{1}, \dots , x_{n} \in$
+    Koobor kontextu je množina obsahujúca
+    \begin{equation}
+        domain(\Gamma) = { x_{1}, \dots, x_{n} }
+    \end{equation}
+    Oboor kontextu je množina obsahujúca
+    \begin{equation}
+        range( \Gamma ) = { \tau \in \Pi  | (x : \tau ) \in \Gamma }
+    \end{equation}
+\end{theorem}
+
+Príklady generované gramatikou
+\begin{itemize}
+    \item $\vdash \lambda x.x : \sigma \to \sigma$
+    \item $\vdash \lambda x. \lambda y.x : \sigma \to \tau \to \sigma$
+    \item $\vdash \lambda x. \lambda y. \lambda z.x z (y z): (\sigma \to \tau \to \rho) \to (\rho \to \tau) \to \sigma \to \rho$
+\end{itemize}
+
+\begin{theorem}
+    Postupnosť je trojica značená
+    \begin{equation}
+        \Gamma \vdash t : A
+    \end{equation}
+tvorená kontextom $\Gamma$, $\lambda$-termínom $t$ a typom $A$.
+\end{theorem}
+
+Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná pomocou pravidiel:
+\begin{itemize}
+    \item ax: v kontexte $x$ je typu $A$
+    \item $\overset{I}{\rightarrow}$: ak je $x$ typu $A$, $t$ je typu B, potom
+        funkcia $\lambda x.t$ ktorá asociuje $x$ $t$ je typu $A \to B$
+    \item $\overset{E}{\rightarrow}$: daná je funkcia $t$ je typu $A \to B$
+        a argument $u$ je typu $A$, vysledok aplikácia $t u$ je typu $B$
+\end{itemize}
+
+\begin{flushleft}
+        \begin{prooftree}
+            \infer0[ax]{\Gamma \vdash x : \Gamma(x)}
+        \end{prooftree}
+\end{flushleft}
+\begin{center}
+        \begin{prooftree}
+            \hypo{\Gamma , x : A \vdash t : B }
+            \infer1[$\overset{I}{\rightarrow}$]{\Gamma \lambda x^{A}.t : A \to B}
+        \end{prooftree}
+\end{center}
+\begin{flushright}
+        \begin{prooftree}
+            \hypo{\Gamma \vdash t : A \to B }
+            \hypo{\Gamma \vdash u : A }
+            \infer2[$\overset{E}{\rightarrow}$]{\Gamma \vdash t u : B}
+        \end{prooftree}
+\end{flushright}
+
+\section{Curry-Howardov izomorfizmus}
+
+\begin{center}
+    \begin{tabular}{ c c }
+        Intuinistická logika & Typovo jednoduchý $\lambda$ kalkulus \\
+        \hline
+        termín                  & dôkaz \\
+        typová premenná         & propozičná premenná \\
+    \end{tabular}
+\end{center}
+
+
 
 \section{Lean-theorem-prover}
 \subsection{Constracting proof}
@@ -135,6 +591,8 @@ Definicia formuly, postupnosti, kontextu, fragmentov ktoré navazuju na typovy l
     \subsubsection{refl}
     \subsubsection{refl}
 \subsubsection{Inductive types}
+
+\end{document}
 
 % sposob ukladania kodu
 \begin{verbatim}
@@ -163,11 +621,6 @@ Definicia formuly, postupnosti, kontextu, fragmentov ktoré navazuju na typovy l
 \end{verbatim}
 
 \subsubsection{Type classes}
-
-
-
-
-\end{document}
 
 \begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
 Nech L je modulárnym zväzom a $a, b \in L$. Potom
