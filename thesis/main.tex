@@ -72,12 +72,18 @@
 
 \section{Prirodzená intuionistická logika}
 
+\subsection{Formalizovanie dôkazu}
+
+Dôkaz z teórie usporiadania. Tak ako je Program = Proof
+
+Otázka ohľadom konzistentnosti dôkazu.
+
 \subsection{Prirodzená dedukcia}
 
 % Formula vyrokoveho poctu
-\begin{theorem}
-    Majme spočítateľnú množinu $\mathcal{X}$ výrokových premenných. Množina
-    $\mathcal{A}$ tvorenú formulami alebo výrokmi.
+\begin{theorem}[Výroková premenná, formula]
+    Majme spočítateľnú množinu $\mathcal{X}$ výrokových premenných. Množina výrokov
+    alebo formúl $\mathcal{A}$ generovanú nasledovnou gramatikou:
     \begin{equation}
         A, B ::= X | A \implies B | A \wedge B | A \vee B | \neg A | \top | \bot
     \end{equation}
@@ -85,27 +91,31 @@
     výrok.
 \end{theorem}
 
-\begin{theorem}
-    precedencia
-\end{theorem}
+V prípade nasledovného výroku je precedencia $\neg$ vyššia ako $\vee$ alebo $\wedge$
+a tá je vyššia ako $\implies$. Binárne operátory sú asociatívne z prava.
+
+\begin{align*}
+    \neg A \wedge B \wedge C &\implies A \vee B \\
+    (\neg A \wedge (B \wedge C)) &\implies (A \vee B) \\
+\end{align*}
 
 \begin{theorem}
     Kontextom(systém predpokladov) rozuemieme zoznam výrokov značených
     \begin{equation}
         \Gamma = P_{1}, \dots , P_{n}
     \end{equation}
-\end{theorem}
-
-\begin{theorem}
-    Dokazateľnosťou nazývame dvojicu
+    Dedukciou nazývame dvojicu pozostávajúcu z kontextu a výroku.
     \begin{equation}
         \Gamma \vdash A
     \end{equation}
 \end{theorem}
 
+Výraz čítame ako $A$ je možné dokázať zo systému predpokladov $\Gamma$.
+
 \begin{theorem}
-    Dedukcne pravidlo
-   \begin{equation}
+    Dedukčné pravidlo pozostáva z množiny dedukcií $\Gamma_{i}$ ktoré nazývame
+    prepokladom. Dolnú časť dedukčného pravidla $\Gamma$ nazývame záverom.
+    \begin{equation}
         \begin{prooftree}
             \hypo{\Gamma_{1} \vdash A_{1}}
             \hypo{\dots}
@@ -113,118 +123,90 @@
             \infer3[]{\Gamma \vdash A}
         \end{prooftree}
     \end{equation}
-    Ako sa vola horna cast a dolna cast "zlomku".
-    dedukcny sposob zhora dole.
-    induktivny zdola hore.
 \end{theorem}
-
-\begin{theorem}
-    co je introduction co je elimination
-    priklad a ze to je dokazom mozno podla 2.2.5
-
-\end{theorem}
-
-\begin{theorem}
-    elimination cuts because they corespond to beta-reduction a pozriet co robia beta-redukcie
-\end{theorem}
-
-\subsubsection{Prirodzená dedukcia}
-
-% axiom
-\begin{prooftree}
-    \infer0[(ax)]{\Gamma,A,\Gamma' \vdash: A}
-\end{prooftree}
-
-% implikacia elimination
-\begin{flushleft}
+Pravidlá prirodzenej intuicionistickej logiky:
+\begin{center}
+    \begin{prooftree}
+        \infer0[(ax)]{\Gamma,A,\Gamma' \vdash: A}
+    \end{prooftree}
+\end{center}
+\vskip 0.2in
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma \vdash A \implies B}
         \hypo{\Gamma \vdash A}
         \infer2[$(\implies_{E})$]{\Gamma : B}
     \end{prooftree}
-\end{flushleft}
-
-% implikacia introduction
-\begin{flushright}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma, A \vdash B}
-        \infer1[$\implies_{I}$)]{\Gamma : B}
+        \infer1[$\implies_{I}$]{\Gamma : B}
     \end{prooftree}
-\end{flushright}
-
-% konjukcia elimination left
-\begin{flushleft}
+\end{minipage}
+\vskip 0.2in
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma, A \vdash B}
         \infer1[$(\wedge^{l}_{E})$]{\Gamma : A}
     \end{prooftree}
-\end{flushleft}
-
-% konjukcia elimination right
-\begin{flushright}
     \begin{prooftree}
         \hypo{\Gamma, A \vdash B}
         \infer1[$(\wedge^{r}_{E})$]{\Gamma : B}
     \end{prooftree}
-\end{flushright}
-
-% konjukcia introduction
-\begin{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma \vdash A}
         \hypo{\Gamma \vdash B}
         \infer2[$(\wedge_{I})$]{\Gamma \vdash A \wedge B}
     \end{prooftree}
-\end{flushleft}
-
-% disjunkcia elimination
-\begin{flushleft}
+\end{minipage}
+\vskip 0.2in
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma \vdash A \vee B}
         \hypo{\Gamma, A \vdash C}
         \hypo{\Gamma, B \vdash C}
         \infer3[$(\vee_{E})$]{\Gamma \vdash C}
     \end{prooftree}
-\end{flushleft}
-
-% disjunkcia introduction left
-\begin{flushright}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash B}
+        \infer1[$(\vee_{I}^{r})$]{\Gamma \vdash A \vee B}
+    \end{prooftree}
     \begin{prooftree}
         \hypo{\Gamma \vdash A}
         \infer1[$(\vee_{I}^{l})$]{\Gamma \vdash A \vee B}
     \end{prooftree}
-\end{flushright}
-
-% disjunkcia introduction right
-\begin{flushleft}
-    \begin{prooftree}
-        \hypo{\Gamma \vdash B}
-        \infer1[$(\vee_{E}^{r})$]{\Gamma \vdash A \vee B}
-    \end{prooftree}
-\end{flushleft}
-
-\begin{flushright}
-    \begin{prooftree}
-        \hypo{\Gamma \vdash \bot}
-        \infer1[$(\bot_{E})$]{\Gamma \vdash A}
-    \end{prooftree}
-\end{flushright}
-
-\begin{flushleft}
+\end{minipage}
+\vskip 0.2in
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma \vdash \neg A}
         \hypo{\Gamma \vdash A}
         \infer2[$(\neg_{E})$]{\Gamma \vdash \bot}
     \end{prooftree}
-\end{flushleft}
-
-\begin{flushright}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma, A \vdash \bot}
         \hypo{\Gamma \vdash A}
         \infer2[$(\neg_{I})$]{\Gamma \vdash \neg A}
     \end{prooftree}
-\end{flushright}
+\end{minipage}
+\vskip 0.2in
+\begin{center}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \bot}
+        \infer1[$(\bot_{E})$]{\Gamma \vdash A}
+    \end{prooftree}
+\end{center}
 
 V prípade že tieto pravidlá čítame zhora nadol hovoríme o dedukcii.
 Ak čítame pravidlá zdola nahor hovoríme o indukčnom spôsobe.
@@ -246,7 +228,7 @@ Ak čítame pravidlá zdola nahor hovoríme o indukčnom spôsobe.
 % TODO spravit priklad
 % (𝐴∧𝐵)→((𝐴→𝐶)→¬(𝐵→¬𝐶))
 
-V prípade že chceme aby výrokove formuly korenšpondovali s typmi.
+V prípade že chceme aby výrokove formuly korenšpondovali s typmi ktoré su prezentované neskôr.
 Ich booleova reprezentácia s hodnotami $1,0$ je nahradená otázkou existencie prvkov v množine.
 V prípade implikácie o existencii funkcie v množine.
 Funkcie v programoch ale môžu mať pri rovnakých vstupoch a výstupoch mať rôznu výpočtovú zložitosť.
@@ -296,16 +278,6 @@ konjukcii $ A \wedge B $ ako $ A \times B $
 $ A \vee B $ ako $ A \sqcup B $ disjunktne zjednotenie
 $ \neg A = A \implies \perp $ existencie kontrapríkladu
 
-\subsubsection{Formalizovanie dôkazu}
-
-Dôkaz z teórie usporiadania. Tak ako je Program = Proof
-
-Otázka ohľadom konzistentnosti dôkazu.
-
-Otázka kontrola typov by mala byť rozhodnuteľná.
-
-Definicia formuly, postupnosti, kontextu, fragmentov ktoré navazuju na typovy lambda calculus
-
 \section{Lambda kalkulus}
 
 \begin{theorem}
@@ -315,34 +287,22 @@ Množinu $\Lambda$ tvorenú $\lambda$-termínmy je potom generovaná nasledovnou
         t, u ::= x | t u | \lambda x.t
     \end{equation}
 \end{theorem}
-
-Význam jednotlivých termínov je
-\begin{itemize}
-    \item $x$ - je premennou
-    \item $t u$ - je aplikáciou termínu $t$ s argumentom $u$
-    \item $\lambda x.t$ je abstrakciou $t$ nad $x$
-\end{itemize}
-
+\noindent Význam jednotlivých termínov je
+\begin{align*}
+     x          & \textrm{ - je premennou }\\
+     t u        & \textrm{ - je aplikáciou termínu $t$ s argumentom $u$ }\\
+    \lambda x.t & \textrm{ - je abstrakciou $t$ nad $x$ }
+\end{align*}
 Príklady lambda termínov:
 
-% TODO tieto príklady daj do jedného riadku a skontroluj že sú ekvivalentné
-\begin{equation}
-    t x
-\end{equation}
-
-\begin{equation}
-    (\lambda y . \lambda x . t y ))
-\end{equation}
-
-\begin{equation}
-    (\lambda y.y x) (\lambda x . x)
-\end{equation}
+\begin{align*}
+    & t x \\
+    & (\lambda y . \lambda x . t y )) \\
+    & (\lambda y.y x) (\lambda x . x) \\
+    & t u v = ( t u ) v
+\end{align*}
 
 Aplikácia $\lambda$-termínov je implicitne aplikovaná zľava.
-
-\begin{equation}
-    t u v = ( t u ) v
-\end{equation}
 
 Pri výraze
 \begin{equation}
@@ -377,7 +337,8 @@ A abstrakciu s troma argumentmi je možné prepísať do troch po sebe nasleduj�
 \end{theorem}
 V termíne $t$ je premenovaná premenná $x$ za $y$.
 
-\subsubsection{$\alpha$-ekvivalencia}
+% TODO pridaj priklady
+\subsection{$\alpha$-ekvivalencia}
 \begin{theorem}
     O výrazov hovoríme že sú alfa-ekvivalentné ak sa výrazy rovnajú až na premenovanie.
 \end{theorem}
@@ -391,34 +352,35 @@ V termíne $t$ je premenovaná premenná $x$ za $y$.
 
 Nahradenie je silnejšie a vieme nahradiť aj premmenné viazanné abstrakciou.
 
-\subsubsection{$\beta$-redukcia}
+\subsection{$\beta$-ekvivalencia}
 
-\begin{flushleft}
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \infer0[($\beta_{s}$)]{(\lambda x.t)u \to_{\beta} t [ u / x ]}
     \end{prooftree}
-\end{flushleft}
-
-\begin{flushright}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{t \to_{\beta} t'}
         \infer1[($\beta_{\lambda}$)]{(\lambda x.t)u \rightarrow_{\beta} t [ u / x ]}
     \end{prooftree}
-\end{flushright}
-
-\begin{flushleft}
+\end{minipage}
+\vskip 0.2in
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{t \to_{\beta} t'}
         \infer1[($\beta_{l}$)]{t u \rightarrow_{\beta} t' u}
     \end{prooftree}
-\end{flushleft}
-
-\begin{flushright}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{u \to_{\beta} u'}
         \infer1[($\beta_{r}$)]{t u \rightarrow_{\beta} t u'}
     \end{prooftree}
-\end{flushright}
+\end{minipage}
+\vskip 0.2in
 
 % TODO vymysliet iny strom, tento je prevzaty
 \begin{equation}
@@ -465,18 +427,18 @@ Operáciu sčítania je potom možné definovať vykonať
 
 Podobným spôsobom môžeme vytvoriť 
 \begin{theorem}
-    \begin{align}
-        True &= \lambda x y . x
+    \begin{align*}
+        True &= \lambda x y . x \\
         False &= \lambda x y . y
-    \end{align}
+    \end{align*}
 \end{theorem}
 
-\begin{align}
+\begin{align*}
     if = \lambda b x y . b x y
-\end{align}
+\end{align*}
 
 \begin{align*}
-    if True t u = (\lambda bxy.bxy)(\lambda xy.x) tu & \to_{\beta} (\lambda xy.(\lambda xy.x)xy)tu \\
+    if \textrm{ True } t u = (\lambda bxy.bxy)(\lambda xy.x) tu & \to_{\beta} (\lambda xy.(\lambda xy.x)xy)tu \\
                                                      & \to_{\beta} (\lambda y.( \lambda xy.x)ty)u \\
                                                      & \to_{\beta} (\lambda xy.x)tu \\
                                                      & \to_{\beta} (\lambda y.t)u \\
@@ -517,7 +479,7 @@ Typový lambda calculus je rozšírením jednoduchého o typy
     \end{equation}
 \end{theorem}
 
-Príklady generované gramatikou
+\noindent Príklady generované gramatikou
 \begin{itemize}
     \item $\vdash \lambda x.x : \sigma \to \sigma$
     \item $\vdash \lambda x. \lambda y.x : \sigma \to \tau \to \sigma$
@@ -541,24 +503,26 @@ Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná
         a argument $u$ je typu $A$, vysledok aplikácia $t u$ je typu $B$
 \end{itemize}
 
-\begin{flushleft}
-        \begin{prooftree}
-            \infer0[ax]{\Gamma \vdash x : \Gamma(x)}
-        \end{prooftree}
-\end{flushleft}
 \begin{center}
-        \begin{prooftree}
-            \hypo{\Gamma , x : A \vdash t : B }
-            \infer1[$\overset{I}{\rightarrow}$]{\Gamma \lambda x^{A}.t : A \to B}
-        \end{prooftree}
+    \begin{prooftree}
+        \infer0[ax]{\Gamma \vdash x : \Gamma(x)}
+    \end{prooftree}
 \end{center}
-\begin{flushright}
-        \begin{prooftree}
-            \hypo{\Gamma \vdash t : A \to B }
-            \hypo{\Gamma \vdash u : A }
-            \infer2[$\overset{E}{\rightarrow}$]{\Gamma \vdash t u : B}
-        \end{prooftree}
-\end{flushright}
+\vskip 0.2in
+\begin{minipage}[t]{0.48\textwidth}
+    \begin{prooftree}
+        \hypo{\Gamma , x : A \vdash t : B }
+        \infer1[$\overset{I}{\rightarrow}$]{\Gamma \lambda x^{A}.t : A \to B}
+    \end{prooftree}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t : A \to B }
+        \hypo{\Gamma \vdash u : A }
+        \infer2[$\overset{E}{\rightarrow}$]{\Gamma \vdash t u : B}
+    \end{prooftree}
+\end{minipage}
 
 \section{Curry-Howardov izomorfizmus}
 
@@ -571,6 +535,14 @@ Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná
     \end{tabular}
 \end{center}
 
+\begin{theorem}{Curry-Howard isomorphism}
+    \begin{itemize}
+        \item If $\Gamma \vdash M : \varphi \textrm{ potom } |\Gamma|  \vdash \varphi.$
+        \item If $\Gamma \vdash \varphi \textrm{ potom existuje } M \in \Lambda_{\Pi}
+            \textrm{ také že } \Delta \vdash M : \varphi, \textrm{ kde }
+            \Delta = { ( x_{\varphi} : \varphi) | \varphi \in \Gamma }$
+    \end{itemize}
+\end{theorem}
 
 
 \section{Lean-theorem-prover}
