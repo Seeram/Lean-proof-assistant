@@ -7,13 +7,27 @@
 \usepackage{ebproof}
 \usepackage{amsthm}
 \usepackage{amsmath}
-\usepackage{amssymb}
+\usepackage{amssymb, upgreek}
 \usepackage{mathtools}
-\usepackage{listings}
+\usepackage{color}
 %% Generally used
 
-%% Covering
+%% Lean specific
+\usepackage[utf8x]{inputenc}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{errorcolor}{rgb}{1, 0, 0}           % bright red
+\definecolor{stringcolor}{rgb}{0.5, 0.3, 0.2}    % brown
 \usepackage{pict2e,picture}
+
+\usepackage{listings}
+\def\lstlanguagefiles{lstlean.tex}
+\lstset{language=lean}
+%% Lean specific
+
+%% Covering
 
 \newcommand{\coveringA}{%
   \mathrel{-\mkern-4mu}<%
@@ -36,6 +50,7 @@
 \newcommand{\nothing}{\varnothing}
 
 \newtheorem{theorem}{Theorem}
+
 
 \author{Mat\'u\v{s} Behun}
 \title{Lattice theory notes}
@@ -68,7 +83,6 @@
 %% Je lepšie skloňovať cudzie mená?
 %Pri dôkaze tejto vety bol neskôr v roku 1977 Appelom and Hakenom z časti využitý počítač pre kontrolu špeciálnych diskrétnych prípadov.
 
-\section{Počítačom asistované dokazovanie}
 
 \section{Prirodzená intuionistická logika}
 
@@ -403,7 +417,7 @@ Nahradenie je silnejšie a vieme nahradiť aj premmenné viazanné abstrakciou.
     \end{equation}
 \end{theorem}
 
-Prirodzené čísla je potom definovať 
+Prirodzené čísla je potom definovať
 \begin{align*}
     0 &= \lambda f x . x \\
     1 &= \lambda f x . f x \\
@@ -540,13 +554,19 @@ Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná
         \item If $\Gamma \vdash M : \varphi \textrm{ potom } |\Gamma|  \vdash \varphi.$
         \item If $\Gamma \vdash \varphi \textrm{ potom existuje } M \in \Lambda_{\Pi}
             \textrm{ také že } \Delta \vdash M : \varphi, \textrm{ kde }
-            \Delta = { ( x_{\varphi} : \varphi) | \varphi \in \Gamma }$
+            \Delta = { ( x_{\varphi} : \varphi ) | \varphi \in \Gamma }$
     \end{itemize}
 \end{theorem}
 
-
+\section{Počítačom asistované dokazovanie}
+    To com som vravel v prezentacii, historia, na zaciatku sa pouzivalo
 \section{Lean-theorem-prover}
+    Lean je dokazovací asistent ktorý bol vytvorený otvorený softvérový projekt
+Leonardom de Mourom v Microsoft Reasearch v roku 2013. Jazyk sa neustále vyvýja
+a momentálne sa nachádza vo štvrtej iterácii zatiaľ čo komunitný projekt matematickej
+knižnice mathlib sa stále vyvýja v tretej verzii.
 \subsection{Constracting proof}
+
 \subsection{Forward proofs}
     \subsubsection{assume}
     \subsubsection{calc}
@@ -564,9 +584,336 @@ Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná
     \subsubsection{refl}
 \subsubsection{Inductive types}
 
+\section{Teória usporiadania}
+    V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
+definícii v mathlibe pre dokázanie viet týkajúce sa teórie usporiadania.
+    Pre tento účel je Lean ideálny z pohľadu že naše možnosti definovania vlastností
+usporiadania potom možno aplikovať na abstraktnú množinu objektov.
+    % Toto by bolo dobré rozpracovať ďalej, možno konkrétny príklad
+    Výsledný typ je potom odvodený na základe závislostných typov.
+    Usporiadanie je jednoducho intuitívne uchopiteľná vlastnosť bez matematických
+preddispozícií.
+    V bežnom živote porovnávame svoju výšku, čas ktorý trval na vybehnutie do kopca
+alebo aj číselne neohodnotené, subjektívne merateľné objekty ako ktorý album
+od skupiny mám radšej.
+    Na otázky si potom vieme odpovedať "ja som vyšší", "zabehol si pomalšie" alebo
+tieto albumy sa nedajú porovnať.
+
+Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
+otázkami ako, aké je horné celej množiny objektov. Existuje ohraničenie horné alebo
+dolné pre ľubovoľnú podmnožinu objektov?
+    Pre stručnosť sa v rámcii definícii obmedzíme len na definíciu usporiadania
+ako relácie čiže podmnožinu karteziánskeho súčinu dvoch množín.
+
+\begin{theorem}
+    Majmä množinu $P$, potom usporiadanie alebo čiastočné usporiadanie na množine
+    $P$ je binárna relácia $\leq$ taká že, pre všetky $x,y,z \in P$
+    \begin{itemize}
+        \item $x \leq x$ vlastnoť reflexivity
+        \item $x \leq y$ a $y \leq x$ implikuje $x = y$ antisymetria
+        \item $x \leq y$ a $y \leq z$ impikuje $x \leq z$ tranzitivita
+    \end{itemize}
+\end{theorem}
+
+    Ideálny nástrojom pre uvažovanie nad usporiadaním sú \emph{Hasseho} diagramy.
+    Ako príklad uvádzame diagram "kocky".
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.15]{cube.png}
+    \caption{Usporiadania $\mathcal{P}(\{a,b,c\})$}
+\end{figure}
+
+    Na obrázku je usporiadanie množiny všetkých množín trojprvkovej množiny $\{ a,b,c \}$.
+    Usporiadanie tvorí binárna relácia kardinality podmnožínm pričom porovnávame
+len podmnožiny obsahujúce spoločný prvok.
+    Vyššie sú položené vačšie prvky a porovnateľnými prvkami považujeme len tie
+ktoré sú "pokryté" jednosmernou cestou cez orientované hrany grafu.
+
+    V Leane je usporiadanie definové ako rozšírenie triedy predusporiadania ktorá
+je reláciou ktorá nemá oproti čiastočnému usporiadaniu vlastnosť antisymetrie.
+
+\begin{lstlisting}
+class has_le       (α : Type u) := (le : α → α → Prop)
+class has_lt       (α : Type u) := (lt : α → α → Prop)
+
+class preorder (α : Type u) extends has_le α, has_lt α :=
+(le_refl : ∀ a : α, a ≤ a)
+(le_trans : ∀ a b c : α, a ≤ b → b ≤ c → a ≤ c)
+(lt := λ a b, a ≤ b ∧ ¬ b ≤ a)
+(lt_iff_le_not_le : ∀ a b : α, a < b ↔ (a ≤ b ∧ ¬ b ≤ a) . order_laws_tac)
+\end{lstlisting}
+Čiastočné usporiadanie je potom rozšírením predusporiadania o vlastnosť antysymetrie.
+\begin{lstlisting}
+class partial_order (α : Type u) extends preorder α :=
+(le_antisymm : ∀ a b : α, a ≤ b → b ≤ a → a = b)
+\end{lstlisting}
+
+DOPLN PRIKLAD NAJLEPSIE AK NAS USPORIADANY POSET Z PRIKLADU
+
+\subsubsection{Zväz}
+    Zväz je usporiadaná množina pre ktorú navyše platí že pre každé 2 prvky $a, b$
+vieme nájsť prvok $c$ ktoré je ich najmenším horným respektíve(\emph{supremum})
+najväčším dolným ohraničením(\emph{infinum}).
+    V prípade intervalu reálnych čísel je toto ohraničenie jednoducho predstaviteľné
+ako bod ohraničujúce množinu na číselnej osi.
+    Ak ide o čiastočné usporiadanie je názov pre tieto ohraničenia prvkov
+motivovaný zobrezním na grafe.
+    \emph{Spojenie} $\sqcup, \vee$ pre supremum respektíve \emph{stretnutie} $\sqcap, \wedge$ pre infinum.
+    Popisnejším názvom pre zväz je preklad anglicky používaného názvu \emph{lattice}
+"mriežka" tak isto motivoavná zobrazením takého usporiadania na grafe.
+    Pri dokazovaní viet o zväzoch je často využívaná vlastnosť duality najmenšieho
+horného a duálne najväčšieho dolného ohraničenie pre druhú polovicu dôkazu.
+    V prípade zväzu je táto vlastnosť využitá rovno v definícii zväzu ako spojenie
+duálnej definície suprémoveho a infinumového semizväzvu.
+
+\begin{lstlisting}
+class has_sup (α : Type u) := (sup : α → α → α)
+class has_inf (α : Type u) := (inf : α → α → α)
+
+infix ⊔ := has_sup.sup
+infix ⊓ := has_inf.inf
+
+class semilattice_sup (α : Type u) extends has_sup α, partial_order α :=
+(le_sup_left : ∀ a b : α, a ≤ a ⊔ b)
+(le_sup_right : ∀ a b : α, b ≤ a ⊔ b)
+(sup_le : ∀ a b c : α, a ≤ c → b ≤ c → a ⊔ b ≤ c)
+
+class semilattice_inf (α : Type u) extends has_inf α, partial_order α :=
+(inf_le_left : ∀ a b : α, a ⊓ b ≤ a)
+(inf_le_right : ∀ a b : α, a ⊓ b ≤ b)
+(le_inf : ∀ a b c : α, a ≤ b → a ≤ c → a ≤ b ⊓ c)
+
+class lattice (α : Type u) extends semilattice_sup α, semilattice_inf α
+\end{lstlisting}
+
+Na nasledujúcich grafoch si ukážeme ako vyzerajú zväzy.
+
+PRIDAT VLASTNY PRIKLAD, OPYTAT SA
+\begin{lstlisting}
+def poset_nat : sublattice ℕ :=
+    { carrier := {n : ℕ | 1 ≤ n},
+    inf_mem :=
+      begin·
+        intro a,
+        intro b,
+        intro a_set,
+        intro b_set,
+        simp at a_set,
+        simp at b_set,
+        simp,
+        split,
+        exact a_set,
+        exact b_set,
+      end,
+    sup_mem := by finish,
+}
+\end{lstlisting}
+
+\subsubsection{Modulárne zväzy}
+
+V nasledujúcom úseku si ukážeme vetu týkajúcu sa špeciálneho typu zväzu s vlastnosťou
+    modularity a ukážeme si formálny dôkaz a jej implementáciu v Leane  ktorú si
+    podrobne rozoberieme.
+
+O zväze $L$ hovoríme že je modulárny v prípade že spĺňa nasledujúcu vlastnosť.
+
+\begin{equation*}
+    (\forall x,y,z \in L) x \geq y \implies x \wedge ( y \vee z) = (x \wedge y) \vee z
+\end{equation*}
+
+V Leane definovaný ako rozšírenie zväzu:
+
+\begin{lstlisting}
+class modular_lattice(α : Type u) extends lattice α :=
+  (modular_law: ∀ (x u v : α ), (x ≤ u) → u ⊓ (v ⊔ x) = (u ⊓ v) ⊔ x )
+\end{lstlisting}
+
+V nasledujúcom úseku si ukážeme vetu o modulárnom izomorfizme a podrobne
+    si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
+
+\subsection{Modulárne zväzy}
+    \begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
+    Nech L je modulárnym zväzom a $a, b \in L$. Potom
+        \begin{equation}
+            \varphi_{b}: x \mapsto x \wedge b, x \in [a, a \vee b],
+        \end{equation}
+    Je izomorfizmom medzi intervalmi $[a, a \vee b]$ a $[ a \wedge b, b]$.
+    Inverzným izomorfizmom je
+        \begin{equation}
+            \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
+        \end{equation}
+    \end{theorem}
+    \emph{Dôkaz}.  Stačí ukázať že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
+    Z duality vyplýva že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
+        $y \in [a \wedge b, b]$,
+    Majme $x \in [a, a \vee b]$. Potom
+        $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
+        potom aj modularita
+        \begin{equation}
+            \varphi_{a}\psi_{b}(x) =
+            ( x \wedge b ) \vee a =
+            x \wedge ( b \vee a) =
+            x
+        \end{equation}
+        pretože
+        \[
+            \pushQED{\qed}
+            x \leq a \vee b. \qedhere
+            \popQED
+        \]
+
+    Predstavený dôkaz je znázornený na nasledujúcom grafe.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.35]{modular_lattice_isomorphism.png}
+    \caption{Izomorfizmus modulárneho zväzu}
+\end{figure}
+
+    V prípade formálneho dôkazu sme sa mohli v časti dôkazu odkázať na dualitu. 
+    V prí návrhu dôkazu v Leane musím ukázať dôkaz z "oboch" strán.
+
+\begin{lstlisting}
+theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ]
+{ u v w x y : α } :
+  x ≤ u →
+  x ≥ v →
+  x ≥ u ⊓ v →
+  x ≤ u ⊔ v →
+  u ⊓ ( v ⊔ x ) = x ∧ (u ⊓ x) ⊔ v = x
+  :=
+  begin
+ 1        intros h1 h2 h3 h4,
+ 2        split,
+ 3        {
+ 4          rw modular_lattice.modular_law,
+ 5          exact sup_eq_right.mpr h3,
+ 6          exact h1
+ 7        },
+ 8        {
+ 9          rw inf_comm,
+10          rw ← modular_lattice.modular_law,
+11          exact inf_eq_left.mpr h4,
+11          exact h2
+12        }
+  end
+\end{lstlisting}
+    Začíname v taktickom móde prázdnou konštrukciou \emph{begin} a \emph{end}
+    Interaktívne prostredie vyzerá nasledovne.
+\begin{lstlisting}
+α: Type u
+_inst_1: modular_lattice α
+u v w x y : α
+⊢ x ≤ u → x ≥ v → x ≥ u ⊓ v → x ≤ u ⊔ v → u ⊓ (v ⊔ x) = x ∧ u ⊓ x ⊔ v = x
+\end{lstlisting}
+    Prvým krokom dôkazu je presunutie predpokladov zo sledu implikácii do
+prostredia pre ďalšiu prácu s nimi s označením $h1,h2,h3,h4$.
+\begin{lstlisting}
+α: Type u
+_inst_1: modular_lattice α
+uvwxy: α
+h1: x ≤ u
+h2: x ≥ v
+h3: x ≥ u ⊓ v
+h4: x ≤ u ⊔ v
+⊢ u ⊓ (v ⊔ x) = x ∧ u ⊓ x ⊔ v = x
+\end{lstlisting}
+    Cieľ potom pozostáva z konjukcie kde v druhej časti máme výraz implicitne
+ozátvorkovaný zľava.
+    Výraz rozdelíme do dvoch podcieľov príkazom \emph{split}, a pre lepšiu
+čitateľnosť ozátvorkujeme množinovými zátvorkami. Nachádzame sa v stave
+\begin{lstlisting}
+  begin
+    intros h1 h2 h3 h4,
+    split,
+    {
+    },
+    {
+    }
+  end
+\end{lstlisting}
+v ktorom nám lean ukazuje prostredie kde musíme dokázať ľavú časť konjukcie.
+\begin{lstlisting}
+⊢ u ⊓ (v ⊔ x) = x
+\end{lstlisting}
+Na cieľ použijeme z definície modulárneho zväzu vlastnosť modularity
+\begin{lstlisting}
+    (modular_law: ∀ (x u v : α ), (x ≤ u) → u ⊓ (v ⊔ x) = (u ⊓ v) ⊔ x )
+\end{lstlisting}
+a transformujeme prepíšeme cieľ cez príkaz
+\begin{lstlisting}
+rw modular_lattice.modular_law,
+\end{lstlisting}
+na nasledujúci kde má $u \sqcap v$ vyššiu precedenciu
+\begin{lstlisting}
+⊢ u ⊓ v ⊔ x = x
+\end{lstlisting}
+    Nasledujúca transformácia vyžaduje znalosť už dokázaných definícií ktoré
+boli dokázané pre podkladové štruktúry. Použijeme nasledujúcu definíciu ktorá vychádza
+z kontextu \emph{semilattice\_sup}.
+\begin{lstlisting}
+% @[simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=    / TODO NEZABUDNUT
+%  le_antisymm_iff.trans $ by simp [le_refl]             / ODKOMENTOVAT
+    \end{lstlisting}
+    Zaujímavosťou je že si Lean dokáže substiuovať výraz $u \sqcap v$ za $a$ z uvedeného
+výrazu. Pri použití vety dostávame ekvivalenciu ktorá je definovaná ako štruktúra.
+\begin{lstlisting}
+structure iff (a b : Prop) : Prop :=
+    intro :: (mp : a → b)
+             (mpr : b → a)
+\end{lstlisting}
+Z tejto štruktúry použijeme implikáciu smerujúca doľava nasledovne
+\begin{lstlisting}
+    exact sup_eq_right.mpr h3,
+\end{lstlisting}
+    Cieľ je teda transformovaný na
+\begin{lstlisting}
+⊢ x ≤ u
+\end{lstlisting}
+čo je už uvedený predpoklad $h1$. Týmto sme dokázali jeden z podcieľov.
+    V tejto chvíli by sme sa v literatúre mohli odvolať na dualitu výrazov.
+    V Leane musíme poskytnúť dôkaz aj o druhom cieli. Ideme dokázať
+\begin{lstlisting}
+⊢ u ⊓ x ⊔ v = x
+\end{lstlisting}
+V tejto chíli chceme znova použiť modularitu, leanu je ale potrebné explicitne povedať
+    že chceme prepísať výraz nachádzajúci na pravej strane rovnosti pomocou symbolu
+ľavej šípky.
+\begin{lstlisting}
+rw ← modular_lattice.modular_law,
+\end{lstlisting}
+    Použijeme duálnu vetu
+    duálnu k \emph{sup\_eq\_right}.
+\begin{lstlisting}
+@[simp] theorem inf_eq_left : a ⊓ b = a ↔ a ≤ b
+\end{lstlisting}
+    a využijeme opačné predpoklady k predchádzajúcim $h2, h4$.
+\begin{lstlisting}
+{
+    rw ← modular_lattice.modular_law,
+    exact inf_eq_left.mpr h4,
+    exact h2
+}
+\end{lstlisting}
+
+Po dokázaní druhého cieľa sme dokázali celú vetu. $\square$
+
+\begin{thebibliography}{xx}
+    \bibitem{Mimram} Samuel Mimram, Program = Proof, Indenpendently published(July 3, 2020), ISBN-13: 979-8615591839
+    \bibitem{SorensenUrzyczyn} Morten Heine B. Sørensen, Pawel Urzyczyn, Lectures on the Curry-Howard Isomorphism,
+        Elsevier Science (April 4, 2013),  ISBN-13 : 978-0444545961
+    \bibitem{}
+\end{thebibliography}
+
+Slovicka na ktore nepoznam preklad a ne
+\begin{itemize}
+    \item join - spojenie
+    \item meet - stretnutie
+\end{itemize}
+
 \end{document}
 
-% sposob ukladania kodu
 \begin{verbatim}
     structure point :=
       ( x : nat )
@@ -592,35 +939,7 @@ Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná
     }
 \end{verbatim}
 
+% sposob ukladania kodu
+
 \subsubsection{Type classes}
 
-\begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
-Nech L je modulárnym zväzom a $a, b \in L$. Potom
-    \begin{equation}
-        \varphi_{b}: x \mapsto x \wedge b, x \in [a, a \vee b],
-    \end{equation}
-Je izomorfizmom medzi intervalmi $[a, a \vee b]$ a $[ a \wedge b, b]$.
-Inverzným izomorfizmom je
-    \begin{equation}
-        \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
-    \end{equation}
-\end{theorem}
-\emph{Dôkaz}.
-Stačí ukázať že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
-Z duality vyplýva že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
-    $y \in [a \wedge b, b]$,
-Majme $x \in [a, a \vee b]$. Potom
-    $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
-    potom aj modularita
-    \begin{equation}
-        \varphi_{a}\psi_{b}(x) =
-        ( x \wedge b ) \vee a =
-        x \wedge ( b \vee a) =
-        x
-    \end{equation}
-    pretože
-    \[
-        \pushQED{\qed}
-        x \leq a \vee b. \qedhere
-        \popQED
-    \]
