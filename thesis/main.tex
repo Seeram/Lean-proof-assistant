@@ -586,27 +586,27 @@ knižnice mathlib sa stále vyvýja v tretej verzii.
 
 \section{Teória usporiadania}
     V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
-definícii v mathlibe pre dokázanie viet týkajúce sa teórie usporiadania.
-    Pre tento účel je Lean ideálny z pohľadu že naše možnosti definovania vlastností
-usporiadania potom možno aplikovať na abstraktnú množinu objektov.
+definícii v mathlibe pre dokázanie viet týkajúcich sa teórie usporiadania.
+    Pre tento účel je Lean ideálny z pohľadu našich možností definovania vlastností
+usporiadania, ktoré následne možno aplikovať na abstraktnú množinu objektov.
     % Toto by bolo dobré rozpracovať ďalej, možno konkrétny príklad
     Výsledný typ je potom odvodený na základe závislostných typov.
     Usporiadanie je jednoducho intuitívne uchopiteľná vlastnosť bez matematických
 preddispozícií.
-    V bežnom živote porovnávame svoju výšku, čas ktorý trval na vybehnutie do kopca
+    V každodennom živote porovnávame svoju výšku, čas, ktorý trval na vybehnutie do kopca
 alebo aj číselne neohodnotené, subjektívne merateľné objekty ako ktorý album
-od skupiny mám radšej.
+od skupiny preferujem.
     Na otázky si potom vieme odpovedať "ja som vyšší", "zabehol si pomalšie" alebo
-tieto albumy sa nedajú porovnať.
+tieto albumy sú neporovnateľné.
 
 Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
 otázkami ako, aké je horné celej množiny objektov. Existuje ohraničenie horné alebo
 dolné pre ľubovoľnú podmnožinu objektov?
     Pre stručnosť sa v rámcii definícii obmedzíme len na definíciu usporiadania
-ako relácie čiže podmnožinu karteziánskeho súčinu dvoch množín.
+ako relácie, čiže podmnožinu karteziánskeho súčinu dvoch množín.
 
 \begin{theorem}
-    Majmä množinu $P$, potom usporiadanie alebo čiastočné usporiadanie na množine
+    Majme množinu $P$, potom usporiadanie alebo čiastočné usporiadanie na množine
     $P$ je binárna relácia $\leq$ taká že, pre všetky $x,y,z \in P$
     \begin{itemize}
         \item $x \leq x$ vlastnoť reflexivity
@@ -615,7 +615,7 @@ ako relácie čiže podmnožinu karteziánskeho súčinu dvoch množín.
     \end{itemize}
 \end{theorem}
 
-    Ideálny nástrojom pre uvažovanie nad usporiadaním sú \emph{Hasseho} diagramy.
+    Ideálnym nástrojom pre uvažovanie nad usporiadaním sú \emph{Hasseho} diagramy.
     Ako príklad uvádzame diagram "kocky".
 
 \begin{figure}[!ht]
@@ -627,11 +627,11 @@ ako relácie čiže podmnožinu karteziánskeho súčinu dvoch množín.
     Na obrázku je usporiadanie množiny všetkých množín trojprvkovej množiny $\{ a,b,c \}$.
     Usporiadanie tvorí binárna relácia kardinality podmnožínm pričom porovnávame
 len podmnožiny obsahujúce spoločný prvok.
-    Vyššie sú položené vačšie prvky a porovnateľnými prvkami považujeme len tie
+    Vyššie sú položené väčšie prvky a porovnateľnými prvkami považujeme len tie,
 ktoré sú "pokryté" jednosmernou cestou cez orientované hrany grafu.
 
-    V Leane je usporiadanie definové ako rozšírenie triedy predusporiadania ktorá
-je reláciou ktorá nemá oproti čiastočnému usporiadaniu vlastnosť antisymetrie.
+    V Leane je usporiadanie definové ako rozšírenie triedy predusporiadania, ktorá
+je reláciou, ktorá nemá oproti čiastočnému usporiadaniu vlastnosť antisymetrie.
 
 \begin{lstlisting}
 class has_le       (α : Type u) := (le : α → α → Prop)
@@ -652,16 +652,16 @@ class partial_order (α : Type u) extends preorder α :=
 DOPLN PRIKLAD NAJLEPSIE AK NAS USPORIADANY POSET Z PRIKLADU
 
 \subsubsection{Zväz}
-    Zväz je usporiadaná množina pre ktorú navyše platí že pre každé 2 prvky $a, b$
-vieme nájsť prvok $c$ ktoré je ich najmenším horným respektíve(\emph{supremum})
+    Zväz je usporiadaná množina, pre ktorú navyše platí, že pre každé 2 prvky $a, b$
+vieme nájsť prvok $c$, ktorý je ich jedinečným najmenším horným, respektíve(\emph{supremum})
 najväčším dolným ohraničením(\emph{infinum}).
     V prípade intervalu reálnych čísel je toto ohraničenie jednoducho predstaviteľné
 ako bod ohraničujúce množinu na číselnej osi.
-    Ak ide o čiastočné usporiadanie je názov pre tieto ohraničenia prvkov
+    Ak ide o čiastočné usporiadanie, názov je pre tieto ohraničenia prvkov
 motivovaný zobrezním na grafe.
-    \emph{Spojenie} $\sqcup, \vee$ pre supremum respektíve \emph{stretnutie} $\sqcap, \wedge$ pre infinum.
+    \emph{Spojenie} $\sqcup, \vee$ pre supremum, respektíve \emph{stretnutie} $\sqcap, \wedge$ pre infinum.
     Popisnejším názvom pre zväz je preklad anglicky používaného názvu \emph{lattice}
-"mriežka" tak isto motivoavná zobrazením takého usporiadania na grafe.
+"mriežka" tak isto motivovaná zobrazením takého usporiadania na grafe.
     Pri dokazovaní viet o zväzoch je často využívaná vlastnosť duality najmenšieho
 horného a duálne najväčšieho dolného ohraničenie pre druhú polovicu dôkazu.
     V prípade zväzu je táto vlastnosť využitá rovno v definícii zväzu ako spojenie
@@ -713,10 +713,10 @@ def poset_nat : sublattice ℕ :=
 \subsubsection{Modulárne zväzy}
 
 V nasledujúcom úseku si ukážeme vetu týkajúcu sa špeciálneho typu zväzu s vlastnosťou
-    modularity a ukážeme si formálny dôkaz a jej implementáciu v Leane  ktorú si
+    modularity a ukážeme si formálny dôkaz a jej implementáciu v Leane, ktorú si
     podrobne rozoberieme.
 
-O zväze $L$ hovoríme že je modulárny v prípade že spĺňa nasledujúcu vlastnosť.
+O zväze $L$ hovoríme, že je modulárny, v prípade, že spĺňa nasledujúcu vlastnosť.
 
 \begin{equation*}
     (\forall x,y,z \in L) x \geq y \implies x \wedge ( y \vee z) = (x \wedge y) \vee z
@@ -732,6 +732,7 @@ class modular_lattice(α : Type u) extends lattice α :=
 V nasledujúcom úseku si ukážeme vetu o modulárnom izomorfizme a podrobne
     si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
 
+TODO ZJEDNOTIT ZNACENIE DEFINICIE A LEAN-u
 \subsection{Modulárne zväzy}
     \begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
     Nech L je modulárnym zväzom a $a, b \in L$. Potom
@@ -744,8 +745,8 @@ V nasledujúcom úseku si ukážeme vetu o modulárnom izomorfizme a podrobne
             \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
         \end{equation}
     \end{theorem}
-    \emph{Dôkaz}.  Stačí ukázať že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
-    Z duality vyplýva že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
+    \emph{Dôkaz}.  Stačí ukázať, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
+    Z duality vyplýva, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
         $y \in [a \wedge b, b]$,
     Majme $x \in [a, a \vee b]$. Potom
         $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
@@ -819,7 +820,7 @@ h3: x ≥ u ⊓ v
 h4: x ≤ u ⊔ v
 ⊢ u ⊓ (v ⊔ x) = x ∧ u ⊓ x ⊔ v = x
 \end{lstlisting}
-    Cieľ potom pozostáva z konjukcie kde v druhej časti máme výraz implicitne
+    Cieľ potom pozostáva z konjukcie, kde v druhej časti máme výraz implicitne
 ozátvorkovaný zľava.
     Výraz rozdelíme do dvoch podcieľov príkazom \emph{split}, a pre lepšiu
 čitateľnosť ozátvorkujeme množinovými zátvorkami. Nachádzame sa v stave
@@ -833,7 +834,7 @@ ozátvorkovaný zľava.
     }
   end
 \end{lstlisting}
-v ktorom nám lean ukazuje prostredie kde musíme dokázať ľavú časť konjukcie.
+v ktorom nám lean ukazuje prostredie, kde musíme dokázať ľavú časť konjukcie.
 \begin{lstlisting}
 ⊢ u ⊓ (v ⊔ x) = x
 \end{lstlisting}
@@ -845,29 +846,29 @@ a transformujeme prepíšeme cieľ cez príkaz
 \begin{lstlisting}
 rw modular_lattice.modular_law,
 \end{lstlisting}
-na nasledujúci kde má $u \sqcap v$ vyššiu precedenciu
+na nasledujúci, kde má $u \sqcap v$ vyššiu precedenciu
 \begin{lstlisting}
 ⊢ u ⊓ v ⊔ x = x
 \end{lstlisting}
-    Nasledujúca transformácia vyžaduje znalosť už dokázaných definícií ktoré
-boli dokázané pre podkladové štruktúry. Použijeme nasledujúcu definíciu ktorá vychádza
+    Nasledujúca transformácia vyžaduje znalosť už dokázaných definícií, ktoré
+boli dokázané pre podkladové štruktúry. Použijeme nasledujúcu definíciu, ktorá vychádza
 z kontextu \emph{semilattice\_sup}.
 \begin{lstlisting}
 % @[simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=    / TODO NEZABUDNUT
 %  le_antisymm_iff.trans $ by simp [le_refl]             / ODKOMENTOVAT
     \end{lstlisting}
-    Zaujímavosťou je že si Lean dokáže substiuovať výraz $u \sqcap v$ za $a$ z uvedeného
-výrazu. Pri použití vety dostávame ekvivalenciu ktorá je definovaná ako štruktúra.
+    Zaujímavosťou je, že si Lean dokáže substiuovať výraz $u \sqcap v$ za $a$ z uvedeného
+výrazu. Pri použití vety dostávame ekvivalenciu, ktorá je definovaná ako štruktúra.
 \begin{lstlisting}
 structure iff (a b : Prop) : Prop :=
     intro :: (mp : a → b)
              (mpr : b → a)
 \end{lstlisting}
-Z tejto štruktúry použijeme implikáciu smerujúca doľava nasledovne
+Z tejto štruktúry použijeme implikáciu smerujúca doľava nasledovne:
 \begin{lstlisting}
     exact sup_eq_right.mpr h3,
 \end{lstlisting}
-    Cieľ je teda transformovaný na
+    Cieľ je teda transformovaný na:
 \begin{lstlisting}
 ⊢ x ≤ u
 \end{lstlisting}
@@ -877,7 +878,7 @@ Z tejto štruktúry použijeme implikáciu smerujúca doľava nasledovne
 \begin{lstlisting}
 ⊢ u ⊓ x ⊔ v = x
 \end{lstlisting}
-V tejto chíli chceme znova použiť modularitu, leanu je ale potrebné explicitne povedať
+V tejto chvíli chceme znova použiť modularitu, leanu je, ale potrebné explicitne povedať,
     že chceme prepísať výraz nachádzajúci na pravej strane rovnosti pomocou symbolu
 ľavej šípky.
 \begin{lstlisting}
