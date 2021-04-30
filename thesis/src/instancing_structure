@@ -1,0 +1,22 @@
+structure point :=
+  ( x : nat )
+  ( y : nat )
+
+/-- alternative notation -/
+structure point_alternative :=
+  mk :: (x : nat) (Y : nat)
+
+def p1 : point :=
+{
+  x   := 10,
+  y   := 20,
+}
+
+/- same point, different notation, same notation for ordered seti -/
+def p2 : point := ⟨10, 20⟩
+
+/- instance only one part of structure, rest implicitly from other instance
+def p3 : point := {
+    x := 20,
+    ..p
+}

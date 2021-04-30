@@ -90,7 +90,7 @@
 
 Dôkaz z teórie usporiadania. Tak ako je Program = Proof
 
-Otázka ohľadom konzistentnosti dôkazu.
+Otázka ohľadne konzistentnosti dôkazu.
 
 \subsection{Prirodzená dedukcia}
 
@@ -106,7 +106,7 @@ Otázka ohľadom konzistentnosti dôkazu.
 \end{theorem}
 
 V prípade nasledovného výroku je precedencia $\neg$ vyššia ako $\vee$ alebo $\wedge$
-a tá je vyššia ako $\implies$. Binárne operátory sú asociatívne z prava.
+a tá je vyššia ako $\implies$. Binárne operátory sú asociatívne sprava.
 
 \begin{align*}
     \neg A \wedge B \wedge C &\implies A \vee B \\
@@ -560,11 +560,56 @@ Termín $t$ je typu $A$ ak v kontexte $\Gamma$ ak je postupnosť derivovateľná
 
 \section{Počítačom asistované dokazovanie}
     To com som vravel v prezentacii, historia, na zaciatku sa pouzivalo
-\section{Lean-theorem-prover}
+\section{Lean dokazovací asistent}
     Lean je dokazovací asistent ktorý bol vytvorený otvorený softvérový projekt
-Leonardom de Mourom v Microsoft Reasearch v roku 2013. Jazyk sa neustále vyvýja
-a momentálne sa nachádza vo štvrtej iterácii zatiaľ čo komunitný projekt matematickej
-knižnice mathlib sa stále vyvýja v tretej verzii.
+Leonardom de Mourom v Microsoft Reasearch v roku 2013.
+    Jazyk sa neustále vyvýja a momentálne sa nachádza vo štvrtej iterácii \cite{lean4} zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej verzii\cite{lean3} vyvýjanej od roku 2017.
+    Implementácia Lean-u je v jazyku C++ a jeho jadro má 8000 riadkov.
+    Prostredie je dostupné pre operačné systémy Linux, Windows a Darwin.
+    Interaktívne prostredie pre dokazovanie je podporované pre editory \emph{Emacs} a \emph{Visual Studio Code}.
+
+    Lean podobne ako \emph{Coq} je založené na kalkule konštrukcií ktorý je zovšeobecnením teórie jednoduchých typov
+    a teórii závislostných typov.
+\subsection{mathlib}
+    Mathlib je komunitný projekt\cite{mathlib} ktorého cieľom je združovať matematickú
+teóriu implementovanú v Lean-e.
+    Do projektu je možné jednoducho prispievať po udelení privilégií niektorým zo
+správcov repozitára a odobrením požiadavky na začlenenie kódu.
+    Väčšina obsahu mathlibu obsahuje matematiku na vysokoškolskej úrovni.
+    V dobre písania práce je najvyššia hierarchia teórie nasledovná:
+\begin{lstlisting}
+algebra/
+category_theory/
+data/
+geometry/
+measure_theory/
+probability_theory/
+algebraic_geometry/
+combinatorics/
+group_theory/
+representation_theory/
+algebraic_topology/
+computability/
+dynamics/
+linear_algebra/
+number_theory/
+ring_theory/
+analysis/
+control/
+field_theory/
+logic/
+order/
+set_theory/
+topology/
+\end{lstlisting}
+    V kontraste s inými modernými dokazovacími asistentami má mathlib množstvo
+prispievateľov akademické vzdelanie v čistej matematike\cite{mathlib_paper} čo
+ovplyvnilo aj jeho obsah.
+
+\subsection{Vývojové prostredie}
+    Interaktívne vývojove prostredie sa skladá z editora podporujúce UTF-8 znaky
+a okno s interaktívny výstupom reagujúce na polohu kurzora.
+
 \subsection{Constracting proof}
 
 \subsection{Forward proofs}
@@ -624,13 +669,13 @@ ako relácie, čiže podmnožinu karteziánskeho súčinu dvoch množín.
     \caption{Usporiadania $\mathcal{P}(\{a,b,c\})$}
 \end{figure}
 
-    Na obrázku je usporiadanie množiny všetkých množín trojprvkovej množiny $\{ a,b,c \}$.
+    Na obrázku je usporiadanie všetkých podmnožín trojprvkovej množiny $\{ a,b,c \}$.
     Usporiadanie tvorí binárna relácia kardinality podmnožínm pričom porovnávame
 len podmnožiny obsahujúce spoločný prvok.
     Vyššie sú položené väčšie prvky a porovnateľnými prvkami považujeme len tie,
 ktoré sú "pokryté" jednosmernou cestou cez orientované hrany grafu.
 
-    V Leane je usporiadanie definové ako rozšírenie triedy predusporiadania, ktorá
+    V Leane je usporiadanie definované ako rozšírenie triedy predusporiadania, ktorá
 je reláciou, ktorá nemá oproti čiastočnému usporiadaniu vlastnosť antisymetrie.
 
 \begin{lstlisting}
@@ -641,7 +686,7 @@ class preorder (α : Type u) extends has_le α, has_lt α :=
 (le_refl : ∀ a : α, a ≤ a)
 (le_trans : ∀ a b c : α, a ≤ b → b ≤ c → a ≤ c)
 (lt := λ a b, a ≤ b ∧ ¬ b ≤ a)
-(lt_iff_le_not_le : ∀ a b : α, a < b ↔ (a ≤ b ∧ ¬ b ≤ a) . order_laws_tac)
+(lt_iff_le_not_le : ∀ a b : α, a < b ↔ (a ≤ b ∧ ¬ b ≤ a) . order_laws_tac) -- toto chceme aj vysvetlit
 \end{lstlisting}
 Čiastočné usporiadanie je potom rozšírením predusporiadania o vlastnosť antysymetrie.
 \begin{lstlisting}
@@ -659,7 +704,7 @@ najväčším dolným ohraničením(\emph{infinum}).
 ako bod ohraničujúce množinu na číselnej osi.
     Ak ide o čiastočné usporiadanie, názov je pre tieto ohraničenia prvkov
 motivovaný zobrezním na grafe.
-    \emph{Spojenie} $\sqcup, \vee$ pre supremum, respektíve \emph{stretnutie} $\sqcap, \wedge$ pre infinum.
+    \emph{Spojenie} $\sqcup, \vee$ pre supremum, respektíve \emph{priesek} $\sqcap, \wedge$ pre infinum.
     Popisnejším názvom pre zväz je preklad anglicky používaného názvu \emph{lattice}
 "mriežka" tak isto motivovaná zobrazením takého usporiadania na grafe.
     Pri dokazovaní viet o zväzoch je často využívaná vlastnosť duality najmenšieho
@@ -716,7 +761,7 @@ V nasledujúcom úseku si ukážeme vetu týkajúcu sa špeciálneho typu zväzu
     modularity a ukážeme si formálny dôkaz a jej implementáciu v Leane, ktorú si
     podrobne rozoberieme.
 
-O zväze $L$ hovoríme, že je modulárny, v prípade, že spĺňa nasledujúcu vlastnosť.
+O zväze $L$ hovoríme, že je modulárny, v prípade, že má nasledujúcu vlastnosť.
 
 \begin{equation*}
     (\forall x,y,z \in L) x \geq y \implies x \wedge ( y \vee z) = (x \wedge y) \vee z
@@ -773,7 +818,7 @@ TODO ZJEDNOTIT ZNACENIE DEFINICIE A LEAN-u
 \end{figure}
 
     V prípade formálneho dôkazu sme sa mohli v časti dôkazu odkázať na dualitu. 
-    V prí návrhu dôkazu v Leane musím ukázať dôkaz z "oboch" strán.
+    V prí návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán.
 
 \begin{lstlisting}
 theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ]
@@ -904,13 +949,15 @@ Po dokázaní druhého cieľa sme dokázali celú vetu. $\square$
     \bibitem{Mimram} Samuel Mimram, Program = Proof, Indenpendently published(July 3, 2020), ISBN-13: 979-8615591839
     \bibitem{SorensenUrzyczyn} Morten Heine B. Sørensen, Pawel Urzyczyn, Lectures on the Curry-Howard Isomorphism,
         Elsevier Science (April 4, 2013),  ISBN-13 : 978-0444545961
-    \bibitem{}
+    \bibitem{lean3} https://github.com/leanprover/lean
+    \bibitem{lean4} https://github.com/leanprover/lean4
+    \bibitem{mathlib} https://github.com/leanprover-community/mathlib
+    \bibitem{mathlib_paper} https://leanprover-community.github.io/papers/mathlib-paper.pdf
 \end{thebibliography}
 
 Slovicka na ktore nepoznam preklad a ne
 \begin{itemize}
-    \item join - spojenie
-    \item meet - stretnutie
+    \item kalkul alebob kalkulus
 \end{itemize}
 
 \end{document}
