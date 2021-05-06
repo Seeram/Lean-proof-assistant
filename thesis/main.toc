@@ -1,0 +1,28 @@
+\contentsline {section}{\numberline {0.1}\IeC {\'U}vod}{2}% 
+\contentsline {section}{\numberline {0.2}Prirodzen\IeC {\'a} intuionistick\IeC {\'a} logika}{2}% 
+\contentsline {subsection}{\numberline {0.2.1}Formalizovanie d\IeC {\^o}kazu}{2}% 
+\contentsline {subsection}{\numberline {0.2.2}Prirodzen\IeC {\'a} dedukcia}{2}% 
+\contentsline {subsection}{\numberline {0.2.3}Intuicionizmus}{3}% 
+\contentsline {section}{\numberline {0.3}Lambda kalkulus}{4}% 
+\contentsline {subsection}{\numberline {0.3.1}$\alpha $-ekvivalencia}{5}% 
+\contentsline {subsection}{\numberline {0.3.2}$\beta $-ekvivalencia}{5}% 
+\contentsline {section}{\numberline {0.4}Typovo jednoduch\IeC {\'y} $\lambda $-calculus}{6}% 
+\contentsline {section}{\numberline {0.5}Curry-Howardov izomorfizmus}{7}% 
+\contentsline {section}{\numberline {0.6}Po\IeC {\v c}\IeC {\'\i }ta\IeC {\v c}om asistovan\IeC {\'e} dokazovanie}{8}% 
+\contentsline {chapter}{\numberline {1}Lean dokazovac\IeC {\'\i } asistent}{9}% 
+\contentsline {section}{\numberline {1.1}Mathlib}{9}% 
+\contentsline {section}{\numberline {1.2}V\IeC {\'y}vojov\IeC {\'e} prostredie}{10}% 
+\contentsline {section}{\numberline {1.3}Lambda kalkulus}{11}% 
+\contentsline {subsection}{\numberline {1.3.1}Kon\IeC {\v s}tanty, aplik\IeC {\'a}cie}{11}% 
+\contentsline {subsection}{\numberline {1.3.2}Abstrakcia}{12}% 
+\contentsline {subsection}{\numberline {1.3.3}Typy}{13}% 
+\contentsline {subsubsection}{Premenn\IeC {\'e}}{14}% 
+\contentsline {subsection}{\numberline {1.3.4}Kontext, menn\IeC {\'y} priestor}{14}% 
+\contentsline {section}{\numberline {1.4}Dokazovanie}{15}% 
+\contentsline {subsection}{\numberline {1.4.1}Dopredn\IeC {\'e} dokazovanie}{15}% 
+\contentsline {subsection}{\numberline {1.4.2}Sp\IeC {\"a}tn\IeC {\'e} dokazovanie}{16}% 
+\contentsline {subsubsection}{Abstraktn\IeC {\'e} \IeC {\v s}trukt\IeC {\'u}ry v Lean-e}{17}% 
+\contentsline {chapter}{\numberline {2}Te\IeC {\'o}ria usporiadania}{19}% 
+\contentsline {subsubsection}{Zv\IeC {\"a}z}{20}% 
+\contentsline {subsubsection}{Modul\IeC {\'a}rne zv\IeC {\"a}zy}{21}% 
+\contentsline {subsection}{\numberline {2.0.1}Modul\IeC {\'a}rne zv\IeC {\"a}zy}{21}% 
