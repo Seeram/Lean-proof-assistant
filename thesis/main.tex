@@ -10,6 +10,7 @@
 \usepackage{amssymb, upgreek}
 \usepackage{mathtools}
 \usepackage{color}
+\usepackage[T1]{fontenc}
 %% Generally used
 
 %% Lean specific
@@ -84,15 +85,15 @@
 %Pri dôkaze tejto vety bol neskôr v roku 1977 Appelom and Hakenom z časti využitý počítač pre kontrolu špeciálnych diskrétnych prípadov.
 
 
-\section{Prirodzená intuionistická logika}
+\chapter{Curry-Howardov izomorfizmus}
 
-\subsection{Formalizovanie dôkazu}
+\section{Formalizovanie dôkazu}
 
 Dôkaz z teórie usporiadania. Tak ako je Program = Proof
 
 Otázka ohľadne konzistentnosti dôkazu.
 
-\subsection{Prirodzená dedukcia}
+\section{Prirodzená dedukcia}
 
 % Formula vyrokoveho poctu
 \begin{theorem}[Výroková premenná, formula]
@@ -571,6 +572,7 @@ Leonardom de Mourom v Microsoft Reasearch v roku 2013.
     Lean podobne ako \emph{Coq} je založené na kalkule konštrukcií ktorý je zovšeobecnením teórie jednoduchých typov
     a teórii závislostných typov.
 \section{Mathlib}
+    % zdruzovat mozem vcelarov
     Mathlib je komunitný projekt\cite{mathlib} ktorého cieľom je združovať matematickú
 teóriu implementovanú v Lean-e.
     Do projektu je možné jednoducho prispievať po udelení privilégií niektorým zo
@@ -627,12 +629,12 @@ ako \emph{print} alebo \emph{reduce} ktoré rozoberieme neskôr.
 alebo transormácie existujúcich je možné vidieť aj zmenu cieľa a podcieľov
 napríklad v prípade že sme sa dostali k dôkazu vymenovaním prípadov.
 \section{Lambda kalkulus}
-Pod pojmom Lean je možné rozumieť okrem dokazovacieho asistena aj funkcionálny programovací
-    jazyk.
-Výpočtový model jednoduchého lambda kalkulu je z programovacích paradigiem najbližšie
-    práve funkionálnemu spôsobu programovania 
-V nasledujúcej časti predstavujeme základy funkcionálneho programovania spolu 
-    s typmi a nástrojmi Lean-u na vývoj a menežment menného priestoru.
+Pred predstavením techník dokazovania je nutné sa oboznámiť s prvkami funkcionionálneho
+    programovania v Leane.
+Výpočtový model jednoduchého $\lambda$-kalkulu je z programovacích paradigiem najbližšie
+práve funkcionálnemu spôsobu programovania.
+V nasledujúcej časti predstavujeme základy funkcionálneho programovania spolu
+    s typmi a nástrojmi Lean-u na vývoj a menežment priestor mien.
 \subsection{Konštanty, aplikácie}
     Deklarácia konštanty zavádza do systému novú deklaráciu bez definície.
     Z tohto dôvodu sa ich pri rozvoji teórie snažíme vyhýbať.
@@ -662,7 +664,7 @@ existuje plurárna verzia príkazu \emph{constants}.
 constant f : ℕ → ℕ
 constant h : ℕ -> ℕ -> ℕ
 \end{lstlisting}
-    Aplikácia funkcie sa notačne podobá aplikácii v lambda kalkule kde argument
+    Aplikácia funkcie sa notačne podobá aplikácii v $\lambda$kalkule kde argument
 jednoducho pripíšeme za funkciu:
 \begin{lstlisting}
 #constants m n : ℕ
@@ -689,7 +691,7 @@ constant a : ℕ
 #check 5
 #check (-5 : ℤ)
 \end{lstlisting}
-    Pri deklarácia záporného čísla je tak nutné už explicitne uviesť typ.
+    Pri deklarácii záporného čísla je tak nutné už explicitne uviesť typ.
 Nasledujúce príklady ilustrujú okrem funkcie $+$ aj implicitnú konverziu medzi typmi.
 \begin{lstlisting}
 #constants (m : ℕ) (n : ℤ)
@@ -723,7 +725,7 @@ výraz je tak možné prepísať aj do tvaru:
 \subsection{Abstrakcia}
     V predchádzajúcej sekcii sme si ukázali explicitný typ ktorý bol funkciou prirodzenými
 číslami ktorý bol typu $\mathbb{N} \to \mathbb{N}$ alebo $\mathbb{N} \to \mathbb{N} \to \mathbb{N}$.
-    V $\lambda$-kalklule korenšponduje funkcia s abstrakciou. V Lean-e definujeme
+    V $\lambda$-kalklule zodpovedajú funkcie abstrakciám. V Lean-e definujeme
 anonymnú funkciu alebo $\lambda$-výraz nasledovne.
 \begin{lstlisting}
 #check λ x, x + x
@@ -748,7 +750,7 @@ has type
 but is expected to have type
   ℕ
 \end{lstlisting}
-    Uvedieme si zopár príkladov vypočtovo ekvivalentných funkcii obdovu obdĺžnika typu
+    Uvedieme si zopár príkladov vypočtovo ekvivalentných funkcii obvodu obdĺžnika typu
 $\mathbb{N} \to \mathbb{N} \to \mathbb{N}$
 .
 \begin{lstlisting}
@@ -783,20 +785,18 @@ def obvod_stvorca (x : ℕ) (y : ℕ) : ℕ := x + x + y + y
 #eval obsah_stvorca 3 5
 \end{lstlisting}
 
-    Kľúčové slovo \emph{def} alebo definícia má tak ako v matematike viacero
-alternatív ktoré môžeme využívať v prípade že ide menej alebo viac významný objekt.
-    Bez rozdielu tak môžeme používať \emph{lemma} alebo \emph{theorem}.
-    Pre definíciu príkladu bez nutnosti definovať meno používame kľúčové slovo
-    \emph{example}.
+    Kľúčové slovo \emph{def} ktoré používame je funkčne bez funkčného roziedlu možné
+zameniť za \emph{theorem}, \emph{lemma}. V prípade že chceme uviesť iba príklad
+kde meno by pôsobilo nadbytočne používame slovo \emph{example}.
 
 \subsection{Typy}
     Doteraz sme uvažovali len s typmi množiny prirodzených a celých čísel
-predstavujúce na pozadí Leanu konkréte definovanú štruktúru.
-    Typovanie v Lean-e ale podporuje určenie abstraktného typu ktorý patrí univerzu(universe).
-    Zavedenie týchto univerzov je motivané problémom analogickým s Russelovým paradoxom 
+predstavujúce na pozadí Leanu konkrétne definovanú štruktúru.
+    Typovanie v Lean-e ale podporuje zavedenie nového abstraktného typu ktorý patrí univerzu(universe).
+    Zavedenie týchto univerz je motivané problémom analogickým s Russelovým paradoxom 
 a teda či množina všetkých množín obsahuje samú seba.
     V teórii typov sa jedná o Girardov paradox.
-    Hierarchia týchto univerzov je usporiadaná od 0 čo je univerzum tvoriace najjednoduchšie
+    Hierarchia týchto univerz je usporiadaná od 0 čo je univerzum tvoriace najjednoduchšie
 typy takže \emph{Type} alebo aj \emph{Type 0} je potom typom \emph{Type 1} ktorý
 je typom \emph{Type 2}.
 
@@ -804,7 +804,7 @@ je typom \emph{Type 2}.
     Okrem toho že všetky dôkazy majú tento typ. 
     Sú postavené v hierachii oddelené na najnižšej úrovni a teda \emph{Prop} je 
 typu \emph{Type}.
-    Pre univerzum do ktorého patrí \emph{Prop} označujeme \emph{Sort} čo je len 
+    Univerzum do ktorého patrí \emph{Prop} označujeme \emph{Sort} čo je len 
 alias.
 Platí vzťah \emph{Sort u + 1} = \emph{Type u}.
 
@@ -854,7 +854,8 @@ variables β : Type v
 def kompozicia (x : α) (f : α → β) (g : β → α) : α := g (f x)
 def kompozicia₂ (y : β) (f : α → β) (g : β → α) : β := f (g y)
 \end{lstlisting}
-Vstupné argumenty dokonca môžeme vynechať úplne.
+    Vstupné argumenty dokonca môžeme vynechať úplne, v niektorých prípadoch to ale
+môže byť kontraproduktívne.
 \begin{lstlisting}
 variables (f : α → β)
           (g : β → α)
@@ -862,11 +863,10 @@ variables (f : α → β)
 def kompozicia : α := g (f x)
 def kompozicia₂ : β := f (g y)
 \end{lstlisting}
-Dôkazy to už ale môže robiť v istých prípadoch na prvý pohľad zmätočné.
 Pre doplnenie dodávame že nie je nutné ani definovať návratový typ $\alpha$
     respektíve $\beta$, explicitné určenie návratového typu je ale vhodné nie len
     pre čitateľa ale aj pre overenie správnosti výsledného typu.
-\subsection{Kontext, menný priestor}
+\subsection{Kontext, priestor mien}
     Pre ovládanie menného priestoru a kontextu existujú v Lean-e rôzne mechanizmy
 z ktorých si popíšeme len tie najdôležitejšie.
     Najjednoduchším je súbor, ktorého definície, konštanty a premenné vstupujú do
@@ -916,11 +916,10 @@ open skryty.priestor
 \section{Dokazovanie}
 
     K dokazovaniu v Leane je možné pristupovať viacerými spôsobmi.
-    Po poskytnutí dôkazu vnútorne Lean-u nezáleží na spôsobe akým bolo tvrdenie 
+    Po poskytnutí dôkazu už vnútorne Lean-u nezáleží na spôsobe akým bolo tvrdenie
 dokázané.
-    Prvým spôsobom je priamočiara konštrukcia pomocou funkcií typu ktorá je dôsledkom
-tak ako to vyplýva z Curry-Howardovho izomorfizmu.
-    Druhým spôsobom je spätné dokazovanie ktoré využíva taktický mód za pomocoi
+    Prvým spôsobom je priamočiara konštrukcia typu pomocou funkcií.
+    Druhým spôsobom je spätné dokazovanie ktoré využíva taktický mód za pomoci
 sady príkazov poloautomatizácie.
     V leanovskej komunite je preferovaný práve druhý spôsob hoci pre jednoducho
 dokázateľné tvrdenia stačí a je využívaná aj dopredná verzia.
@@ -928,15 +927,14 @@ dokázateľné tvrdenia stačí a je využívaná aj dopredná verzia.
 \subsection{Dopredné dokazovanie}
     Dôkaz zostavený len z $\lambda$-funkcií ktoré transformujú argumenty
 na výsledný typ je pri zložitejších dôkazoch ťažko čitateľný.
-    Pre lepšiu čitateľnosť poskytuje Lean-e nástroje ktoré sa snažia konštruovať dôkazy tak
+    Pre lepšiu čitateľnosť poskytuje Lean nástroje ktoré sa snažia konštruovať dôkazy tak
 aby boli čitateľné ako tie klasické.
-    Nasledujúci príklad:
 \begin{lstlisting}
 variables p d : Prop
 
 def plati_predpoklad : p → d → p := λ hp : p, λ hd : d, hp
 \end{lstlisting}
-    Je možné prepísať do čitateľnejšieho s rovnakým spôsobom konštrukcie na
+    Predchádzajúci príklad je možné prepísať do čitateľnejšej verzie
 \begin{lstlisting}
 def plati_predpoklad : p → d → p :=
   assume hp : p,
@@ -1002,20 +1000,20 @@ V doprednom dokazovaní sme sa snažili transformovať predpoklady tak aby na ko
     bol výsledkom dôsledok.
 Ako evokuje názov v spätnom dokazovaní sa snažíme transformovať cieľ tak aby sme
     sa dostali k jednému z predpokladov.
-Pre tento účel existuje v Lean-e špeciálny stav v dokazovaní ktorý nazývame taktický
+Pre tento účel existuje v Lean-e špeciálny spôsob dokazovania ktorý nazývame taktický
     mód.
 Na rozdiel od dopredného dokazovania je nutné ovládať väčšiu sadu príkazov ktoré
     priamo transformujú cieľ.
 Dokazovanie je tak užšie prepojené s interaktívnym prostredím a pripomína tak hru.
 Ďalšou výhodou tohto dokazovania je možnosť využitie umelej inteligencie pri vyhľadaní
-vyhľadavní dôkazu.
+dôkazu.
 Takýto prístup je obzvlášť užitočný napríklad v prípade že musíme dokázať identitu
-    ktorej dôkaz je pracný, a tvorí ho veľa za sebou nasledujúcich využití iných
+    ktorej dôkaz je prácny, a tvorí ho veľa za sebou nasledujúcich využití iných
     identít ako napríklad využitie komutativity alebo asociativity.
 Užšie prepojenie s prostredím a automatizácia vyhľadania dôkazu tohto módu ale
     ide na úkor priamej čitateľnosti.
 Pre úplnosť doplňame že v taktickom móde nie je nutné transformovať cieľ a je možné
-    využiť konštrukcie dopredného dôkazu.
+    využiť aj konštrukcie dopredného dôkazu.
 
 Pre dokazovanie v taktickom móde používame konštrukciue ktorá je ohraničená
     konštrukciou \emph{begin} a \emph{end}.
@@ -1061,29 +1059,189 @@ h_right: q
 Dôkaz potom uzatvoríme príkazom \emph{exact} ktorý ukáže na jeden z predpokladov
     s rovnakým typom ako cieľ.
 
-\subsubsection{Abstraktné štruktúry v Lean-e}
-    V matematike a tak isto aj v programovaní sa často vyskytujú množiny objetkov
+\section{Abstraktné štruktúry v Lean-e}
+    V matematike a tak isto aj v programovaní sa často vyskytujú objetkov
 nad ktorými je možné vykonávať operácie bez ohľadu na ich obsah pri splnení
 určitých podmienok.
     V matematike hovoríme o štruktúrach ktoré majú striktnú definíciu v programovaní
 sa dá voľne hovoriť o triedach.
     Matematické štruktúry v Lean-e su navrhované práve pomocou mechanizmu tried.
-    Kde definícii triedy zodpovedá štruktúra obsahujúca z definíce vyplývajúce podmienky.
+    Kde definícii triedy zodpovedá štruktúra spĺňajúca z definíce vyplývajúce podmienky.
     Potom inštanciou triedy môže byť znova štruktúra ktorá je definovaná na užšej množine
 znova spĺňajúcej podmienky, príkladom je vzťah grupy a podgrupy alebo
 priestoru a podpriestoru.
     Alebo iná množina ktorá spĺňa okrem podmienok pôvodnej štruktúry ďalšie ktoré ju
 obohacujú.
-    Príkladom takého vzťahu môže byť monoid ktorý je množinou s asociatívnou operáciou
-a semigrupou ktorá má aj neutrálny prvok.
-    Medzi popisovanými štruktúrami a konkrétnym objektom stojí ešte jedna úroveň
-abstrakcie týkajúca sa množiny na ktorej je štruktúra definovaná, hovorím
-o lineárnych grupách ktoré su definované nad invertovateľnými maticami alebo 
-    3-dimenzionálnom vektorovom priestore.
-    Dobrou analógiou z programovania môže byť trieda reprezentujúca zoznam ktorej
-obsah tvoria objekty inej triedy.
-    V silne typovom jazyku ako C++ sa tento mechanizmus nazýva šablóna(template).
-    Analogickým mechanizmom v Lean-e sú závislostné typy.
+    Príkladom takého vzťahu môže byť pologrupa ktorý je množinou s asociatívnou operáciou
+a pologrupou ktorá má aj neutrálny prvok.
+
+\subsection{Induktívne štruktúry}
+
+    Induktívne štruktúry predstavujú notačne silný nástroj pre definíciu objektov
+ktorých prepojenia medzi prvkami sú prepojené jednoduchou asociáciou.
+    Jednoduchým príkladom je zoznam kde asociáciou medzi prvkami tvorí vzťah
+usporiadania.
+    Komplikovanejší klasický príklad tvoria stromové štruktúry tvoriace uzly
+s viacerými nasledovníkmi patriace jednému uzlu.
+    V matematike sa s indukciou stretávame pri definícii prirodzených čísel
+cez Peanove axiómy.
+    Dve z týchto axióm hovoria:
+\begin{itemize}
+    \item 0 je číslo
+    \item Ak $a$ je číslo potom nasledovník $a$ je tiež číslo.
+\end{itemize}
+    Prvé pravidlo hovorí o základnom prípade, v prípade zoznamu alebo stromu prázdny
+zoznam respektíve strom.
+    Implementácia prirodzených čísel pomocou indukčnej štruktúry by mohla vyzerať
+nasledovne:
+\begin{lstlisting}
+inductive prirodzene : Type
+  | nula        : prirodzene
+  | nasledovnik : prirodzene → prirodzene
+\end{lstlisting}
+    Za kľúčovým slovom inductive nasleduje názov a sada konštruktorov s návratovými
+typmi.
+    Už z názvu vyplýva súvislosť s dôkazom s matematickou indukciou kde platnosť
+nejakého tvrdenia $P(n)$ pre všetky prirodzené čísla sa dokazuje pre
+\begin{itemize}
+    \item $P(0)$, t.j. základný prípad
+    \item $\forall n \in \mathbb{N}, P(n) \implies P(n+1)$, indukčný krok
+\end{itemize}
+    Pre tento typ dôkazu existuje v Leane v taktickom móde príkaz \emph{induction}.
+\begin{lstlisting}
+example : 5 * n = 4 * n + n :=
+    begin
+      induction n with d hd,
+      ...
+    end
+\end{lstlisting}
+    Po príkaze induction sa informačnom nachádzaju dva ciele pre obe konštruktory
+prirodzených čísel \emph{nat.zero} a \emph{nat.succ} podobne ako v našej uvedenej
+štruktúre a základnemu prípadu a tvrdeniam matematickej indukcie dokazujúcej platnosť
+$P$.
+\begin{lstlisting}
+case nat.zero
+⊢ 5 * 0 = 4 * 0 + 0
+
+case nat.succ
+d: ℕ
+hd: 5 * d = 4 * d + d
+⊢ 5 * d.succ = 4 * d.succ + d.succ
+\end{lstlisting}
+
+    V príklade ktorý sme uviedli sú znamienká $+$ a $*$ ktoré používame
+v operáciach nad typom našej induktívnej štruktúry.
+    Výsledkom oboch binárnych operácii je znova prirodzené číslo.
+    Podľa predpokladov typ ktorý prislúcha ich definícii je
+$prirodzene \to prirodzene \to prirodzene$.
+    Jednou z výhod indkučne definovaných štruktúr je jednoduchosť definovania
+rekurzívnych funkcií ktoré operujú nad týmito štruktúrami.
+\begin{lstlisting}
+variables (a b: prirodzene)
+
+open prirodzene
+
+def sucet : prirodzene → prirodzene → prirodzene
+  | a    nula         := a
+  | a (nasledovnik b) := nasledovnik (sucet a b)
+\end{lstlisting}
+    V tomto prípade znamená notácia $|$ prípad v ktorom sa snažíme nájsť zhodu
+s poskytnutým arugmentom a návratový typ.
+    V treťom prípade ide o rekurzívne pravidlo ktoré z argumentu $b$ vytvorí jedo
+predchodcu.
+    Celé pravidlo potom vráti nasledovníka zo súčtu prvého argumentu a predchodcu
+druhého.
+    Rekurzia tak prenáša vlastnosť nasledovania z prvého na druhý argument až
+sa argumenty nezhodujú s prvým pravidlom a teda argument už nemá predchodcu.
+    Pre úplnosť dodávame aj technický detail definovania znamienka $+$ ako volania
+funkcie súčtu:
+\begin{lstlisting}
+local infix ` + ` := sucet
+\end{lstlisting}
+
+\subsection{Jednoduché štruktúry}
+    V prípade že by jeden z konštruktorov neobsahoval typ ktorý poskytuje funkciu
+medzi typmi samotnej štruktúry, ide o obyčajnú štruktúru.
+    Ich využitie je najmä pri definovaní tých matematických a v lean-e majú
+špeciálnu syntax.
+    V príklade uvádzame ekvivalentné spôsoby definovania štruktúr.
+\begin{lstlisting}
+structure vector :=
+  mk :: (x y: ℕ)
+
+structure vector₂ :=
+  (x : ℤ)
+  (y : ℤ)
+\end{lstlisting}
+    Vytváranie objektov danej štruktúry má explicitné priradzovanie prvkom
+podľa názvov v prípade jednoduchých štruktúr je vhodnejšie priradzovanie na
+základe poriadia z definície šturktúry.
+\begin{lstlisting}
+def v₂ : vector₂ :=
+  {
+    x := 10,
+    y := 20,
+  }
+
+#check (⟨10, 20⟩ : vector)
+\end{lstlisting}
+    K jednotlivým prvkom štruktúry pristupujeme cez bodku:
+\begin{lstlisting}
+#eval v.x
+\end{lstlisting}
+    tak vracia hodnotu 10.
+    Pre modelovanie hierarchie kde jedna štrutúra rozširuje druhú používame
+kľúčové slovo \emph{extends}.
+    Rozšírenie našej štruktúry o ďalšiu dimenziu vyzerá nasledovne:
+\begin{lstlisting}
+structure vector₃ extends vector₂ :=
+  (z : ℤ)
+
+def ∨₃₁ : vector₃ :=
+  { x := 1, y := 2, z := 3}
+\end{lstlisting}
+    V prípade že chceme vytvoriť objekt z rošírenej štruktúry a máme k dispozícii
+jeho podkladový je častov využívaná notácia.
+\begin{lstlisting}
+def ∨₃₂ : vector₃ :=
+{
+    z := 10, ..v₂
+}
+\end{lstlisting}
+
+Tu ešte vysvetlím závistlostné typy.
+
+\subsection{Typové triedy}
+    Typové triedy poskytujú mechanizmus pomocou ktorého zlučujeme rozdielnym štruktúram
+s rovnakou vlastnosťou do tried.
+    Príkladom môžu byť mať vlastnosť usporiadania, štruktúra má reprezentanta alebo
+je grupou.
+    Po zadefinovaní triedy potom štruktúru priradíme do tried inštancovaním.
+    Inštancovanie pre štruktúry potom býva odlišné v závislosti definície štruktúry.
+    Vykonávanie dôkazov nad typovou triedou potom umožňuje zredukovať množstvo definícii.
+    Nad našimi definíciami vektorov môžeme definovať dĺžku.
+\begin{lstlisting}
+class length (α : Type u) :=
+  (length : α → ℝ)
+\end{lstlisting}
+    Potom k definíciam štruktúr pridáme inštancie.
+\begin{lstlisting}
+instance vector₂_length : length vector₂ :=
+ { length := λ (v : vector₂), sqrt(v.x * v.x + v.y * v.y) }
+
+instance vecotr₃_length : length vector₃ :=
+ { length := λ (v : vector₃), sqrt(v.x * v.x + v.y * v.y + v.z * v.z) }
+\end{lstlisting}
+    Triedu potom využívame v definíciach uvedením do hranatých zátvoriek aj s
+argumentom.
+\begin{lstlisting}
+def meno_definicie (argument : Type) [ dlzka argument ] : Type :=
+begin
+    ...
+end
+\end{lstlisting}
+
+Kód som ešte neskontroloval pretože mi hapruje Lean.
 
 \chapter{Teória usporiadania}
     V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
@@ -1414,7 +1572,7 @@ Po dokázaní druhého cieľa sme dokázali celú vetu. $\square$
 Slovicka na ktore nepoznam preklad a ne
 \begin{itemize}
     \item kalkul alebob kalkulus
-    \item namespace - nič lepšie ma nenapadá ako menný priestor
+    \item namespace - priestor mien
     \item universe - univerzum
 \end{itemize}
 
