@@ -64,8 +64,8 @@
 
 \chapter{Lean dokazovací asistent}
     Lean je dokazovací asistent ktorý bol vytvorený otvorený softvérový projekt
-Leonardom de Mourom v Microsoft Research v roku 2013.
-    Jazyk sa neustále vyvíja a momentálne sa nachádza vo štvrtej iterácii \cite{lean4} zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej verzii\cite{lean3} vyvíjanej od roku 2017.
+Leonardom de Mourom v Microsoft Reasearch v roku 2013.
+    Jazyk sa neustále vyvýja a momentálne sa nachádza vo štvrtej iterácii \cite{lean4} zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej verzii\cite{lean3} vyvýjanej od roku 2017.
     Implementácia Lean-u je v jazyku C++ a jeho jadro má len 8000 riadkov.
     Prostredie je dostupné pre operačné systémy Linux, Windows a Darwin.
     Interaktívne prostredie pre dokazovanie je podporované pre editory \emph{Emacs} a \emph{Visual Studio Code}.
@@ -105,7 +105,7 @@ order/
 set_theory/
 topology/
 \end{lstlisting}
-    V kontraste s inými modernými dokazovacími asistentmi má mathlib množstvo
+    V kontraste s inými modernými dokazovacími asistentami má mathlib množstvo
 prispievateľov akademické vzdelanie v čistej matematike\cite{mathlib_paper} čo
 ovplyvnilo aj jeho obsah.
 
@@ -127,15 +127,15 @@ typmi a v prípade dôkazu aj formulu ktorú je potrebné dokázať za znakom $\
     Okrem toho poskytuje okno aj výstup zo zabudovaných príkazov prostredia
 ako \emph{print} alebo \emph{reduce} ktoré rozoberieme neskôr.
     V prípade že sa nachádzame v taktickom móde okrem zavedenia nových predpokladov
-alebo transformácie existujúcich je možné vidieť aj zmenu cieľa a podcieľov
+alebo transormácie existujúcich je možné vidieť aj zmenu cieľa a podcieľov
 napríklad v prípade že sme sa dostali k dôkazu vymenovaním prípadov.
 \section{Lambda kalkulus}
-Pred predstavením techník dokazovania je nutné sa oboznámiť s prvkami funkcionálneho
+Pred predstavením techník dokazovania je nutné sa oboznámiť s prvkami funkcionionálneho
     programovania v Leane.
 Výpočtový model jednoduchého $\lambda$-kalkulu je z programovacích paradigiem najbližšie
 práve funkcionálnemu spôsobu programovania.
 V nasledujúcej časti predstavujeme základy funkcionálneho programovania spolu
-    s typmi a nástrojmi Lean-u na vývoj a manažment priestor mien.
+    s typmi a nástrojmi Lean-u na vývoj a menežment priestor mien.
 \subsection{Konštanty, aplikácie}
     Deklarácia konštanty zavádza do systému novú deklaráciu bez definície.
     Z tohto dôvodu sa ich pri rozvoji teórie snažíme vyhýbať.
@@ -158,7 +158,7 @@ v informačnom okne:
 m : ℕ
 \end{lstlisting}
     Pre zadefinovanie viacerých konštánt jedným príkazom a nie len v tomto prípade
-existuje plurálna verzia príkazu \emph{constants}.
+existuje plurárna verzia príkazu \emph{constants}.
 
     Definícia konštanty typu funkcie medzi prirodzenými číslami vyzerá nasledovne:
 \begin{lstlisting}
@@ -205,7 +205,7 @@ Nasledujúce príklady ilustrujú okrem funkcie $+$ aj implicitnú konverziu med
 \end{lstlisting}
     V prípade prvého príkladu dostávame typ $\mathbb{N}$ pre nespracovaný výraz pre
 ktorý by sme mohli očakávať výsledok $3$.
-    Pre druhý a tretí výraz dostávame respektívne typy definovaných konštantných
+    Pre druhý a tretí výraz dostávame respektívne typy definovaných konštántých
 premenných.
     Pri treťom výraze je vhodné si uvedomiť už implicitnú konverziu prirodzeného
 čísla na celé.
@@ -226,7 +226,7 @@ výraz je tak možné prepísať aj do tvaru:
 \subsection{Abstrakcia}
     V predchádzajúcej sekcii sme si ukázali explicitný typ ktorý bol funkciou prirodzenými
 číslami ktorý bol typu $\mathbb{N} \to \mathbb{N}$ alebo $\mathbb{N} \to \mathbb{N} \to \mathbb{N}$.
-    V $\lambda$-kalkule zodpovedajú funkcie abstrakciám. V Lean-e definujeme
+    V $\lambda$-kalklule zodpovedajú funkcie abstrakciám. V Lean-e definujeme
 anonymnú funkciu alebo $\lambda$-výraz nasledovne.
 \begin{lstlisting}
 #check λ x, x + x
@@ -249,7 +249,7 @@ has type
 but is expected to have type
   ℕ
 \end{lstlisting}
-    Uvedieme si zopár príkladov výpočtovo ekvivalentných funkcii obvodu obdĺžnika typu
+    Uvedieme si zopár príkladov vypočtovo ekvivalentných funkcii obvodu obdĺžnika typu
 $\mathbb{N} \to \mathbb{N} \to \mathbb{N}$
 .
 \begin{lstlisting}
@@ -261,7 +261,7 @@ $\mathbb{N} \to \mathbb{N} \to \mathbb{N}$
     Zatiaľ čo prvý príklad je polymorfný a fungoval by aj pri aplikácii celých čísel,
 nasledujúce sú ekvivalentné z pohľadu typov a predstavujú iný spôsob zápisu.
 
-    V prípade že by sme chceli získať hodnotu z výrazu použijeme príkaz \emph{\#eval},
+    V prípade že by sme chceli získať hodnotu z výrazu použíjeme príkaz \emph{\#eval},
 alebo \emph{\#reduce}. \emph{Reduce} na rozdiel od \emph{eval} pri vykonávaní používa
 jadro na získanie typu a je tak menej efektívnym.
 \begin{lstlisting}
@@ -292,7 +292,7 @@ kde meno by pôsobilo nadbytočne používame slovo \emph{example}.
     Doteraz sme uvažovali len s typmi množiny prirodzených a celých čísel
 predstavujúce na pozadí Leanu konkrétne definovanú štruktúru.
     Typovanie v Lean-e ale podporuje zavedenie nového abstraktného typu ktorý patrí univerzu(universe).
-    Zavedenie týchto univerz je motivované problémom analogickým s Russelovým paradoxom 
+    Zavedenie týchto univerz je motivané problémom analogickým s Russelovým paradoxom 
 a teda či množina všetkých množín obsahuje samú seba.
     V teórii typov sa jedná o Girardov paradox.
     Hierarchia týchto univerz je usporiadaná od 0 čo je univerzum tvoriace najjednoduchšie
@@ -301,14 +301,14 @@ je typom \emph{Type 2}.
 
     Špeciálne postavenie v typoch majú tvrdenia označujeme \emph{Prop} ktorého
 typom sú všetky dôkazy.
-    Sú postavené v hierarchii oddelené na najnižšej úrovni a teda \emph{Prop} je 
+    Sú postavené v hierachii oddelené na najnižšej úrovni a teda \emph{Prop} je 
 typu \emph{Type}.
     Univerzum do ktorého patrí \emph{Prop} označujeme \emph{Sort} čo je len 
 alias.
 Platí vzťah \emph{Sort u + 1} = \emph{Type u}.
 
-V tejto práci a ani vo väčšine práce s Leanom nie je potrebné využívať hierarchiu
-    typov sofistikovanejšie ako prezentovaným spôsobom.
+V tejto práci a ani vo väčšine práce s Leanom nie je potrebné využívať hierachiu
+    typov sofistikovanejsie ako prezentovaným spôsobom.
 \begin{lstlisting}
 universe u v
 
@@ -325,7 +325,7 @@ constant g : Type
     Kontrola typu aplikácie nám vypíše typ \emph{Type u\_1} čo je spôsob Lean-u označovať
 ešte neurčený typ bez konkrétneho univerza.
 \subsection{Premenné}
-    V prípade že sa snažíme definovať viacero funkcií s rovnakými argumentami alebo
+    V prípade že sa snažíme definovať viacero funkcií s rovnakými arugmentami alebo
 používať objekt ktorého typ je vyjadrený komplikovanejším zápisom je vhodné si
 zápis zjednodušiť premennými.
     Z inak na pohľad komplikovaného zápisu
@@ -343,7 +343,7 @@ def kompozicia₂ (α : Type u) (β : Type v) (f : α → β) (g : β → α) (x
     f (g x)
 \end{lstlisting}
     tak dostávame.
-    Premenné vstupujú do predpokladov definícii len tam kde sú použité v jej tele.
+    Premenné vstupuju do predpokladov definícii len tam kde sú použíté v jej tele.
 \begin{lstlisting}
 universes u v
 
@@ -371,8 +371,8 @@ z ktorých si popíšeme len tie najdôležitejšie.
     Najjednoduchším je súbor, ktorého definície, konštanty a premenné vstupujú do
 kontextu pri deklarácii a na konci súboru zaniknú.
     Import obsahu iných súborov sa robí jednoduchým príkazom \emph{import} ktorý
-musí byť deklarovaný na začiatku súboru. V súborovej hierarchii sa potom od najvyššej
-úrovne v jednej z vyhľadávaných ciest vnárame cez bodku.
+musí byť deklarovaný na začiatku súboru. V súborovej hierachii sa potom od najvyššej
+úrovne v jednej z vyhľadávaných ciest vnorujeme cez bodku.
 \begin{lstlisting}
 import order.lattice
 \end{lstlisting}
@@ -380,9 +380,9 @@ import order.lattice
     V aktuálnej verzii Lean-u v čase písania práce sa dá zistiť zoznam prehľadávaných
 ciest prepínačom \emph{path} priamo programu \emph{lean}.
 
-    Deklarácie premenných definované v argumentoch definície prepisujú vonkajší kontext.
+    Deklarácie premenných definované v argumetnoch definície prepisujú vonkajší kontext.
     V prípade žeby sme chceli rozdeliť kontext súboru na menšie sekcie jednoduchým
-nástrojom je dvojica \emph{section nazov\_sekcie}, \emph{end nazov\_sekcie}.
+nastrojom je dvojica \emph{section nazov\_sekcie}, \emph{end nazov\_sekcie}.
 \begin{lstlisting}
 section prirodzene_cisla
   variable α : ℕ
@@ -447,25 +447,25 @@ hp: p
 hq: q
 ⊢ p
 \end{lstlisting}
-    Funkcie sú asociatívne sprava a tvrdenie je možné ozátvorkovať sprava
+    Funkcie sú asosiatívne zprava a tvrdenie je možné uzátvorkovať zprava
 $p \to ( d \to p )$. Tvrdenie hovorí "ak platí $p$, potom z $d$ vyplýva $p$".
 \begin{itemize}
     \item Predpokladajme hp,
     \item a predpokladajme hd,
     \item potom vieme ukázať že platí p z predpokladu hp.
 \end{itemize}
-    O čosi zložitejším príkladom je tvrdenie že ak platí $p$ konjunkcia $q$ tak potom
-platí $q$ konjunkcia $p$.
+    O čosi zložitejším príkladom je tvrdenie že ak platí $p$ konjukcia $q$ tak potom
+platí $q$ konjukcia $p$.
 \begin{lstlisting}
-def symetria_konjunkcie : p ∧ q → q ∧ p :=
+def symetria_konjukcie : p ∧ q → q ∧ p :=
   assume hpq : p ∧ q,
     have hp   : p     := and.left  hpq,
     have hq   : q     := and.right hpq,
     have hqp  : q ∧ p := and.intro hq hp,
   show q ∧ p, from hqp
 \end{lstlisting}
-    Konjunkciu v editore je možné napísať cez \emph{\textbackslash and}.
-    Ak sa pozrieme na typ konjunkcie a funkcií ktoré sme dostali cez príkaz check.
+    Konjukciu v editore je možné napísať cez \emph{\textbackslash and}.
+    Ak sa pozrieme na typ konjukcie a funkcií ktoré sme dostali cez príkaz check.
     Dostaneme výstup:
 \begin{lstlisting}
 and : Prop → Prop → Prop
@@ -473,7 +473,7 @@ and.left : ?M_1 ∧ ?M_2 → ?M_1
 and.right : ?M_1 ∧ ?M_2 → ?M_2
 and.intro : ?M_1 → ?M_2 → ?M_1 ∧ ?M_2
 \end{lstlisting}
-    Toto intuitívne korešponduje s tým čo od týchto funkcií očakávame.
+    Toto intuitívne korenšponduje s tým čo od týchto funkcií očakávame.
     Tento dôkaz je rozšírení o príkaz have ktorý vytvára predpoklad z existujúcich.
     V poslednej fáze dôkazu je interaktívny výstup:
 \begin{lstlisting}
@@ -503,14 +503,14 @@ ktorej dôkaz je prácny, a tvorí ho veľa za sebou nasledujúcich využití in
 identít ako napríklad využitie komutativity alebo asociativity.
     Užšie prepojenie s prostredím a automatizácia vyhľadania dôkazu tohto módu ale
 ide na úkor priamej čitateľnosti.
-    Pre úplnosť dopĺňame že v taktickom móde nie je nutné transformovať cieľ a je možné
+    Pre úplnosť doplňame že v taktickom móde nie je nutné transformovať cieľ a je možné
 využiť aj konštrukcie dopredného dôkazu.
 
     Pre dokazovanie v taktickom móde používame konštrukciu ktorá je ohraničená
 kľúčovými slovami \emph{begin} a \emph{end}.
 
 \begin{lstlisting}
-def symetria_konjunkcie : p ∧ q → q ∧ p :=
+def symetria_konjukcie : p ∧ q → q ∧ p :=
   begin
     intro h,
     cases h with p q,
@@ -521,8 +521,8 @@ def symetria_konjunkcie : p ∧ q → q ∧ p :=
 \end{lstlisting}
 
 Dôkaz začína zavedením predpokladu z implikácie k ostatným o ktorých tvrdíme že
-    sú pravdivé príkazom \emph{intro} a rozdelením konjunkcie príkazom \emph{cases}
-    s argumentom zavedenej konjunkcie a ich explicitným pomenovaním.
+    sú pravdivé príkazom \emph{intro} a rozdelením konjukcie príkazom \emph{cases}
+    s argumentom zavedenej konjukcie a ich explicitným pomenovaním.
 Výstup z informačnom okne potom obsahuje.
 
 \begin{lstlisting}
@@ -551,17 +551,17 @@ Dôkaz potom uzatvoríme príkazom \emph{exact} ktorý ukáže na jeden z predpo
     s rovnakým typom ako cieľ.
 
 \section{Abstraktné štruktúry v Lean-e}
-    V matematike a tak isto aj v programovaní sa často vyskytujú objekty
+    V matematike a tak isto aj v programovaní sa často vyskytujú objetky
 nad ktorými je možné vykonávať operácie bez ohľadu na ich obsah pri splnení
 určitých podmienok.
     V matematike hovoríme o štruktúrach, ktoré majú striktnú definíciu v programovaní
 sa dá voľne hovoriť o triedach.
-    Matematické štruktúry v Lean-e sú navrhované práve pomocou mechanizmu tried,
-pričom definícii triedy zodpovedá štruktúra spĺňajúca z definície vyplývajúce podmienky.
+    Matematické štruktúry v Lean-e su navrhované práve pomocou mechanizmu tried,
+pričom definícii triedy zodpovedá štruktúra spĺňajúca z definíce vyplývajúce podmienky.
     Potom inštanciou triedy môže byť znova štruktúra ktorá je definovaná na užšej množine
 znova spĺňajúcej podmienky, príkladom je vzťah grupy a podgrupy alebo
 priestoru a podpriestoru.
-    Druh hierarchie potom tvorí možnosť rozširovania tried pri ktorých spĺňa okrem
+    Druh hierachie potom tvorí možnosť rozširovania tried pri ktorých spĺňa okrem
 podmienok pôvodnej štruktúry aj ďalšie ktoré ju obohacujú.
     Príkladom využitia môže byť pologrupa ktorý je množinou s asociatívnou operáciou
 a monoidom, čo je pologrupou s jednotkou.
@@ -605,9 +605,9 @@ example : 5 * n = 4 * n + n :=
       ...
     end
 \end{lstlisting}
-    Po príkaze induction sa informačnom nachádzajú dva ciele pre obe konštruktory
+    Po príkaze induction sa informačnom nachádzaju dva ciele pre obe konštruktory
 prirodzených čísel \emph{nat.zero} a \emph{nat.succ} podobne ako v našej uvedenej
-štruktúre a základnému prípadu a tvrdeniam matematickej indukcie dokazujúcej platnosť
+štruktúre a základnemu prípadu a tvrdeniam matematickej indukcie dokazujúcej platnosť
 $P$.
 \begin{lstlisting}
 case nat.zero
@@ -624,7 +624,7 @@ v operáciach nad typom našej induktívnej štruktúry.
     Výsledkom oboch binárnych operácii je znova prirodzené číslo.
     Podľa predpokladov typ ktorý prislúcha ich definícii je
 $prirodzene \to prirodzene \to prirodzene$.
-    Jednou z výhod indukčne definovaných štruktúr je jednoduchosť definovania
+    Jednou z výhod indkučne definovaných štruktúr je jednoduchosť definovania
 rekurzívnych funkcií ktoré operujú nad týmito štruktúrami.
 \begin{lstlisting}
 variables (a b: prirodzene)
@@ -636,8 +636,8 @@ def sucet : prirodzene → prirodzene → prirodzene
   | a (nasledovnik b) := nasledovnik (sucet a b)
 \end{lstlisting}
     V tomto prípade znamená notácia $|$ prípad v ktorom sa snažíme nájsť zhodu
-s poskytnutým argumentom a návratový typ.
-    V treťom prípade ide o rekurzívne pravidlo ktoré z argumentu $b$ vytvorí jeho
+s poskytnutým arugmentom a návratový typ.
+    V treťom prípade ide o rekurzívne pravidlo ktoré z argumentu $b$ vytvorí jedo
 predchodcu.
     Celé pravidlo potom vráti nasledovníka zo súčtu prvého argumentu a predchodcu
 druhého.
@@ -663,9 +663,9 @@ structure vector₂ :=
   (x : ℝ)
   (y : ℝ)
 \end{lstlisting}
-    Vytváranie objektov danej štruktúry má explicitné priraďovanie prvkom
-podľa názvov v prípade jednoduchých štruktúr je vhodnejšie priraďovanie na
-základe poriadia z definície štruktúry.
+    Vytváranie objektov danej štruktúry má explicitné priradzovanie prvkom
+podľa názvov v prípade jednoduchých štruktúr je vhodnejšie priradzovanie na
+základe poriadia z definície šturktúry.
 \begin{lstlisting}
 def v₂ : vector₂ :=
   {
@@ -680,7 +680,7 @@ def v₂ : vector₂ :=
 #eval v.x
 \end{lstlisting}
     tak vracia hodnotu 10.5.
-    Pre modelovanie hierarchie kde jedna štruktúra rozširuje druhú používame
+    Pre modelovanie hierarchie kde jedna štrutúra rozširuje druhú používame
 kľúčové slovo \emph{extends}.
     Rozšírenie našej štruktúry o ďalšiu dimenziu vyzerá nasledovne:
 \begin{lstlisting}
@@ -690,8 +690,8 @@ structure vector₃ extends vector₂ :=
 def ∨₃₁ : vector₃ :=
   { x := 1, y := 2, z := 3}
 \end{lstlisting}
-    V prípade že chceme vytvoriť objekt z rozšírenej štruktúry a máme k dispozícii
-jeho podkladový je často využívaná notácia.
+    V prípade že chceme vytvoriť objekt z rošírenej štruktúry a máme k dispozícii
+jeho podkladový je častov využívaná notácia.
 \begin{lstlisting}
 def ∨₃₂ : vector₃ :=
 {
@@ -725,7 +725,7 @@ variables { T : Type* } ( A : štruktúra₁ T ) ( B : štruktúra₂ T)
 \end{lstlisting}
     Takáto definícia premenných $A$ a $B$ zase zaručuje že množina na ktorých sú
 štruktúry definované je rovnakého typu.
-    V prípade že by sme výraz ozátvorkovali do obyčajných zátvoriek použili v
+    V prípade že by sme výraz uzátvorkovali do obyčajných zátvoriek použili v
 definícii:
 \begin{lstlisting}
 lemma ( T : Type* ) ( A : štruktúra₁ T ) ( B : štruktúra₂ T) : Type :=
@@ -733,7 +733,7 @@ begin
     ...
 end
 \end{lstlisting}
-    Musíme pri použití alebo zavolaní poskytnúť aj prvý argument.
+    Musíme pri použiti alebo zavolaní poskytnúť aj prvý argument.
     Z tohto dôvodu sa tejto konštrukcii hovorí aj implicitný argument.
 \begin{lstlisting}
 lemma { T : Type* } ( A : štruktúra₁ T ) ( B : štruktúra₂ T) : Type :=
@@ -741,7 +741,7 @@ begin
     ...
 end
 \end{lstlisting}
-Typy na ktorých sú definované argumenty závisia od implicitného.
+Typy na ktorých sú definované arumenty závisia od implictného.
 \subsection{Typové triedy}
     Typové triedy poskytujú mechanizmus pomocou ktorého zlučujeme rozdielnym štruktúram
 s rovnakou vlastnosťou do tried.
@@ -755,7 +755,7 @@ je grupou.
 class norm (α : Type u) :=
   (length : α → ℝ)
 \end{lstlisting}
-    Potom k definíciám štruktúr pridáme inštancie.
+    Potom k definíciam štruktúr pridáme inštancie.
 \begin{lstlisting}
 instance vector₂_norma : norma vector₂ :=
  { length := λ (v : vector₂), sqrt(v.x * v.x + v.y * v.y) }
@@ -763,7 +763,7 @@ instance vector₂_norma : norma vector₂ :=
 instance vecotr₃_norma : norma vector₃ :=
  { length := λ (v : vector₃), sqrt(v.x * v.x + v.y * v.y + v.z * v.z) }
 \end{lstlisting}
-    Triedu potom využívame v definíciách uvedením do hranatých zátvoriek aj s
+    Triedu potom využívame v definíciach uvedením do hranatých zátvoriek aj s
 argumentom.
 \begin{lstlisting}
 variables { T : Type* } ( a : štruktúra₁ T ) ( b : štruktúra₂  T ) [ norma T ]
@@ -778,13 +778,13 @@ usporiadania, ktoré následne možno aplikovať na abstraktnú množinu objekto
     % Toto by bolo dobré rozpracovať ďalej, možno konkrétny príklad
     Výsledný typ je potom odvodený na základe závislostných typov.
     Usporiadanie je jednoducho intuitívne uchopiteľná vlastnosť bez matematických
-predispozícii.
+preddispozícií.
     V každodennom živote porovnávame svoju výšku, čas, ktorý trval na vybehnutie do kopca
 alebo aj číselne neohodnotené, subjektívne merateľné objekty ako ktorý album
 od skupiny preferujem.
     Na otázky si potom vieme odpovedať "ja som vyšší", "zabehol si pomalšie" alebo
 tieto "albumy sú neporovnateľné".
-    Teória usporiadania sa snaží tieto vlastnosti formálne definovať a rozvíjať ďalej
+    Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
 otázkami ako,
 
 \subsection{Čiastočné usporiadanie}
@@ -793,7 +793,7 @@ otázkami ako,
     \item Existuje ohraničenie horné alebo dolné pre ľubovoľnú podmnožinu objektov?
     \item Ako vyzerá zobrazenie zachovávajúce usporiadanie?
 \end{itemize}
-    Pre stručnosť sa v rámci definícii obmedzíme len na definíciu relácie usporiadania,
+    Pre stručnosť sa v rámcii definícii obmedzíme len na definíciu relácie usporiadania,
 čiže podmnožinu karteziánskeho súčinu dvoch množín.
 \begin{theorem}
     Majme množinu $P$, potom usporiadanie alebo čiastočné usporiadanie na množine
@@ -801,7 +801,7 @@ otázkami ako,
     \begin{itemize}
         \item $x \leq x$ reflexivita
         \item $x \leq y$ a $y \leq x$ implikuje $x = y$ antisymetria
-        \item $x \leq y$ a $y \leq z$ implikuje $x \leq z$ tranzitivita
+        \item $x \leq y$ a $y \leq z$ impikuje $x \leq z$ tranzitivita
     \end{itemize}
 \end{theorem}
     Ideálnym nástrojom pre uvažovanie nad usporiadaním sú \emph{Hasseho} diagramy.
@@ -813,7 +813,7 @@ otázkami ako,
 \end{figure}
 
     Na obrázku je usporiadanie všetkých podmnožín trojprvkovej množiny $\{ a,b,c \}$.
-    Usporiadanie tvorí binárna relácia kardinality podmnožín pričom porovnávame
+    Usporiadanie tvorí binárna relácia kardinality podmnožínm pričom porovnávame
 len podmnožiny obsahujúce spoločný prvok.
     Vyššie sú položené väčšie prvky a porovnateľnými prvkami považujeme len tie,
 ktoré sú "pokryté" jednosmernou cestou cez orientované hrany grafu.
@@ -831,13 +831,13 @@ class preorder (α : Type u) extends has_le α, has_lt α :=
 (lt := λ a b, a ≤ b ∧ ¬ b ≤ a)
 (lt_iff_le_not_le : ∀ a b : α, a < b ↔ (a ≤ b ∧ ¬ b ≤ a) . order_laws_tac) -- toto chceme aj vysvetlit
 \end{lstlisting}
-Čiastočné usporiadanie je potom rozšírením predusporiadania o vlastnosť antisymetrie.
+Čiastočné usporiadanie je potom rozšírením predusporiadania o vlastnosť antysymetrie.
 \begin{lstlisting}
 class partial_order (α : Type u) extends preorder α :=
 (le_antisymm : ∀ a b : α, a ≤ b → b ≤ a → a = b)
 \end{lstlisting}
 
-DOPLŇ PRÍKLAD NAJLEPŠIE AK NAŠ USPORIADANÝ POSET Z PRÍKLADU
+DOPLN PRIKLAD NAJLEPSIE AK NAS USPORIADANY POSET Z PRIKLADU
 
 \subsection{Zväz}
     Zväz je usporiadaná množina, pre ktorú navyše platí, že pre každé 2 prvky $a, b$
@@ -846,7 +846,7 @@ najväčším dolným ohraničením(\emph{infimum}).
     V prípade intervalu reálnych čísel je toto ohraničenie jednoducho predstaviteľné
 ako bod ohraničujúce množinu na číselnej osi.
     Ak ide o čiastočné usporiadanie, názov je pre tieto ohraničenia prvkov
-motivovaný zobrazením na grafe.
+motivovaný zobrezním na grafe.
     \emph{Spojenie} $\sqcup, \vee$ pre supremum, respektíve \emph{priesek} $\sqcap, \wedge$ pre infimum.
     Popisnejším názvom pre zväz je preklad anglicky používaného názvu \emph{lattice}
 "mriežka" tak isto motivovaná zobrazením takého usporiadania na grafe.
@@ -894,7 +894,7 @@ class modular_lattice(α : Type u) extends lattice α :=
     V nasledujúcom úseku si ukážeme vetu o izomorfizme pre modulárne zväzy. a podrobne 
 si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
 
-TODO ZJEDNOTIŤ ZNAČENIE DEFINICIE A LEAN-u
+TODO ZJEDNOTIT ZNACENIE DEFINICIE A LEAN-u
 \begin{theorem} \emph{Veta o izomorfizme pre modulárne zväzy}
 Nech L je modulárnym zväzom a $a, b \in L$. Potom
     \begin{equation}
@@ -925,7 +925,7 @@ Majme $x \in [a, a \vee b]$. Potom
         \popQED
     \]
 
-    Horeuvedený dôkaz je znázornený na nasledujúcom grafe.
+    Horeuvdený dôkaz je znázornený na nasledujúcom grafe.
 
 \begin{figure}[!ht]
     \centering
@@ -982,7 +982,7 @@ h3: x ≥ u ⊓ v
 h4: x ≤ u ⊔ v
 ⊢ u ⊓ (v ⊔ x) = x ∧ u ⊓ x ⊔ v = x
 \end{lstlisting}
-    Cieľ potom pozostáva z konjunkcie, kde v druhej časti máme výraz implicitne
+    Cieľ potom pozostáva z konjukcie, kde v druhej časti máme výraz implicitne
 ozátvorkovaný zľava.
     Výraz rozdelíme do dvoch podcieľov príkazom \emph{split}, a pre lepšiu
 čitateľnosť ozátvorkujeme množinovými zátvorkami. Nachádzame sa v stave
@@ -996,7 +996,7 @@ ozátvorkovaný zľava.
     }
   end
 \end{lstlisting}
-v ktorom nám lean ukazuje prostredie, kde musíme dokázať ľavú časť konjunkcie.
+v ktorom nám lean ukazuje prostredie, kde musíme dokázať ľavú časť konjukcie.
 \begin{lstlisting}
 ⊢ u ⊓ (v ⊔ x) = x
 \end{lstlisting}
@@ -1019,7 +1019,7 @@ z kontextu \emph{semilattice\_sup}.
 % @ [simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=    / TODO NEZABUDNUT
 %  le_antisymm_iff.trans $ by simp [ le_refl ]             / ODKOMENTOVAT
 \end{lstlisting}
-    Zaujímavosťou je, že si Lean dokáže substituovať výraz $u \sqcap v$ za $a$ z uvedeného
+    Zaujímavosťou je, že si Lean dokáže substiuovať výraz $u \sqcap v$ za $a$ z uvedeného
 výrazu. Pri použití vety dostávame ekvivalenciu, ktorá je definovaná ako štruktúra.
 \begin{lstlisting}
 structure iff (a b : Prop) : Prop :=
@@ -1079,7 +1079,7 @@ structure sublattice ( L : Type* ) [ lattice L ] :=
     Pre definíciu podzväzu je nutné zaviesť priestor mien pre zväzy ktorý sa v knižnici
 \emph{mathlib} v súbore \emph{"src/order/lattice.lean"}.
     Z tohto priestoru používame typovú triedu zväzu.
-    V prípade že chceme vytvoriť typ \emph{sublattice} je nutné poskytnúť
+    V prípade že chceme vytvoriť typ \emph{sublattice} je nutné posktytnúť
 typ ktorý má inštancovanú typovú triedu zväzu.
     Prvky štruktúry potom tvorí \emph{carrier} v preklade nosič ktorého typ
 $set$ je $L \to Prop$ a prvky $inf\_mem$ a $sup\_mem$ zaručujúce uzavretosť
@@ -1125,7 +1125,7 @@ lemma coe_copy {B : sublattice L} {A : set L} (hs : A = SL) :
 lemma copy_eq {s : set L} (hs : s = SL) : SL.copy s hs = SL :=
   set_like.coe_injective hs
 \end{lstlisting}
-    V prípade že by sme chceli pristúpiť k definícii typu infima alebo suprema
+    V prípade že by sme chceli pristúpiť k definícii typu infima alebo superma
 našej štruktúry boli zavedené definície ktoré vracajú ich typ.
 \begin{lstlisting}
 theorem inf_mem {a b : L} : a ∈ SL → b ∈ SL → a ⊓ b ∈ SL :=
@@ -1138,7 +1138,7 @@ theorem sup_mem {a b : L} : a ∈ SL → b ∈ SL → a ⊔ b ∈ SL :=
 \chapter{Curry-Howardov izomorfizmus}
 \section{Formalizovanie dôkazu}
 \section{Intuicionistická logika}
-    Konštruktivizmus je jeden z filozofických smerov ktorý hovorí o tom že vedomosti
+    Konštruktivizmus je jeden z filozofických smerov ktorý hovorí o tom že vedmosti
 sú tvorené a mali by byť zahrnuté k doteraz poznanému.
     Tento filozofický smer mal vplyv aj na matematiku kde sa na jeho základe
 vytvorilo viacero "škôl" ako finitizmus, predikativizmus, intuicionizmus.
@@ -1156,11 +1156,11 @@ z klasickej logiky.
     V prípade dôkazu sporom nad výrokom $p$ je možné dokázať existenciu $p$,
 čo je z konštruktívneho pohľadu nezmysel pretože uvažujeme nad pravdivosťou
     výroku nezávisle od uvažovaného tvrdenia.
-Výrok v intuicionistickej logike je teda pravdivý ak existuje dôkaz o jeho pravdivosti
+Výrok v intuicionistickej logike je teda pravdivý ak existuje dôkaz o jeho pravidovsti
 a nepravdivý ak existuje dôkaz ktorý vedie k sporu.
     % a toto je zo sochora
     V logike definujeme dôkaz ako z nejakých predpokladov ako konečnú postupnosť
-formúl, pri ktorých tvorbe môžeme v každom kroku spraviť jeden z nasledujúcich
+formúl, pri ktorých tvorbe môžeme v každrom kroku spraviť jeden z nasledujúcich
 úkonov:
 \begin{itemize}
     \item Napísať postulát alebo axióm logiky
@@ -1181,16 +1181,16 @@ formuly predchádzajúcej v postupnosti.
     výrok.
 \end{theorem}
     Formulu ktorú tvorí len výroková premenná nazývame atomickou.
-    Už v úvode tohto textu sme hovorili o postuláte alebo axióme zákone vylúčenia
+    Už v úvode tohto textu sme hovorili o postuláte alebo axióme zákone výlučenia
 tretieho ktorý je formulou.
     Ďalšími príkladom formuly generovanej uvedenou gramatikou je:
 \begin{align*}
     \neg A \wedge B \wedge C &\implies A \vee B \\
 \end{align*}
-    V prípade že by sme chceli predchádzajúcu formulu ohodnotiť je precedencia
-negácie vyššia ako konjunkcie a disjunkcie a tie ju majú vyššiu ako implikácia.
+    V prípade že by sme chceli predchádzajúcu formulu ohodnotiť je precendencia
+negácie vyššia ako konjukcie a disjunkcie a tie ju majú vyššiu ako implikácia.
 V prípade formuly obsahujúcej viac za idúcich binárnych operátorov platí asociácia
-sprava.
+zprava.
     V prípade že chceme uviesť jeden z predpokladov do dôkazu vyberáme z množiny
 ktorú nazývame kontextom.
 \begin{theorem}
@@ -1205,7 +1205,7 @@ ktorú nazývame kontextom.
 \end{theorem}
     Výraz $\Gamma \vdash A$ čítame ako premennú $A$ je možné dokázať zo systému 
 predpokladov $\Gamma$.
-    Nad uvedenými predpokladmi a postulátmi potom pomocou dedukčných pravidiel prirodzenej
+    Nad uvedenými predpokladmi a postulátmi potom pomocou dekučných pravidiel prirodzenej
 intucionistickej logiky potom odvádzame nové formuly a rozširujeme tak teóriu.
     Zaužívanou notáciou pre dedukčné pravidlá je nasledovná:
     \begin{equation}
@@ -1216,11 +1216,11 @@ intucionistickej logiky potom odvádzame nové formuly a rozširujeme tak teóri
             \infer3[]{\Gamma \vdash A}
         \end{prooftree}
     \end{equation}
-    Hornú časť tvorí množinu dedukcií $\Gamma_{i}$ ktoré nazývame predpokladom a
+    Hornú časť tvorí množinu dedukcií $\Gamma_{i}$ ktoré nazývame prepokladom a
 dolnej $\Gamma$ ktorú nazývame záverom.
-    V prípade že čítame dedukčné pravidlo alebo dedukčný strom tvorený takýmito
+    V prípade že čítame dedkučné pravidlo alebo dedkučný strom tvorený takýmito
 pravidlami zhora nadol hovoríme o dedukcii v opačnom smere o indukcii.
-    Prirodzená intuicionistická logika obsahuje nasledujúce pravidlá:
+    Prirodzená intucionistická logika obsahuje nasledujúce pravidlá:
 \begin{center}
     \begin{prooftree}
         \infer0[(ax)]{\Gamma,A,\Gamma' \vdash A}
@@ -1304,14 +1304,14 @@ pravidlami zhora nadol hovoríme o dedukcii v opačnom smere o indukcii.
     \end{prooftree}
 \end{center}
     Záverom pravidiel s dolným indexom $E$ majú v závere výrokové premenné.
-    Pravidlá s dolným indexom $I$ uvádzajú neatomické formuly.
+    Pravidlá s dolným indexom $I$ úvadzajú neatomické formuly.
     Pravidlo $\implies_{E}$ je známe ako \emph{modus ponens}.
     Fragmentom logiky nazývame, systém ktorý dostaneme ak sa obmedzíme len na niektoré
-z dedukčných pravidiel.
+z dedkučných pravidiel.
     My uvedieme implikačný fragment ktorý je potom použitý v Curry-Howardovom
 izomorfizme.
 \begin{theorem}
-    Implikačným fragmentom intucionistickej logiky dostaneme v prípade ak formuly
+    Implikačným fragmentom intuionistickej logiky dostaneme v prípade ak formuly
         budú tvorené gramatikou
     \begin{equation}
         A,B ::= X | A \implies B
@@ -1320,14 +1320,14 @@ izomorfizme.
 \end{theorem}
     Aj keď tento fragment tvorí len jedna formula a výrokové premenné je možné
 pomocou nich odvodiť logicky ekvivalentné formuly tvorené gramatikou uvedenou na
-začiatku.
+ačiatku.
 
 % TODO spravit priklad
 % (𝐴∧𝐵)→((𝐴→𝐶)→¬(𝐵→¬𝐶))
 
 \section{$\lambda$-kalkulus}
     $\lambda$-kalkulus je výpočtový model ktorý sa v informatike využíva pre svoju
-jednoduchosť a výpočtovú schopnosť.
+jednoduchosť a vypočtovú schopnosť.
     Napriek tomu že formálne tento model tvoria len tri výrazy je jeho výpočtová
 schopnosť rovná \emph{Turingovmu stroju}.
     To znamená že v ňom dokážeme naprogramovať všetky algoritmy ktoré dokáže
@@ -1384,7 +1384,7 @@ abstrakcií s jednotlivými argumentami.
     %Kde vo výraze $t$ je premenovaná premenná $x$ za $y$.
 
     \begin{theorem}
-        O substitúcii hovoríme pri nahradení jednej premennej druhou.
+        O substutícii hovoríme pri nahradení jednej premenej druhou.
         \begin{equation}
             t [ y / x ]
         \end{equation}
@@ -1400,7 +1400,7 @@ abstrakcií s jednotlivými argumentami.
     Z doteraz uvedených výrazov nám výpočet čiastočne pripomínala len aplikácia na
 jednoduchý výraz.
     Ak za výraz dosadíme jednoduchú abstrakciu, aplikáciu tvorí nahradenie
-viazanej premennej vo výraze abstrakcie za aplikovanú premennú.
+viazanej premmenej vo výraze abstrakcie za aplikovanú premennú.
     Tento úkon nám zjednodušuje výraz na jednoduchú aplikáciu.
     Toto zjednodušovanie sa volá $\beta$-redukciou.
     Od komplikovanejších výrazov sa tak dostávame k jednoduchším predstavujúcimi
@@ -1438,7 +1438,7 @@ aplikácii.
 
 
 % TODO vymysliet iny strom, tento je prevzaty
-TU TREBA VYMYSLIEŤ INY STROM
+TU TREBA VYMYSLIET INY STROM
 \begin{equation}
     \begin{prooftree}
         \infer0[($\beta_{s}$)]{(\lambda y.y)x \to_{\beta} x}
@@ -1447,7 +1447,7 @@ TU TREBA VYMYSLIEŤ INY STROM
     \end{prooftree}
 \end{equation}
     Pre lepšiu predstavu uvádzame komplikovanejšie príklady ktorými je možné
-zakódovať prirodzené čísla a jednoduchú podmienku z programovania.
+zákodovať prirodzené čísla a jednoduchú podmienku z programovania.
 \begin{theorem}
     Definujme rekurziu volania funkcie nasledovne
     \begin{align*}
@@ -1478,7 +1478,7 @@ zakódovať prirodzené čísla a jednoduchú podmienku z programovania.
 \begin{equation*}
     f_{+} = \lambda x. \lambda y. \lambda s. \lambda z. x s (y s z)
 \end{equation*}
-    Pred vytvorením výrazu ktorý predstavuje podmienku si potrebujeme zakódovať
+    Pred vytvorením výrazu ktorý predstavuje podmienku si potrebujeme zákodovať
 booleovské hodnoty:
     \begin{align*}
         True &= \lambda x y . x \\
@@ -1489,7 +1489,7 @@ predstavujúci logickú podmienku.
 \begin{align*}
     if = \lambda b x y . b x y
 \end{align*}
-    Jednotlivé vetvy výpočtu potom predstavujú ďalšie dva výrazy aplikované na celý
+    Jednotlivé vetvy výpočtu potom predsatvujú ďalšie dva výrazy aplikované na celý
 výraz podmienky a výrazu.
     Po aplikácii výrazov $t,u$ cez $\beta$-redukcie dostávame na konci výraz $t$
 v prípade pravdivého vyhodnotenia a $u$ respektíve $t$ v prípade nepravdivého.
@@ -1507,7 +1507,7 @@ v prípade pravdivého vyhodnotenia a $u$ respektíve $t$ v prípade nepravdivé
 priradzujeme $\lambda$-výrazom.
     Výraz $t : T$ tak môžeme interpretovať spôsobom "$t$ patrí množine $T$" alebo
 z výpočtového "výsledkom výrazu $t$ je typ $T$". Z praktického hľadiska sa s typmi
-stretávame v staticky typových programovacích jazykoch kde nám zaručujú že typovo
+stretávame v statiscky typových programovacích jazykoch kde nám zaručujú že typovo
 správny výsledok.
 \begin{theorem}
     Majme spočítateľnú množinu $U$ obsahujúcu typové premenné. Jednoduché typy
@@ -1516,7 +1516,7 @@ správny výsledok.
         A,B ::= U | (A \to B)
     \end{equation*}
 \end{theorem}
-    Teda okrem jednoduchých typov sú typmi aj funkcie medzi nimi.
+    Teda okrem jednoduchných typov sú typmi aj funkcie medzi nimi.
 Precedencia zloženia funkcií typov je zľava $A \to ( A  \to B )$. Množinu
 tvoriacu premenné ktorým sú priradené typy nazývame kontextom.
 \begin{theorem}
@@ -1529,7 +1529,7 @@ tvoriacu premenné ktorým sú priradené typy nazývame kontextom.
     \begin{equation*}
         domain(\Gamma) = { x_{1}, \dots, x_{n} }
     \end{equation*}
-    Obor kontextu je množina obsahujúca
+    Oboor kontextu je množina obsahujúca
     \begin{equation*}
         range( \Gamma ) = { \tau \in \Pi  | (x : \tau ) \in \Gamma }
     \end{equation*}
@@ -1569,7 +1569,7 @@ Výraz $t$ je typu $A$ ak v kontexte $\Gamma$ existuje postupnosť pravidiel pos
     \item $\overset{I}{\rightarrow}$: ak je $x$ typu $A$, $t$ je typu B, potom
         funkcia $\lambda x.t$ ktorá asociuje $x$ $t$ je typu $A \to B$
     \item $\overset{E}{\rightarrow}$: daná je funkcia $t$ je typu $A \to B$
-        a argument $u$ je typu $A$, výsledok aplikácia $t u$ je typu $B$
+        a argument $u$ je typu $A$, vysledok aplikácia $t u$ je typu $B$
 \end{itemize}
 
 Príklad odvodenia typu.
@@ -1606,8 +1606,8 @@ ktorý je aj priamo podporovaný Lean-om.
 
 Nasledujúci odsek potrebujem preformulovať:
 
-    V sekcii o intuicionistickej logike sme zaviedli gramatiku implikačného fragmentu
-intucionistickej logiky s troma dedukčnými pravidlami $(\implies_{E})$,
+    V sekcii o intuicionistickej logike sme zaviedli gramatiku implikačného fragmetnu
+intucionistickej logiky s troma dedkučnými pravidlami $(\implies_{E})$,
     $(\implies_{I})$, $(ax)$.
     V teórii jednoduchých typov sme zase ukončili pravidlami ktoré odvádzajú
 typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$ a $(ax)$.
