@@ -556,7 +556,7 @@ ktorý je aj priamo podporovaný Lean-om.
 intucionistickej logiky s troma dedkučnými pravidlami $(\implies_{E})$,
     $(\implies_{I})$, $(ax)$.
     V teórii jednoduchých typov sme zase ukončili pravidlami ktoré odvádzajú
-typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$.
+typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$ a $(ax)$. Ak d
 
 
 
@@ -577,7 +577,7 @@ typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$
     Lean je dokazovací asistent ktorý bol vytvorený otvorený softvérový projekt
 Leonardom de Mourom v Microsoft Reasearch v roku 2013.
     Jazyk sa neustále vyvýja a momentálne sa nachádza vo štvrtej iterácii \cite{lean4} zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej verzii\cite{lean3} vyvýjanej od roku 2017.
-    Implementácia Lean-u je v jazyku C++ a jeho jadro má 8000 riadkov.
+    Implementácia Lean-u je v jazyku C++ a jeho jadro má len 8000 riadkov.
     Prostredie je dostupné pre operačné systémy Linux, Windows a Darwin.
     Interaktívne prostredie pre dokazovanie je podporované pre editory \emph{Emacs} a \emph{Visual Studio Code}.
 
@@ -623,8 +623,8 @@ ovplyvnilo aj jeho obsah.
 \section{Vývojové prostredie}
     V našom prípade sme pracovali vo vývojovom prostredí \emph{Visual studio code}
 v kombinácií s jeho leanovským rozšírením ktoré je možné nainštalovať cez
-\emph{marketplace} Prostredie sa skladá z editora podporujúce UTF-8 znaky a okno s
-interaktívny výstupom reagujúce na polohu kurzora editora a kurzora počítačovej
+\emph{marketplace} Prostredie sa skladá z editora podporujúceho UTF-8 znaky a okno s
+interaktívnym výstupom reagujúce na polohu kurzora editora a kurzora počítačovej
 myši.
 \begin{center}
     \begin{figure}[!ht]
@@ -676,7 +676,7 @@ existuje plurárna verzia príkazu \emph{constants}.
 constant f : ℕ → ℕ
 constant h : ℕ -> ℕ -> ℕ
 \end{lstlisting}
-    Aplikácia funkcie sa notačne podobá aplikácii v $\lambda$kalkule kde argument
+    Aplikácia funkcie sa notačne podobá aplikácii v $\lambda$-kalkuluse kde argument
 jednoducho pripíšeme za funkciu:
 \begin{lstlisting}
 #constants m n : ℕ
@@ -747,8 +747,6 @@ anonymnú funkciu alebo $\lambda$-výraz nasledovne.
     Ak by sme chceli obmedziť argument len na konkrétny typ robíme to podobne ako
 pri definovaní konštanty. Potom aplikácia
 \begin{lstlisting}
-#constant (m : ℤ)
-
 #check (λ (x : ℕ), x + x) (m : ℤ)
 \end{lstlisting}
 je už typovou chybou pri ktorej nám informačné okno hlási
@@ -812,8 +810,8 @@ a teda či množina všetkých množín obsahuje samú seba.
 typy takže \emph{Type} alebo aj \emph{Type 0} je potom typom \emph{Type 1} ktorý
 je typom \emph{Type 2}.
 
-    Špeciálne postavenie v typoch majú tvrdenia označujeme \emph{Prop}.
-    Okrem toho že všetky dôkazy majú tento typ. 
+    Špeciálne postavenie v typoch majú tvrdenia označujeme \emph{Prop} ktorého
+typom sú všetky dôkazy.
     Sú postavené v hierachii oddelené na najnižšej úrovni a teda \emph{Prop} je 
 typu \emph{Type}.
     Univerzum do ktorého patrí \emph{Prop} označujeme \emph{Sort} čo je len 
@@ -827,7 +825,7 @@ universe u v
 
 constant (a : Typu u) (b : Type v)
 \end{lstlisting}
-Alebo je možné využiť substitučnú syntax kde \emph{*} znamená pre ľubovoľné univerzum
+Druhou možnosťou je využiť substitučnú syntax kde \emph{*} znamená pre ľubovoľné univerzum
 a v prípade \emph{\_} necháme doplniť typ automaticky Lean-om.
 \begin{lstlisting}
 constant f : Type _ → Type _
@@ -960,19 +958,15 @@ hp: p
 hq: q
 ⊢ p
 \end{lstlisting}
-
-    Definícia hovorí o triviálnom tvrdení ak z $p$ vyplýva $d$ tak platí $p$. Voľným
-prekladom sa dá dôkaz čítať ako:
-
+    Funkcie sú asosiatívne zprava a tvrdenie je možné uzátvorkovať zprava
+$p \to ( d \to p )$. Tvrdenie hovorí "ak platí $p$, potom z $d$ vyplýva $p$".
 \begin{itemize}
     \item Predpokladajme hp,
     \item a predpokladajme hd,
     \item potom vieme ukázať že platí p z predpokladu hp.
 \end{itemize}
-
     O čosi zložitejším príkladom je tvrdenie že ak platí $p$ konjukcia $q$ tak potom
 platí $q$ konjukcia $p$.
-
 \begin{lstlisting}
 def symetria_konjukcie : p ∧ q → q ∧ p :=
   assume hpq : p ∧ q,
@@ -981,22 +975,18 @@ def symetria_konjukcie : p ∧ q → q ∧ p :=
     have hqp  : q ∧ p := and.intro hq hp,
   show q ∧ p, from hqp
 \end{lstlisting}
-
     Konjukciu v editore je možné napísať cez \emph{\textbackslash and}.
     Ak sa pozrieme na typ konjukcie a funkcií ktoré sme dostali cez príkaz check.
     Dostaneme výstup:
-
 \begin{lstlisting}
 and : Prop → Prop → Prop
 and.left : ?M_1 ∧ ?M_2 → ?M_1
 and.right : ?M_1 ∧ ?M_2 → ?M_2
 and.intro : ?M_1 → ?M_2 → ?M_1 ∧ ?M_2
 \end{lstlisting}
-
-    Čo intuitívne korenšponduje s tým čo od týchto funkcií očakávame.
+    Toto intuitívne korenšponduje s tým čo od týchto funkcií očakávame.
     Tento dôkaz je rozšírení o príkaz have ktorý vytvára predpoklad z existujúcich.
     V poslednej fáze dôkazu je interaktívny výstup:
-
 \begin{lstlisting}
 pq: Prop
 hpq: p ∧ q
@@ -1008,27 +998,27 @@ hqp: q ∧ p
 
 \subsection{Spätné dokazovanie}
 
-V doprednom dokazovaní sme sa snažili transformovať predpoklady tak aby na konci
-    bol výsledkom dôsledok.
-Ako evokuje názov v spätnom dokazovaní sa snažíme transformovať cieľ tak aby sme
-    sa dostali k jednému z predpokladov.
-Pre tento účel existuje v Lean-e špeciálny spôsob dokazovania ktorý nazývame taktický
-    mód.
-Na rozdiel od dopredného dokazovania je nutné ovládať väčšiu sadu príkazov ktoré
-    priamo transformujú cieľ.
-Dokazovanie je tak užšie prepojené s interaktívnym prostredím a pripomína tak hru.
-Ďalšou výhodou tohto dokazovania je možnosť využitie umelej inteligencie pri vyhľadaní
+    V doprednom dokazovaní sme sa snažili transformovať predpoklady tak aby na konci
+bol výsledkom dôsledok.
+    Ako evokuje názov v spätnom dokazovaní sa snažíme transformovať cieľ tak aby sme
+sa dostali k jednému z predpokladov.
+    Pre tento účel existuje v Lean-e špeciálny spôsob dokazovania ktorý nazývame taktický
+mód.
+    Na rozdiel od dopredného dokazovania je nutné ovládať väčšiu sadu príkazov ktoré
+priamo transformujú cieľ.
+    Dokazovanie je tak užšie prepojené s interaktívnym prostredím a pripomína tak hru.
+    Ďalšou výhodou tohto dokazovania je možnosť využitie umelej inteligencie pri vyhľadaní
 dôkazu.
-Takýto prístup je obzvlášť užitočný napríklad v prípade že musíme dokázať identitu
-    ktorej dôkaz je prácny, a tvorí ho veľa za sebou nasledujúcich využití iných
-    identít ako napríklad využitie komutativity alebo asociativity.
-Užšie prepojenie s prostredím a automatizácia vyhľadania dôkazu tohto módu ale
-    ide na úkor priamej čitateľnosti.
-Pre úplnosť doplňame že v taktickom móde nie je nutné transformovať cieľ a je možné
-    využiť aj konštrukcie dopredného dôkazu.
+    Takýto prístup je obzvlášť užitočný napríklad v prípade že musíme dokázať identitu
+ktorej dôkaz je prácny, a tvorí ho veľa za sebou nasledujúcich využití iných
+identít ako napríklad využitie komutativity alebo asociativity.
+    Užšie prepojenie s prostredím a automatizácia vyhľadania dôkazu tohto módu ale
+ide na úkor priamej čitateľnosti.
+    Pre úplnosť doplňame že v taktickom móde nie je nutné transformovať cieľ a je možné
+využiť aj konštrukcie dopredného dôkazu.
 
-Pre dokazovanie v taktickom móde používame konštrukciue ktorá je ohraničená
-    konštrukciou \emph{begin} a \emph{end}.
+    Pre dokazovanie v taktickom móde používame konštrukciu ktorá je ohraničená
+kľúčovými slovami \emph{begin} a \emph{end}.
 
 \begin{lstlisting}
 def symetria_konjukcie : p ∧ q → q ∧ p :=
@@ -1072,21 +1062,20 @@ Dôkaz potom uzatvoríme príkazom \emph{exact} ktorý ukáže na jeden z predpo
     s rovnakým typom ako cieľ.
 
 \section{Abstraktné štruktúry v Lean-e}
-    V matematike a tak isto aj v programovaní sa často vyskytujú objetkov
+    V matematike a tak isto aj v programovaní sa často vyskytujú objetky
 nad ktorými je možné vykonávať operácie bez ohľadu na ich obsah pri splnení
 určitých podmienok.
-    V matematike hovoríme o štruktúrach ktoré majú striktnú definíciu v programovaní
+    V matematike hovoríme o štruktúrach, ktoré majú striktnú definíciu v programovaní
 sa dá voľne hovoriť o triedach.
-    Matematické štruktúry v Lean-e su navrhované práve pomocou mechanizmu tried.
-    Kde definícii triedy zodpovedá štruktúra spĺňajúca z definíce vyplývajúce podmienky.
+    Matematické štruktúry v Lean-e su navrhované práve pomocou mechanizmu tried,
+pričom definícii triedy zodpovedá štruktúra spĺňajúca z definíce vyplývajúce podmienky.
     Potom inštanciou triedy môže byť znova štruktúra ktorá je definovaná na užšej množine
 znova spĺňajúcej podmienky, príkladom je vzťah grupy a podgrupy alebo
 priestoru a podpriestoru.
-    Alebo iná množina ktorá spĺňa okrem podmienok pôvodnej štruktúry ďalšie ktoré ju
-obohacujú.
-    Príkladom takého vzťahu môže byť pologrupa ktorý je množinou s asociatívnou operáciou
-a pologrupou ktorá má aj neutrálny prvok.
-
+    Druh hierachie potom tvorí možnosť rozširovania tried pri ktorých spĺňa okrem
+podmienok pôvodnej štruktúry aj ďalšie ktoré ju obohacujú.
+    Príkladom využitia môže byť pologrupa ktorý je množinou s asociatívnou operáciou
+a monoidom, čo je pologrupou s jednotkou.
 \subsection{Induktívne štruktúry}
 
     Induktívne štruktúry predstavujú notačne silný nástroj pre definíciu objektov
@@ -1141,7 +1130,7 @@ hd: 5 * d = 4 * d + d
 ⊢ 5 * d.succ = 4 * d.succ + d.succ
 \end{lstlisting}
 
-    V príklade ktorý sme uviedli sú znamienká $+$ a $*$ ktoré používame
+    V príklade ktorý sme uviedli sú znamienka $+$ a $*$ ktoré používame
 v operáciach nad typom našej induktívnej štruktúry.
     Výsledkom oboch binárnych operácii je znova prirodzené číslo.
     Podľa predpokladov typ ktorý prislúcha ich definícii je
@@ -1179,11 +1168,11 @@ medzi typmi samotnej štruktúry, ide o obyčajnú štruktúru.
     V príklade uvádzame ekvivalentné spôsoby definovania štruktúr.
 \begin{lstlisting}
 structure vector :=
-  mk :: (x y: ℕ)
+  mk :: (x y: ℝ)
 
 structure vector₂ :=
-  (x : ℤ)
-  (y : ℤ)
+  (x : ℝ)
+  (y : ℝ)
 \end{lstlisting}
     Vytváranie objektov danej štruktúry má explicitné priradzovanie prvkom
 podľa názvov v prípade jednoduchých štruktúr je vhodnejšie priradzovanie na
@@ -1191,17 +1180,17 @@ základe poriadia z definície šturktúry.
 \begin{lstlisting}
 def v₂ : vector₂ :=
   {
-    x := 10,
-    y := 20,
+    x := 10.5,
+    y := 13.7,
   }
 
-#check (⟨10, 20⟩ : vector)
+#check (⟨10.5, 13.7⟩ : vector)
 \end{lstlisting}
     K jednotlivým prvkom štruktúry pristupujeme cez bodku:
 \begin{lstlisting}
 #eval v.x
 \end{lstlisting}
-    tak vracia hodnotu 10.
+    tak vracia hodnotu 10.5.
     Pre modelovanie hierarchie kde jedna štrutúra rozširuje druhú používame
 kľúčové slovo \emph{extends}.
     Rozšírenie našej štruktúry o ďalšiu dimenziu vyzerá nasledovne:
@@ -1220,9 +1209,50 @@ def ∨₃₂ : vector₃ :=
     z := 10, ..v₂
 }
 \end{lstlisting}
+    Závislostné typy predstavujú mechanizmus parametrizácie štruktúr a definícii
+na základe poskytnutého typu.
+    V prípade nášho vektora by sme túto vlastnosť mohli využiť ak by sme chceli
+zúžiť množinu z ktorej pochádza náš vektora len na celé čísla.
+\begin{lstlisting}
+structure vector { α : Type u } :=
+  (x : α)
+  (y : α)
+  (z : α)
 
-Tu ešte vysvetlím závistlostné typy.
+def v₁ := (⟨10, 13, 3⟩ : vector)
+def v₂ := (⟨(-10 : ℤ), 13, 3⟩ : vector)
 
+#check v₁.z
+#check v₂.z
+\end{lstlisting}
+    Pri prvej kontrole sme dostali typ $\mathbb{N}$.
+    V druhom prípade je ale $z$-tová zložka vektora $v_{2}$ typu $\mathbb{Z}$.
+    Nedostatkom uvedeného príkladu je že množina $\mathbb{Z}$ obsahuje
+množinu $\mathbb{N}$.
+    Príkladom ktorý lepšie ilustruje možnosti využitia sú matematické štruktúry,
+ktoré sú definované na množinách ktoré môžu obsahovať objekty ľubovoľného typu.
+\begin{lstlisting}
+variables { T : Type* } ( A : štruktúra₁ T ) ( B : štruktúra₂ T)
+\end{lstlisting}
+    Takáto definícia premenných $A$ a $B$ zase zaručuje že množina na ktorých sú
+štruktúry definované je rovnakého typu.
+    V prípade že by sme výraz uzátvorkovali do obyčajných zátvoriek použili v
+definícii:
+\begin{lstlisting}
+lemma ( T : Type* ) ( A : štruktúra₁ T ) ( B : štruktúra₂ T) : Type :=
+begin
+    ...
+end
+\end{lstlisting}
+    Musíme pri použiti alebo zavolaní poskytnúť aj prvý argument.
+    Z tohto dôvodu sa tejto konštrukcii hovorí aj implicitný argument.
+\begin{lstlisting}
+lemma { T : Type* } ( A : štruktúra₁ T ) ( B : štruktúra₂ T) : Type :=
+begin
+    ...
+end
+\end{lstlisting}
+Typy na ktorých sú definované arumenty závisia od implictného.
 \subsection{Typové triedy}
     Typové triedy poskytujú mechanizmus pomocou ktorého zlučujeme rozdielnym štruktúram
 s rovnakou vlastnosťou do tried.
@@ -1233,31 +1263,27 @@ je grupou.
     Vykonávanie dôkazov nad typovou triedou potom umožňuje zredukovať množstvo definícii.
     Nad našimi definíciami vektorov môžeme definovať dĺžku.
 \begin{lstlisting}
-class length (α : Type u) :=
+class norm (α : Type u) :=
   (length : α → ℝ)
 \end{lstlisting}
     Potom k definíciam štruktúr pridáme inštancie.
 \begin{lstlisting}
-instance vector₂_length : length vector₂ :=
+instance vector₂_norma : norma vector₂ :=
  { length := λ (v : vector₂), sqrt(v.x * v.x + v.y * v.y) }
 
-instance vecotr₃_length : length vector₃ :=
+instance vecotr₃_norma : norma vector₃ :=
  { length := λ (v : vector₃), sqrt(v.x * v.x + v.y * v.y + v.z * v.z) }
 \end{lstlisting}
     Triedu potom využívame v definíciach uvedením do hranatých zátvoriek aj s
 argumentom.
 \begin{lstlisting}
-def meno_definicie (argument : Type) [ dlzka argument ] : Type :=
-begin
-    ...
-end
+variables { T : Type* } ( a : štruktúra₁ T ) ( b : štruktúra₂  T ) [ norma T ]
 \end{lstlisting}
-
-Kód v tejto sekcii som ešte neskontroloval pretože mi prestal fungovať lean.
-
+    Tento už komplikovanejší zápis hovorí o premenných $a$ a $b$ ktoré sú definované
+na rovnakom type ktorý má definovanú alebo je inštancovaný dĺžkou.
 \chapter{Teória usporiadania}
     V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
-definícii v mathlibe pre dokázanie viet týkajúcich sa teórie usporiadania.
+definícii v mathlibe pre dokázanie viet týkajúcich sa teórie čiastočného usporiadania.
     Pre tento účel je Lean ideálny z pohľadu našich možností definovania vlastností
 usporiadania, ktoré následne možno aplikovať na abstraktnú množinu objektov.
     % Toto by bolo dobré rozpracovať ďalej, možno konkrétny príklad
@@ -1268,27 +1294,29 @@ preddispozícií.
 alebo aj číselne neohodnotené, subjektívne merateľné objekty ako ktorý album
 od skupiny preferujem.
     Na otázky si potom vieme odpovedať "ja som vyšší", "zabehol si pomalšie" alebo
-tieto albumy sú neporovnateľné.
+tieto "albumy sú neporovnateľné".
+    Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
+otázkami ako,
 
-Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
-otázkami ako, aké je horné celej množiny objektov. Existuje ohraničenie horné alebo
-dolné pre ľubovoľnú podmnožinu objektov?
-    Pre stručnosť sa v rámcii definícii obmedzíme len na definíciu usporiadania
-ako relácie, čiže podmnožinu karteziánskeho súčinu dvoch množín.
-
+\subsection{Čiastočné usporiadanie}
+\begin{itemize}
+    \item Aké je horné celej množiny objektov?
+    \item Existuje ohraničenie horné alebo dolné pre ľubovoľnú podmnožinu objektov?
+    \item Ako vyzerá zobrazenie zachovávajúce usporiadanie?
+\end{itemize}
+    Pre stručnosť sa v rámcii definícii obmedzíme len na definíciu relácie usporiadania,
+čiže podmnožinu karteziánskeho súčinu dvoch množín.
 \begin{theorem}
     Majme množinu $P$, potom usporiadanie alebo čiastočné usporiadanie na množine
     $P$ je binárna relácia $\leq$ taká že, pre všetky $x,y,z \in P$
     \begin{itemize}
-        \item $x \leq x$ vlastnoť reflexivity
+        \item $x \leq x$ reflexivita
         \item $x \leq y$ a $y \leq x$ implikuje $x = y$ antisymetria
         \item $x \leq y$ a $y \leq z$ impikuje $x \leq z$ tranzitivita
     \end{itemize}
 \end{theorem}
-
     Ideálnym nástrojom pre uvažovanie nad usporiadaním sú \emph{Hasseho} diagramy.
     Ako príklad uvádzame diagram "kocky".
-
 \begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.15]{cube.png}
@@ -1322,7 +1350,7 @@ class partial_order (α : Type u) extends preorder α :=
 
 DOPLN PRIKLAD NAJLEPSIE AK NAS USPORIADANY POSET Z PRIKLADU
 
-\subsubsection{Zväz}
+\subsection{Zväz}
     Zväz je usporiadaná množina, pre ktorú navyše platí, že pre každé 2 prvky $a, b$
 vieme nájsť prvok $c$, ktorý je ich jedinečným najmenším horným, respektíve(\emph{supremum})
 najväčším dolným ohraničením(\emph{infinum}).
@@ -1381,7 +1409,7 @@ def poset_nat : sublattice ℕ :=
 }
 \end{lstlisting}
 
-\subsubsection{Modulárne zväzy}
+\subsection{Modulárne zväzy}
 
 V nasledujúcom úseku si ukážeme vetu týkajúcu sa špeciálneho typu zväzu s vlastnosťou
     modularity a ukážeme si formálny dôkaz a jej implementáciu v Leane, ktorú si
@@ -1400,42 +1428,40 @@ class modular_lattice(α : Type u) extends lattice α :=
   (modular_law: ∀ (x u v : α ), (x ≤ u) → u ⊓ (v ⊔ x) = (u ⊓ v) ⊔ x )
 \end{lstlisting}
 
-V nasledujúcom úseku si ukážeme vetu o modulárnom izomorfizme a podrobne
-    si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
+V nasledujúcom úseku si ukážeme vetu o izomorfizme pre modulárne zväzy. a podrobne si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
 
 TODO ZJEDNOTIT ZNACENIE DEFINICIE A LEAN-u
-\subsection{Modulárne zväzy}
-    \begin{theorem} \emph{Veta o izomorfizme modulárnych zväzov}
-    Nech L je modulárnym zväzom a $a, b \in L$. Potom
-        \begin{equation}
-            \varphi_{b}: x \mapsto x \wedge b, x \in [a, a \vee b],
-        \end{equation}
-    Je izomorfizmom medzi intervalmi $[a, a \vee b]$ a $[ a \wedge b, b]$.
-    Inverzným izomorfizmom je
-        \begin{equation}
-            \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
-        \end{equation}
-    \end{theorem}
-    \emph{Dôkaz}.  Stačí ukázať, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
-    Z duality vyplýva, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
-        $y \in [a \wedge b, b]$,
-    Majme $x \in [a, a \vee b]$. Potom
-        $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
-        potom aj modularita
-        \begin{equation}
-            \varphi_{a}\psi_{b}(x) =
-            ( x \wedge b ) \vee a =
-            x \wedge ( b \vee a) =
-            x
-        \end{equation}
-        pretože
-        \[
-            \pushQED{\qed}
-            x \leq a \vee b. \qedhere
-            \popQED
-        \]
+\begin{theorem} \emph{Veta o izomorfizme pre modulárne zväzy}
+Nech L je modulárnym zväzom a $a, b \in L$. Potom
+    \begin{equation}
+        \varphi_{b}: x \mapsto x \wedge b, x \in [a, a \vee b],
+    \end{equation}
+Je izomorfizmom medzi intervalmi $[a, a \vee b]$ a $[ a \wedge b, b]$.
+Inverzným izomorfizmom je
+    \begin{equation}
+        \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
+    \end{equation}
+\end{theorem}
+\emph{Dôkaz}.  Stačí ukázať, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
+Z duality vyplýva, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
+    $y \in [a \wedge b, b]$,
+Majme $x \in [a, a \vee b]$. Potom
+    $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
+    potom aj modularita
+    \begin{equation}
+        \varphi_{a}\psi_{b}(x) =
+        ( x \wedge b ) \vee a =
+        x \wedge ( b \vee a) =
+        x
+    \end{equation}
+    pretože
+    \[
+        \pushQED{\qed}
+        x \leq a \vee b. \qedhere
+        \popQED
+    \]
 
-    Predstavený dôkaz je znázornený na nasledujúcom grafe.
+    Horeuvdený dôkaz je znázornený na nasledujúcom grafe.
 
 \begin{figure}[!ht]
     \centering
@@ -1443,9 +1469,9 @@ TODO ZJEDNOTIT ZNACENIE DEFINICIE A LEAN-u
     \caption{Izomorfizmus modulárneho zväzu}
 \end{figure}
 
-    V prípade formálneho dôkazu sme sa mohli v časti dôkazu odkázať na dualitu. 
-    V prí návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán.
-
+    V prípade formálneho dôkazu sme sa mohli v časti dôkazu odkázať na dualitu.
+    Pri návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán. Predstavujeme
+hotový dôkaz vety:
 \begin{lstlisting}
 theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ]
 { u v w x y : α } :
@@ -1471,7 +1497,8 @@ theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ]
 12        }
   end
 \end{lstlisting}
-    Začíname v taktickom móde prázdnou konštrukciou \emph{begin} a \emph{end}
+    Začíname v taktickom móde ktorý je interaktívnou verziou dokazovania v Leane.
+    Po zadaní prázdnej konštrukcie \emph{begin} a \emph{end}
     Interaktívne prostredie vyzerá nasledovne.
 \begin{lstlisting}
 α: Type u
@@ -1525,9 +1552,9 @@ na nasledujúci, kde má $u \sqcap v$ vyššiu precedenciu
 boli dokázané pre podkladové štruktúry. Použijeme nasledujúcu definíciu, ktorá vychádza
 z kontextu \emph{semilattice\_sup}.
 \begin{lstlisting}
-% @[simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=    / TODO NEZABUDNUT
-%  le_antisymm_iff.trans $ by simp [le_refl]             / ODKOMENTOVAT
-    \end{lstlisting}
+% @ [simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=    / TODO NEZABUDNUT
+%  le_antisymm_iff.trans $ by simp [ le_refl ]             / ODKOMENTOVAT
+\end{lstlisting}
     Zaujímavosťou je, že si Lean dokáže substiuovať výraz $u \sqcap v$ za $a$ z uvedeného
 výrazu. Pri použití vety dostávame ekvivalenciu, ktorá je definovaná ako štruktúra.
 \begin{lstlisting}
