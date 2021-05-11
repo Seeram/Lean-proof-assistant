@@ -11,7 +11,10 @@
 \usepackage{mathtools}
 \usepackage{color}
 \usepackage[T1]{fontenc}
+\usepackage{pdfpages}
 %% Generally used
+
+\renewcommand{\thesection}{\arabic{section}}
 
 %% Lean specific
 \usepackage[utf8x]{inputenc}
@@ -54,13 +57,69 @@
 
 
 \author{Mat\'u\v{s} Behun}
-\title{Lattice theory notes}
+\title{Dokazovanie viet v systéme Lean}
 
 \begin{document}
 
+\setlength{\belowdisplayskip}{7pt} \setlength{\belowdisplayshortskip}{5pt}
+\setlength{\abovedisplayskip}{7pt} \setlength{\abovedisplayshortskip}{5pt}
+
+
+\thispagestyle{empty}
+{
+    \topmargin=0pt
+    \centerline {\large \bf{Slovak University of Technology in Bratislava}}
+    \vskip 0.2cm
+    \centerline{\large \bf{Faculty of Civil Engineering}}
+    \vskip 0.2cm
+    Evidential number: SvF-5342-54946
+    \vskip 5.0cm
+    \centerline{\Large \bf{Cayley graphs of given degree and diameter on linear groups}}
+    \vskip 0.2cm
+    \vskip 0.5cm
+    \centerline{\large \bf{Bachelor Thesis}}
+    \vskip 7cm          %\vskip 2cm             %zmena kvoli zobrazovaniu dnesneho datumu
+    \normalsize
+    \begin{tabular}[l]{p{0.27\textwidth}p{0.73\textwidth}}
+        Study program: & Mathematical and Computational Modelling  \\
+        Major: & 9.1.9 Applied Mathematics  \\
+        Department: & Department of Mathematics and Constructive Geometry\\
+        Supervisor: & doc. RNDr. Jana \v{S}iagiov\'a, PhD. \\
+    \end{tabular}
+    \vskip 3cm
+    \centerline{\large \bf{Bratislava 2018}}
+    \vskip 0.2cm
+    \centerline{\large \bf{Mat\'u\v{s} Behun}}
+}
+
+ \newpage
+
+\includepdf[pages={1}]{zadanieDiplomovka.pdf}
+
 \tableofcontents
 
-\section{Úvod}
+\chapter{Úvod}
+    Dokazovací asistenti obsahujú interaktívne prostredie ktoré na základe vstupu
+používateľa tvoria formálne dôkazy.
+    Táto diplomová práca sa zaoberá dokazovacím asistentom Lean ktorý je
+založený na závislostných typoch.
+    Podrobne opisujeme typy ktoré sú jeho základným prvkom a nevyhnutnú syntax pre
+prácu s nimi.
+    Poskytujeme pohľad na dva spôsoby dokazovania, dopredným spôsobom ktoré je priamym
+poskytnutím $\lambda$-výrazu, a spätným v taktickom móde ktoré naplno využíva interaktívne
+prostredie.
+    Kapitolu uzatvárame opisom syntaxe využívanej na budovanie štruktúr používanej
+pri tvorbe tých matematických a ich hierarchie.
+
+    V druhej kapitole sa venujeme implementácii teórii usporiadania v Lean-e
+ktorá je implementovaná v rámci komunitného projektu známeho ako mathlib.
+    Poskytujeme formálny dôkaz vety o izomorfizme modulárnych zväzov a podrobne
+rozoberáme jeho implementáciu.
+Taktiež rozoberáme príspevok ktorý tvorí základ pre štruktúru ktorá tvorí podzväz.
+
+    Posledná kapitola uvádza teoreticky nevyhnutú časť logiky a jednoduchej
+teórie typov aby sme ilustrovali prepojenie medzi logikou a vypočtovým modelom 
+ktoré je známe ako Curry-Howardova izomorfizmus.
 
 \chapter{Lean dokazovací asistent}
     Lean je dokazovací asistent ktorý bol vytvorený otvorený softvérový projekt
@@ -72,10 +131,21 @@ Leonardom de Mourom v Microsoft Reasearch v roku 2013.
 
     Lean podobne ako \emph{Coq} je založené na kalkule konštrukcií ktorý je zovšeobecnením teórie jednoduchých typov
     a teórii závislostných typov.
+
+    V úvode tejto kapitoly popisujeme interaktívne prostredie a komunitný projekt
+\emph{mathlib}. Opisujeme základnú syntax ktorá korenšponduje s jednoduchou teóriou
+typov a príkazmi potrebné pre prácu s nimi. Syntax potom rozširujeme o možnosť
+tvorby definícii a prácu s nimi a priestorom mien pre vytváranie hierachie z pohľadu
+organizácie kódu.
+    Pokračujeme opisom spôsobu tvorby dôkazu priamym poskytnutím $\lambda$-výrazu
+a interaktívnou verziou v taktickom móde.
+    Kapitola je uzatvorená opisom syntaxe popisujúcom induktívne a jednoduché
+štruktúry ktoré tvoria tie matematické a ich hierarchické rozširovanie a zaradzovanie
+do tried.
+
 \section{Mathlib}
-    % zdruzovat mozem vcelarov
-    Mathlib je komunitný projekt\cite{mathlib} ktorého cieľom je združovať matematickú
-teóriu implementovanú v Lean-e.
+    Mathlib je komunitný projekt\cite{mathlib} ktorého cieľom je centralizovať
+matematickú teóriu implementovanú v Lean-e.
     Do projektu je možné jednoducho prispievať po udelení privilégií niektorým zo
 správcov repozitára a odobrením požiadavky na začlenenie kódu.
     Väčšina obsahu mathlibu obsahuje matematiku na vysokoškolskej úrovni.
@@ -112,8 +182,8 @@ ovplyvnilo aj jeho obsah.
 \section{Vývojové prostredie}
     V našom prípade sme pracovali vo vývojovom prostredí \emph{Visual studio code}
 v kombinácií s jeho leanovským rozšírením ktoré je možné nainštalovať cez
-\emph{marketplace} Prostredie sa skladá z editora podporujúceho UTF-8 znaky a okno s
-interaktívnym výstupom reagujúce na polohu kurzora editora a kurzora počítačovej
+\emph{marketplace} Prostredie sa skladá z editora podporujúceho UTF-8 znaky a okno
+s interaktívnym výstupom reagujúce na polohu kurzora editora a kurzora počítačovej
 myši.
 \begin{center}
     \begin{figure}[!ht]
@@ -129,10 +199,10 @@ ako \emph{print} alebo \emph{reduce} ktoré rozoberieme neskôr.
     V prípade že sa nachádzame v taktickom móde okrem zavedenia nových predpokladov
 alebo transormácie existujúcich je možné vidieť aj zmenu cieľa a podcieľov
 napríklad v prípade že sme sa dostali k dôkazu vymenovaním prípadov.
-\section{Lambda kalkulus}
-Pred predstavením techník dokazovania je nutné sa oboznámiť s prvkami funkcionionálneho
-    programovania v Leane.
-Výpočtový model jednoduchého $\lambda$-kalkulu je z programovacích paradigiem najbližšie
+\section{$\lambda$-kalkulus}
+    Pred predstavením techník dokazovania je nutné sa oboznámiť s prvkami funkcionionálneho
+programovania v Leane.
+    Výpočtový model jednoduchého $\lambda$-kalkulu je z programovacích paradigiem najbližšie
 práve funkcionálnemu spôsobu programovania.
 V nasledujúcej časti predstavujeme základy funkcionálneho programovania spolu
     s typmi a nástrojmi Lean-u na vývoj a menežment priestor mien.
@@ -345,22 +415,21 @@ def kompozicia₂ (α : Type u) (β : Type v) (f : α → β) (g : β → α) (x
     tak dostávame.
     Premenné vstupuju do predpokladov definícii len tam kde sú použíté v jej tele.
 \begin{lstlisting}
-universes u v
+universes u v z
 
-variables α : Type u
-variables β : Type v
+variable α : Type u
+variable β : Type v
+variable γ : Type z
 
-def kompozicia (x : α) (f : α → β) (g : β → α) : α := g (f x)
-def kompozicia₂ (y : β) (f : α → β) (g : β → α) : β := f (g y)
+def kompozicia (x : α) (f : α → β) (g : β → γ) : α := g (f x)
 \end{lstlisting}
     Vstupné argumenty dokonca môžeme vynechať úplne, v niektorých prípadoch to ale
 môže byť kontraproduktívne.
 \begin{lstlisting}
 variables (f : α → β)
-          (g : β → α)
+          (g : β → γ)
 
 def kompozicia : α := g (f x)
-def kompozicia₂ : β := f (g y)
 \end{lstlisting}
 Pre doplnenie dodávame že nie je nutné ani definovať návratový typ $\alpha$
     respektíve $\beta$, explicitné určenie návratového typu je ale vhodné nie len
@@ -770,7 +839,7 @@ variables { T : Type* } ( a : štruktúra₁ T ) ( b : štruktúra₂  T ) [ nor
 \end{lstlisting}
     Tento už komplikovanejší zápis hovorí o premenných $a$ a $b$ ktoré sú definované
 na rovnakom type ktorý má definovanú alebo je inštancovaný dĺžkou.
-\chapter{Teória usporiadania}
+\chapter{Teória čiastovného usporiadania}
     V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
 definícii v mathlibe pre dokázanie viet týkajúcich sa teórie čiastočného usporiadania.
     Pre tento účel je Lean ideálny z pohľadu našich možností definovania vlastností
@@ -787,7 +856,7 @@ tieto "albumy sú neporovnateľné".
     Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
 otázkami ako,
 
-\subsection{Čiastočné usporiadanie}
+\section{Čiastočné usporiadanie}
 \begin{itemize}
     \item Aké je horné celej množiny objektov?
     \item Existuje ohraničenie horné alebo dolné pre ľubovoľnú podmnožinu objektov?
@@ -808,7 +877,7 @@ otázkami ako,
     Ako príklad uvádzame diagram "kocky".
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.15]{cube.png}
+    \includegraphics[scale=0.30]{cube.png}
     \caption{Usporiadania $\mathcal{P}(\{a,b,c\})$}
 \end{figure}
 
@@ -839,7 +908,7 @@ class partial_order (α : Type u) extends preorder α :=
 
 DOPLN PRIKLAD NAJLEPSIE AK NAS USPORIADANY POSET Z PRIKLADU
 
-\subsection{Zväz}
+\section{Zväz}
     Zväz je usporiadaná množina, pre ktorú navyše platí, že pre každé 2 prvky $a, b$
 vieme nájsť prvok $c$, ktorý je ich jedinečným najmenším horným, respektíve(\emph{supremum})
 najväčším dolným ohraničením(\emph{infimum}).
@@ -872,7 +941,7 @@ class semilattice_inf (α : Type u) extends has_inf α, partial_order α :=
 class lattice (α : Type u) extends semilattice_sup α, semilattice_inf α
 \end{lstlisting}
 
-\subsection{Modulárne zväzy}
+\section{Modulárne zväzy}
 
     V nasledujúcom úseku si ukážeme vetu týkajúcu sa špeciálneho typu zväzu s vlastnosťou
 modularity a ukážeme si formálny dôkaz a jej implementáciu v Leane, ktorú si
@@ -903,25 +972,25 @@ Nech L je modulárnym zväzom a $a, b \in L$. Potom
 Je izomorfizmom medzi intervalmi $[a, a \vee b]$ a $[ a \wedge b, b]$.
 Inverzným izomorfizmom je
     \begin{equation}
-        \psi_{a}: y \mapsto x \vee a, y \in [a \wedge b, b].
+        \psi_{a}: y \mapsto y \vee a, y \in [a \wedge b, b].
     \end{equation}
 \end{theorem}
-\emph{Dôkaz}.  Stačí ukázať, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $x \in [a, a \vee b]$.
-Z duality vyplýva, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky
-    $y \in [a \wedge b, b]$,
-Majme $x \in [a, a \vee b]$. Potom
-    $\psi_{a}\varphi_{b} = ( x \wedge b ) \vee a$ nerovnosť $a \leq x$ platí
-    potom aj modularita
+\emph{Dôkaz}.
+    Stačí ukázať, že $\varphi_{b}\psi_{a}(y) = y$ pre všetky $y \in [a \wedge b, b]$.
+    Z duality potom vyplýva, že $\psi_{a}\varphi_{b}(x) = x$ pre všetky
+$x \in [a, a \vee b ]$,
+    Nech $y \in [ a \wedge b, b ]$, potom $\varphi_{b}\psi_{b} = ( y \vee b ) \wedge a$ 
+a ak platí nerovnosť $b \geq y$ tak potom z modularity
     \begin{equation}
-        \varphi_{a}\psi_{b}(x) =
-        ( x \wedge b ) \vee a =
-        x \wedge ( b \vee a) =
-        x
+        \varphi_{b}\psi_{a}(y) =
+        ( y \vee b ) \wedge a =
+        y \vee ( b \wedge a) =
+        y
     \end{equation}
     pretože
     \[
         \pushQED{\qed}
-        x \leq a \vee b. \qedhere
+        y \geq a \wedge b. \qedhere
         \popQED
     \]
 
@@ -937,28 +1006,27 @@ Majme $x \in [a, a \vee b]$. Potom
     Pri návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán. Predstavujeme
 hotový dôkaz vety:
 \begin{lstlisting}
-theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ]
-{ u v w x y : α } :
-  x ≤ u →
-  x ≥ v →
-  x ≥ u ⊓ v →
-  x ≤ u ⊔ v →
-  u ⊓ ( v ⊔ x ) = x ∧ (u ⊓ x) ⊔ v = x
+theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ] { a b x y : α} :
+  (y ≤ b) →
+  (x ≥ a) →
+  (y ≥ b ⊓ a) →
+  (x ≤ b ⊔ a) →
+  b ⊓ ( a ⊔ x ) = x ∧ (x ⊓ b) ⊔ a = x
   :=
   begin
- 1        intros h1 h2 h3 h4,
- 2        split,
- 3        {
- 4          rw modular_lattice.modular_law,
- 5          exact sup_eq_right.mpr h3,
- 6          exact h1
- 7        },
- 8        {
- 9          rw inf_comm,
-10          rw ← modular_lattice.modular_law,
-11          exact inf_eq_left.mpr h4,
-11          exact h2
-12        }
+    intros h1 h2 h3 h4,
+    split,
+    {
+      rw modular_lattice.modular_law,
+      exact sup_eq_right.mpr h3,
+      exact h1
+    },
+
+    {
+      rw ← modular_lattice.modular_law,
+      exact inf_eq_left.mpr h4,
+      exact h2
+    }
   end
 \end{lstlisting}
     Začíname v taktickom móde ktorý je interaktívnou verziou dokazovania v Leane.
@@ -968,7 +1036,7 @@ theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ]
 α: Type u
 _inst_1: modular_lattice α
 u v w x y : α
-⊢ x ≤ u → x ≥ v → x ≥ u ⊓ v → x ≤ u ⊔ v → u ⊓ (v ⊔ x) = x ∧ u ⊓ x ⊔ v = x
+⊢ x ≤ b → x ≥ a → x ≥ a ⊓ b → x ≤ b ⊔ a → b ⊓ (a ⊔ x) = x ∧ u ⊓ x ⊔ v = x
 \end{lstlisting}
     Prvým krokom dôkazu je presunutie predpokladov zo sledu implikácii do
 prostredia pre ďalšiu prácu s nimi s označením $h1,h2,h3,h4$.
@@ -1377,25 +1445,12 @@ abstrakcií s jednotlivými argumentami.
     & (\lambda y . \lambda x . t y )) \\
     & (\lambda y.y x) (\lambda x . x) \\
 \end{align*}
-    %Premenovaním nazývame nahradenie voľných premenných vo výraze.
-    %\begin{equation*}
-        %t \{ y / x \}
-    %\end{equation*}
-    %Kde vo výraze $t$ je premenovaná premenná $x$ za $y$.
-
-    \begin{theorem}
-        O substutícii hovoríme pri nahradení jednej premenej druhou.
-        \begin{equation}
-            t [ y / x ]
-        \end{equation}
-    \end{theorem}
-    %Nahradenie je silnejšie ako premenovanie pretože dokáže nahradiť aj premmenné
-%viazanné abstrakciou.
-    %Tento rozdiel prezentujeme aj na nasledujúcom príklade:
-    %\begin{align*}
-        %(\lambda x . t ) \{ u / x \} &= \lambda x . t\\
-        %(\lambda x . t ) [ u / x ]   &= \lambda x . (t [ u / x ] )
-    %\end{align*}
+\begin{theorem}
+    O substutícii hovoríme pri nahradení jednej premenej druhou.
+    \begin{equation}
+        t [ y / x ]
+    \end{equation}
+\end{theorem}
 
     Z doteraz uvedených výrazov nám výpočet čiastočne pripomínala len aplikácia na
 jednoduchý výraz.
@@ -1612,7 +1667,6 @@ intucionistickej logiky s troma dedkučnými pravidlami $(\implies_{E})$,
     V teórii jednoduchých typov sme zase ukončili pravidlami ktoré odvádzajú
 typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$ a $(ax)$.
     Ak dáme do rovnosti množinu propozičných premenných s množinou typových premenných.
-    
 
     Z formálneho hľadiska je:
 \begin{theorem}{Curry-Howard izomorfizmus}
