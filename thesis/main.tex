@@ -1006,12 +1006,12 @@ a ak platí nerovnosť $b \geq y$ tak potom z modularity
     Pri návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán. Predstavujeme
 hotový dôkaz vety:
 \begin{lstlisting}
-theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ] { a b x y : α} :
-  (y ≤ b) →
-  (x ≥ a) →
-  (y ≥ b ⊓ a) →
-  (x ≤ b ⊔ a) →
-  b ⊓ ( a ⊔ x ) = x ∧ (x ⊓ b) ⊔ a = x
+theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ] { a b x : α}:
+  x ≤ a →
+  x ≥ b →
+  x ≥ a ⊓ b →
+  x ≤ a ⊔ b →
+  a ⊓ ( b ⊔ x ) = x ∧ (a ⊓ x) ⊔ b = x
   :=
   begin
     intros h1 h2 h3 h4,
@@ -1021,8 +1021,8 @@ theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ] { a b 
       exact sup_eq_right.mpr h3,
       exact h1
     },
-
     {
+      rw inf_comm,
       rw ← modular_lattice.modular_law,
       exact inf_eq_left.mpr h4,
       exact h2
@@ -1035,20 +1035,20 @@ theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ] { a b 
 \begin{lstlisting}
 α: Type u
 _inst_1: modular_lattice α
-u v w x y : α
-⊢ x ≤ b → x ≥ a → x ≥ a ⊓ b → x ≤ b ⊔ a → b ⊓ (a ⊔ x) = x ∧ u ⊓ x ⊔ v = x
+abx: α
+⊢ x ≤ a → x ≥ b → x ≥ a ⊓ b → x ≤ a ⊔ b → a ⊓ (b ⊔ x) = x ∧ a ⊓ x ⊔ b = x
 \end{lstlisting}
     Prvým krokom dôkazu je presunutie predpokladov zo sledu implikácii do
 prostredia pre ďalšiu prácu s nimi s označením $h1,h2,h3,h4$.
 \begin{lstlisting}
 α: Type u
 _inst_1: modular_lattice α
-uvwxy: α
-h1: x ≤ u
-h2: x ≥ v
-h3: x ≥ u ⊓ v
-h4: x ≤ u ⊔ v
-⊢ u ⊓ (v ⊔ x) = x ∧ u ⊓ x ⊔ v = x
+abx: α
+h1: x ≤ a
+h2: x ≥ b
+h3: x ≥ a ⊓ b
+h4: x ≤ a ⊔ b
+⊢ a ⊓ (b ⊔ x) = x ∧ a ⊓ x ⊔ b = x
 \end{lstlisting}
     Cieľ potom pozostáva z konjukcie, kde v druhej časti máme výraz implicitne
 ozátvorkovaný zľava.
@@ -1066,7 +1066,7 @@ ozátvorkovaný zľava.
 \end{lstlisting}
 v ktorom nám lean ukazuje prostredie, kde musíme dokázať ľavú časť konjukcie.
 \begin{lstlisting}
-⊢ u ⊓ (v ⊔ x) = x
+⊢ a ⊓ (b ⊔ x) = x
 \end{lstlisting}
 Na cieľ použijeme z definície modulárneho zväzu vlastnosť modularity
 \begin{lstlisting}
@@ -1100,13 +1100,13 @@ Z tejto štruktúry použijeme implikáciu smerujúca doľava nasledovne:
 \end{lstlisting}
     Cieľ je teda transformovaný na:
 \begin{lstlisting}
-⊢ x ≤ u
+⊢ x ≤ a
 \end{lstlisting}
 čo je už uvedený predpoklad $h1$. Týmto sme dokázali jeden z podcieľov.
     V tejto chvíli by sme sa v literatúre mohli odvolať na dualitu výrazov.
     V Leane musíme poskytnúť dôkaz aj o druhom cieli. Ideme dokázať
 \begin{lstlisting}
-⊢ u ⊓ x ⊔ v = x
+⊢ a ⊓ x ⊔ b = x
 \end{lstlisting}
 V tejto chvíli chceme znova použiť modularitu, leanu je, ale potrebné explicitne povedať,
     že chceme prepísať výraz nachádzajúci na pravej strane rovnosti pomocou symbolu
