@@ -10,9 +10,12 @@
 \usepackage{amssymb, upgreek}
 \usepackage{mathtools}
 \usepackage{color}
-\usepackage[T1]{fontenc}
 \usepackage{pdfpages}
+\usepackage[slovak]{babel}
+\usepackage[T1]{fontenc}
 %% Generally used
+
+% USE PACKAGE BABEL SLOVAK
 
 \renewcommand{\thesection}{\arabic{section}}
 
@@ -53,8 +56,8 @@
 %% Powerset
 \newcommand{\nothing}{\varnothing}
 
-\newtheorem{theorem}{Theorem}
-
+\newtheorem{theorem}{Veta}[chapter]
+\newtheorem{definition}{Definícia}[chapter]
 
 \author{Mat\'u\v{s} Behun}
 \title{Dokazovanie viet v systéme Lean}
@@ -116,11 +119,18 @@ prostredie.
     Kapitolu uzatvárame opisom syntaxe využívanej na budovanie štruktúr používanej
 pri tvorbe tých matematických a ich hierarchie.
 
-    V druhej kapitole sa venujeme implementácii teórii usporiadania v Lean-e
-ktorá je implementovaná v rámci komunitného projektu známeho ako mathlib.
+    V druhej kapitole rozoberáme našu implementáciu vety o izomorfizme modulárnych
+zväzov.
+    Ďalej opisujeme základné štruktúry týkajúce sa teórii o čiastočnom usporiadaní
+v rámci komunitného projektu mathlib a rozširujeme ich o novú podzväz s jej základnými
+
+
+
+    V druhej kapitole sa venujeme implementácii teórii čiastočného usporiadania
+v Lean-e ktorá je implementovaná v rámci komunitného projektu známeho ako mathlib.
     Poskytujeme formálny dôkaz vety o izomorfizme modulárnych zväzov a podrobne
 rozoberáme jeho implementáciu.
-Taktiež rozoberáme príspevok ktorý tvorí základ pre štruktúru ktorá tvorí podzväz.
+    Taktiež rozoberáme príspevok ktorý tvorí základ pre štruktúru ktorá tvorí podzväz.
 
     Posledná kapitola uvádza teoreticky nevyhnutú časť logiky a jednoduchej
 teórie typov aby sme ilustrovali prepojenie medzi logikou a vypočtovým modelom 
@@ -133,7 +143,7 @@ Leonardom de Mourom v Microsoft Reasearch v roku 2013.
 zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej
     verzii \cite{lean3} vyvýjanej od roku 2017.
     Implementácia Lean-u je v jazyku C++ a jeho jadro má len 8000 riadkov.
-    Prostredie je dostupné pre operačné systémy Linux, Windows a Darwin.
+    Prostredie je dostupné pre operačné systémy Linux, Windows a MacOS.
     Interaktívne prostredie pre dokazovanie je podporované pre editory \emph{Emacs} a \emph{Visual Studio Code}.
 
     Lean podobne ako \emph{Coq} je založené na kalkule konštrukcií ktorý je zovšeobecnením 
@@ -264,7 +274,7 @@ constant a : ℕ
 
 #check g (f a)
 \end{lstlisting}
-    Implicitne majú všetky čísla v editore typ $\mathbb{N}$.
+    Číselné konštanty má v leane typ $\mathbb{N}$.
 \begin{lstlisting}
 #check 5
 #check (-5 : ℤ)
@@ -866,7 +876,7 @@ otázkami ako,
 \end{itemize}
     Pre stručnosť sa v rámcii definícii obmedzíme len na definíciu relácie usporiadania,
 čiže podmnožinu karteziánskeho súčinu dvoch množín.
-\begin{theorem}
+\begin{definition}
     Majme množinu $P$, potom usporiadanie alebo čiastočné usporiadanie na množine
     $P$ je binárna relácia $\leq$ taká že, pre všetky $x,y,z \in P$
     \begin{itemize}
@@ -874,7 +884,7 @@ otázkami ako,
         \item $x \leq y$ a $y \leq x$ implikuje $x = y$ antisymetria
         \item $x \leq y$ a $y \leq z$ impikuje $x \leq z$ tranzitivita
     \end{itemize}
-\end{theorem}
+\end{definition}
     Ideálnym nástrojom pre uvažovanie nad usporiadaním sú \emph{Hasseho} diagramy.
     Ako príklad uvádzame diagram "kocky".
 \begin{figure}[!ht]
@@ -885,8 +895,6 @@ otázkami ako,
 
     Na obrázku je usporiadanie všetkých podmnožín trojprvkovej množiny $\{ a,b,c \}$
 vzhľadom na kardinalitu podmnožín.
-    Usporiadanie tvorí monžina ktorú 
-    
     Vyššie sú položené väčšie prvky a porovnateľnými prvkami považujeme len tie,
 ktoré sú "pokryté" jednosmernou cestou cez orientované hrany grafu.
 
@@ -1241,7 +1249,7 @@ formuly predchádzajúcej v postupnosti.
     Všetky tieto kroky si postupne zavedieme aj s dedukčnými pravidlami.
     Pre lepšie pochopenie pojmu formuly a premennej uvádzame ich nasledujúcu definíciu:
     % vyrok, premenna ~ vyrokova premenna
-\begin{theorem}[Výroková premenná, formula]
+\begin{definition}[Výroková premenná, formula]
     Majme spočítateľnú množinu $\mathcal{X}$ výrokových premenných. Množina premenných
     alebo formúl $\mathcal{A}$ generujeme nasledovnou gramatikou:
     \begin{equation}
@@ -1249,7 +1257,7 @@ formuly predchádzajúcej v postupnosti.
     \end{equation}
     Kde $X \in \mathcal{X}$ reprezentuje výrokovú premennú, a $A, B \in \mathcal{A}$
     výrok.
-\end{theorem}
+\end{definition}
     Formulu ktorú tvorí len výroková premenná nazývame atomickou.
     Už v úvode tohto textu sme hovorili o postuláte alebo axióme zákone výlučenia
 tretieho ktorý je formulou.
@@ -1637,7 +1645,7 @@ Príklad odvodenia typu.
 o nutnosti skonštruovať objekt pre jeho dôkaz.
     Teda ak chceme dokázať nejaké tvrdenie potom ho musíme zostrojiť z množiny
 predpokladov a axióm.
-    \emph{Curry-Howard} si všimli že zostrojovanie dôkazu pripomína výpočet.
+    \emph{Curry} s \emph{Howard} si všimli že zostrojovanie dôkazu pripomína výpočet.
     Pre dôkaz implikácie $a implies b$ musíme ukázať na základe predpokladu $a$
 dôsledok $b$ v konštruktivizme zostrojiť objekt $b$ z objektu $a$ a
 z výpočtového hľadiska zostrojiť funkciu s výstupom $b$ na základe vstupu $a$.
@@ -1673,8 +1681,8 @@ typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$
     Z formálneho hľadiska je:
 \begin{theorem}{Curry-Howard izomorfizmus}
     \begin{itemize}
-        \item If $\Gamma \vdash M : \varphi \textrm{ potom } |\Gamma|  \vdash \varphi.$
-        \item If $\Gamma \vdash \varphi \textrm{ potom existuje } M \in \Lambda_{\Pi}
+        \item Ak $\Gamma \vdash M : \varphi \textrm{ potom } |\Gamma|  \vdash \varphi.$
+        \item Ak $\Gamma \vdash \varphi \textrm{ potom existuje } M \in \Lambda_{\Pi}
             \textrm{ také že } \Delta \vdash M : \varphi, \textrm{ kde }
             \Delta = { ( x_{\varphi} : \varphi ) | \varphi \in \Gamma }$
     \end{itemize}
