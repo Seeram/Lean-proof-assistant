@@ -61,42 +61,47 @@
 
 \begin{document}
 
-\setlength{\belowdisplayskip}{7pt} \setlength{\belowdisplayshortskip}{5pt}
-\setlength{\abovedisplayskip}{7pt} \setlength{\abovedisplayshortskip}{5pt}
+%\setlength{\belowdisplayskip}{7pt} \setlength{\belowdisplayshortskip}{5pt}
+%\setlength{\abovedisplayskip}{7pt} \setlength{\abovedisplayshortskip}{5pt}
 
 
-\thispagestyle{empty}
-{
-    \topmargin=0pt
-    \centerline {\large \bf{Slovak University of Technology in Bratislava}}
-    \vskip 0.2cm
-    \centerline{\large \bf{Faculty of Civil Engineering}}
-    \vskip 0.2cm
-    Evidential number: SvF-5342-54946
-    \vskip 5.0cm
-    \centerline{\Large \bf{Cayley graphs of given degree and diameter on linear groups}}
-    \vskip 0.2cm
-    \vskip 0.5cm
-    \centerline{\large \bf{Bachelor Thesis}}
-    \vskip 7cm          %\vskip 2cm             %zmena kvoli zobrazovaniu dnesneho datumu
-    \normalsize
-    \begin{tabular}[l]{p{0.27\textwidth}p{0.73\textwidth}}
-        Study program: & Mathematical and Computational Modelling  \\
-        Major: & 9.1.9 Applied Mathematics  \\
-        Department: & Department of Mathematics and Constructive Geometry\\
-        Supervisor: & doc. RNDr. Jana \v{S}iagiov\'a, PhD. \\
-    \end{tabular}
-    \vskip 3cm
-    \centerline{\large \bf{Bratislava 2018}}
-    \vskip 0.2cm
-    \centerline{\large \bf{Mat\'u\v{s} Behun}}
-}
+%\thispagestyle{empty}
+%{
+    %\topmargin=0pt
+    %\centerline {\large \bf{Slovenská technická univerzia v Bratislave}}
+    %\vskip 0.2cm
+    %\centerline{\large \bf{Stavebná fakulta}}
+    %\vskip 0.2cm
+    %Evidenčné číslo: SvF-5343-54946 
+    %\vskip 5.0cm
+    %\centerline{\Large \bf{Dokazovanie viet v systéme Lean}}
+    %\vskip 0.2cm
+    %\vskip 0.5cm
+    %\centerline{\large \bf{Diplomová práca}}
+    %\vskip 7cm          %\vskip 2cm             %zmena kvoli zobrazovaniu dnesneho datumu
+    %\normalsize
+    %\begin{tabular}[l]{p{0.27\textwidth}p{0.73\textwidth}}
+        %Študíjny program: & matematicko počítačové modelovanie  \\
+        %Odbor: & matematika  \\
+        %Department: & Katedra matematiky a deskriptívnej geometrie\\
+        %Vedúci práce: & doc. Mgr. Gejza Jenča, PhD. \\
+    %\end{tabular}
+    %\vskip 3cm
+    %\centerline{\large \bf{Bratislava 2021}}
+    %\vskip 0.2cm
+    %\centerline{\large \bf{Mat\'u\v{s} Behun}}
+%}
 
- \newpage
+%\newpage
 
-\includepdf[pages={1}]{zadanieDiplomovka.pdf}
+%% Odkomentovat
+%%% \includepdf[pages={1}]{zadanieDiplomovka.pdf}
+
+%\newpage
 
 \tableofcontents
+
+\newpage
 
 \chapter{Úvod}
     Dokazovací asistenti obsahujú interaktívne prostredie ktoré na základe vstupu
@@ -122,15 +127,17 @@ teórie typov aby sme ilustrovali prepojenie medzi logikou a vypočtovým modelo
 ktoré je známe ako Curry-Howardova izomorfizmus.
 
 \chapter{Lean dokazovací asistent}
-    Lean je dokazovací asistent ktorý bol vytvorený otvorený softvérový projekt
+    Lean je dokazovací asistent ktorý bol vytvorený ako otvorený softvérový projekt
 Leonardom de Mourom v Microsoft Reasearch v roku 2013.
-    Jazyk sa neustále vyvýja a momentálne sa nachádza vo štvrtej iterácii \cite{lean4} zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej verzii\cite{lean3} vyvýjanej od roku 2017.
+    Jazyk sa neustále vyvýja a momentálne sa nachádza vo štvrtej iterácii \cite{lean4}
+zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja v tretej
+    verzii \cite{lean3} vyvýjanej od roku 2017.
     Implementácia Lean-u je v jazyku C++ a jeho jadro má len 8000 riadkov.
     Prostredie je dostupné pre operačné systémy Linux, Windows a Darwin.
     Interaktívne prostredie pre dokazovanie je podporované pre editory \emph{Emacs} a \emph{Visual Studio Code}.
 
-    Lean podobne ako \emph{Coq} je založené na kalkule konštrukcií ktorý je zovšeobecnením teórie jednoduchých typov
-    a teórii závislostných typov.
+    Lean podobne ako \emph{Coq} je založené na kalkule konštrukcií ktorý je zovšeobecnením 
+teórie jednoduchých typov a teórii závislostných typov.
 
     V úvode tejto kapitoly popisujeme interaktívne prostredie a komunitný projekt
 \emph{mathlib}. Opisujeme základnú syntax ktorá korenšponduje s jednoduchou teóriou
@@ -144,7 +151,7 @@ a interaktívnou verziou v taktickom móde.
 do tried.
 
 \section{Mathlib}
-    Mathlib je komunitný projekt\cite{mathlib} ktorého cieľom je centralizovať
+    Mathlib je komunitný projekt \cite{mathlib} ktorého cieľom je centralizovať
 matematickú teóriu implementovanú v Lean-e.
     Do projektu je možné jednoducho prispievať po udelení privilégií niektorým zo
 správcov repozitára a odobrením požiadavky na začlenenie kódu.
@@ -176,7 +183,7 @@ set_theory/
 topology/
 \end{lstlisting}
     V kontraste s inými modernými dokazovacími asistentami má mathlib množstvo
-prispievateľov akademické vzdelanie v čistej matematike\cite{mathlib_paper} čo
+prispievateľov akademické vzdelanie v čistej matematike \cite{mathlib_paper} čo
 ovplyvnilo aj jeho obsah.
 
 \section{Vývojové prostredie}
@@ -257,7 +264,7 @@ constant a : ℕ
 
 #check g (f a)
 \end{lstlisting}
-    Vo východiskovom prípade majú všetky čísla v editore typ $\mathbb{N}$.
+    Implicitne majú všetky čísla v editore typ $\mathbb{N}$.
 \begin{lstlisting}
 #check 5
 #check (-5 : ℤ)
@@ -293,11 +300,10 @@ výraz je tak možné prepísať aj do tvaru:
 \end{lstlisting}
     Pretože znak $+$ je preťažením funkcie \emph{add} nad štruktúrou množiny daných
 čísel.
-\subsection{Abstrakcia}
+\subsection{Funkcie}
     V predchádzajúcej sekcii sme si ukázali explicitný typ ktorý bol funkciou prirodzenými
 číslami ktorý bol typu $\mathbb{N} \to \mathbb{N}$ alebo $\mathbb{N} \to \mathbb{N} \to \mathbb{N}$.
-    V $\lambda$-kalklule zodpovedajú funkcie abstrakciám. V Lean-e definujeme
-anonymnú funkciu alebo $\lambda$-výraz nasledovne.
+V Lean-e definujeme anonymnú funkciu alebo $\lambda$-výraz nasledovne.
 \begin{lstlisting}
 #check λ x, x + x
 \end{lstlisting}
@@ -320,16 +326,18 @@ but is expected to have type
   ℕ
 \end{lstlisting}
     Uvedieme si zopár príkladov vypočtovo ekvivalentných funkcii obvodu obdĺžnika typu
-$\mathbb{N} \to \mathbb{N} \to \mathbb{N}$
-.
+$\mathbb{N} \to \mathbb{N} \to \mathbb{N}$.
 \begin{lstlisting}
-#check λ x y, x + x + y + y
 #check λ (x : ℕ) (y : ℕ), (x + x) + (y + y)
 #check λ (x y : ℕ), (x + x) + (y + y)
 #check λ (x : ℕ), λ (y : ℕ), (x + x) + (y + y)
 \end{lstlisting}
-    Zatiaľ čo prvý príklad je polymorfný a fungoval by aj pri aplikácii celých čísel,
-nasledujúce sú ekvivalentné z pohľadu typov a predstavujú iný spôsob zápisu.
+    Všetky tri príklady sú evkvivalentné z pohľadu typov a predstavujú iný spôsob
+zápisu.
+    Funkcia v ktorej neuvedieme typ argumentu je polymorfnou.
+\begin{lstlisting}
+#check λ x y, x + x + y + y
+\end{lstlisting}
 
     V prípade že by sme chceli získať hodnotu z výrazu použíjeme príkaz \emph{\#eval},
 alebo \emph{\#reduce}. \emph{Reduce} na rozdiel od \emph{eval} pri vykonávaní používa
@@ -360,7 +368,7 @@ kde meno by pôsobilo nadbytočne používame slovo \emph{example}.
 
 \subsection{Typy}
     Doteraz sme uvažovali len s typmi množiny prirodzených a celých čísel
-predstavujúce na pozadí Leanu konkrétne definovanú štruktúru.
+ktoré predstavujú na pozadí Leanu konkrétne definovanú štruktúru.
     Typovanie v Lean-e ale podporuje zavedenie nového abstraktného typu ktorý patrí univerzu(universe).
     Zavedenie týchto univerz je motivané problémom analogickým s Russelovým paradoxom 
 a teda či množina všetkých množín obsahuje samú seba.
@@ -402,15 +410,10 @@ zápis zjednodušiť premennými.
 \begin{lstlisting}
 universes u v
 
-def kompozicia (α : Type u) (β : Type v) (f : α → β) (g : β → α) (x : α) :
+def kompozicia (α : Type u) (β : Type v) (f : α → β) (g : β → γ) (x : α) :
     α
 :=
     g (f x)
-
-def kompozicia₂ (α : Type u) (β : Type v) (f : α → β) (g : β → α) (x : β) :
-    β
-:=
-    f (g x)
 \end{lstlisting}
     tak dostávame.
     Premenné vstupuju do predpokladov definícii len tam kde sú použíté v jej tele.
@@ -424,7 +427,7 @@ variable γ : Type z
 def kompozicia (x : α) (f : α → β) (g : β → γ) : α := g (f x)
 \end{lstlisting}
     Vstupné argumenty dokonca môžeme vynechať úplne, v niektorých prípadoch to ale
-môže byť kontraproduktívne.
+môže byť kontraproduktívne z dôvodu orientácie pri rozsiahlych zápisoch v editore.
 \begin{lstlisting}
 variables (f : α → β)
           (g : β → γ)
@@ -543,7 +546,7 @@ and.right : ?M_1 ∧ ?M_2 → ?M_2
 and.intro : ?M_1 → ?M_2 → ?M_1 ∧ ?M_2
 \end{lstlisting}
     Toto intuitívne korenšponduje s tým čo od týchto funkcií očakávame.
-    Tento dôkaz je rozšírení o príkaz have ktorý vytvára predpoklad z existujúcich.
+    Tento dôkaz je rozšírený o príkaz have ktorý vytvára predpoklad z existujúcich.
     V poslednej fáze dôkazu je interaktívny výstup:
 \begin{lstlisting}
 pq: Prop
@@ -592,7 +595,7 @@ def symetria_konjukcie : p ∧ q → q ∧ p :=
 Dôkaz začína zavedením predpokladu z implikácie k ostatným o ktorých tvrdíme že
     sú pravdivé príkazom \emph{intro} a rozdelením konjukcie príkazom \emph{cases}
     s argumentom zavedenej konjukcie a ich explicitným pomenovaním.
-Výstup z informačnom okne potom obsahuje.
+Výstup v informačnom okne potom obsahuje.
 
 \begin{lstlisting}
 pq: Prop
@@ -632,16 +635,16 @@ znova spĺňajúcej podmienky, príkladom je vzťah grupy a podgrupy alebo
 priestoru a podpriestoru.
     Druh hierachie potom tvorí možnosť rozširovania tried pri ktorých spĺňa okrem
 podmienok pôvodnej štruktúry aj ďalšie ktoré ju obohacujú.
-    Príkladom využitia môže byť pologrupa ktorý je množinou s asociatívnou operáciou
-a monoidom, čo je pologrupou s jednotkou.
+    Príkladom využitia môže byť pologrupa ktorá je množinou s asociatívnou operáciou
+a monoidom, čo je pologrupa s jednotkou.
 \subsection{Induktívne štruktúry}
 
     Induktívne štruktúry predstavujú notačne silný nástroj pre definíciu objektov
-ktorých prepojenia medzi prvkami sú prepojené jednoduchou asociáciou.
+medzi ktorými je jednoduchá asocioácia.
     Jednoduchým príkladom je zoznam kde asociáciou medzi prvkami tvorí vzťah
 usporiadania.
     Komplikovanejší klasický príklad tvoria stromové štruktúry tvoriace uzly
-s viacerými nasledovníkmi patriace jednému uzlu.
+s viacerými nasledovníkmi.
     V matematike sa s indukciou stretávame pri definícii prirodzených čísel
 cez Peanove axiómy.
     Dve z týchto axióm hovoria:
@@ -812,10 +815,10 @@ end
 \end{lstlisting}
 Typy na ktorých sú definované arumenty závisia od implictného.
 \subsection{Typové triedy}
-    Typové triedy poskytujú mechanizmus pomocou ktorého zlučujeme rozdielnym štruktúram
+    Typové triedy poskytujú mechanizmus pomocou ktorého zlučujeme rozdielne štrukty
 s rovnakou vlastnosťou do tried.
-    Príkladom môžu byť mať vlastnosť usporiadania, štruktúra má reprezentanta alebo
-je grupou.
+    Príkladom môžu byť mať vlastnosť usporiadania, mať reprezentanta alebo
+byť grupou.
     Po zadefinovaní triedy potom štruktúru priradíme do tried inštancovaním.
     Inštancovanie pre štruktúry potom býva odlišné v závislosti definície štruktúry.
     Vykonávanie dôkazov nad typovou triedou potom umožňuje zredukovať množstvo definícii.
@@ -839,12 +842,12 @@ variables { T : Type* } ( a : štruktúra₁ T ) ( b : štruktúra₂  T ) [ nor
 \end{lstlisting}
     Tento už komplikovanejší zápis hovorí o premenných $a$ a $b$ ktoré sú definované
 na rovnakom type ktorý má definovanú alebo je inštancovaný dĺžkou.
-\chapter{Teória čiastovného usporiadania}
+
+\chapter{Teória čiastočného usporiadania}
     V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
 definícii v mathlibe pre dokázanie viet týkajúcich sa teórie čiastočného usporiadania.
     Pre tento účel je Lean ideálny z pohľadu našich možností definovania vlastností
 usporiadania, ktoré následne možno aplikovať na abstraktnú množinu objektov.
-    % Toto by bolo dobré rozpracovať ďalej, možno konkrétny príklad
     Výsledný typ je potom odvodený na základe závislostných typov.
     Usporiadanie je jednoducho intuitívne uchopiteľná vlastnosť bez matematických
 preddispozícií.
@@ -856,7 +859,6 @@ tieto "albumy sú neporovnateľné".
     Teória usporiadania sa snaží tieto vlastnoti formálne definovať a rozvíjať ďalej
 otázkami ako,
 
-\section{Čiastočné usporiadanie}
 \begin{itemize}
     \item Aké je horné celej množiny objektov?
     \item Existuje ohraničenie horné alebo dolné pre ľubovoľnú podmnožinu objektov?
@@ -877,13 +879,14 @@ otázkami ako,
     Ako príklad uvádzame diagram "kocky".
 \begin{figure}[!ht]
     \centering
-    \includegraphics[scale=0.30]{cube.png}
+    \includegraphics[scale=0.20]{cube.png}
     \caption{Usporiadania $\mathcal{P}(\{a,b,c\})$}
 \end{figure}
 
-    Na obrázku je usporiadanie všetkých podmnožín trojprvkovej množiny $\{ a,b,c \}$.
-    Usporiadanie tvorí binárna relácia kardinality podmnožínm pričom porovnávame
-len podmnožiny obsahujúce spoločný prvok.
+    Na obrázku je usporiadanie všetkých podmnožín trojprvkovej množiny $\{ a,b,c \}$
+vzhľadom na kardinalitu podmnožín.
+    Usporiadanie tvorí monžina ktorú 
+    
     Vyššie sú položené väčšie prvky a porovnateľnými prvkami považujeme len tie,
 ktoré sú "pokryté" jednosmernou cestou cez orientované hrany grafu.
 
@@ -898,18 +901,16 @@ class preorder (α : Type u) extends has_le α, has_lt α :=
 (le_refl : ∀ a : α, a ≤ a)
 (le_trans : ∀ a b c : α, a ≤ b → b ≤ c → a ≤ c)
 (lt := λ a b, a ≤ b ∧ ¬ b ≤ a)
-(lt_iff_le_not_le : ∀ a b : α, a < b ↔ (a ≤ b ∧ ¬ b ≤ a) . order_laws_tac) -- toto chceme aj vysvetlit
+(lt_iff_le_not_le : ∀ a b : α, a < b ↔ (a ≤ b ∧ ¬ b ≤ a) . order_laws_tac)
 \end{lstlisting}
-Čiastočné usporiadanie je potom rozšírením predusporiadania o vlastnosť antysymetrie.
+    Čiastočné usporiadanie je potom rozšírením predusporiadania o vlastnosť antysymetrie.
 \begin{lstlisting}
 class partial_order (α : Type u) extends preorder α :=
 (le_antisymm : ∀ a b : α, a ≤ b → b ≤ a → a = b)
 \end{lstlisting}
 
-DOPLN PRIKLAD NAJLEPSIE AK NAS USPORIADANY POSET Z PRIKLADU
-
 \section{Zväz}
-    Zväz je usporiadaná množina, pre ktorú navyše platí, že pre každé 2 prvky $a, b$
+    Zväz je čiastočne usporiadaná množina, pre ktorú navyše platí, že pre každé 2 prvky $a, b$
 vieme nájsť prvok $c$, ktorý je ich jedinečným najmenším horným, respektíve(\emph{supremum})
 najväčším dolným ohraničením(\emph{infimum}).
     V prípade intervalu reálnych čísel je toto ohraničenie jednoducho predstaviteľné
@@ -963,7 +964,6 @@ class modular_lattice(α : Type u) extends lattice α :=
     V nasledujúcom úseku si ukážeme vetu o izomorfizme pre modulárne zväzy. a podrobne 
 si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
 
-TODO ZJEDNOTIT ZNACENIE DEFINICIE A LEAN-u
 \begin{theorem} \emph{Veta o izomorfizme pre modulárne zväzy}
 Nech L je modulárnym zväzom a $a, b \in L$. Potom
     \begin{equation}
@@ -994,16 +994,16 @@ a ak platí nerovnosť $b \geq y$ tak potom z modularity
         \popQED
     \]
 
-    Horeuvdený dôkaz je znázornený na nasledujúcom grafe.
+    Horeuvdený dôkaz je znázornený na nasledujúcom obrázku.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.35]{modular_lattice_isomorphism.png}
     \caption{Izomorfizmus modulárneho zväzu}
 \end{figure}
-
+k
     V prípade formálneho dôkazu sme sa mohli v časti dôkazu odkázať na dualitu.
-    Pri návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán. Predstavujeme
+    Pri návrhu dôkazu v Leane musíme ukázať dôkaz z "oboch" strán. Najskôr uvedieme
 hotový dôkaz vety:
 \begin{lstlisting}
 theorem modular_lattice_isomorphism { α: Type u } [ modular_lattice α ] { a b x : α}:
@@ -1130,12 +1130,15 @@ rw ← modular_lattice.modular_law,
 
     Po dokázaní druhého cieľa sme dokázali celú vetu. $\square$
 
-    Usporiadanú množinu $A \subseteq B$ sa nazýva podzväzom zväzu $B$ ak pre každé
-dva prvky z množiny $a, b \in A$ vieme nájsť prvok $c \in A$ ktorý je ich \emph{infimom},
-respektíve \emph{supremom}.
+\section{Podzväz}
 
     V rámci príspevku do knižnice \emph{mathlib} sme implementovali štruktúru
-reprezentujúcu podzväz.
+reprezentujúcu podzväz. Formálne je definovaný:
+
+\begin{theorem}
+    Nech $L$ je zväz. Množina $K \subseteq L$ je \emph{podzväz} $L$ ak pre všetky 
+$a,b \in K$ platí, že, $a \wedge b \in K$, $a \vee b \in K$.
+\end{theorem}
 \begin{lstlisting}
 import order.lattice
 
@@ -1204,7 +1207,6 @@ theorem sup_mem {a b : L} : a ∈ SL → b ∈ SL → a ⊔ b ∈ SL :=
 \end{lstlisting}
 
 \chapter{Curry-Howardov izomorfizmus}
-\section{Formalizovanie dôkazu}
 \section{Intuicionistická logika}
     Konštruktivizmus je jeden z filozofických smerov ktorý hovorí o tom že vedmosti
 sú tvorené a mali by byť zahrnuté k doteraz poznanému.
@@ -1688,41 +1690,5 @@ typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$
     \bibitem{mathlib_paper} https://leanprover-community.github.io/papers/mathlib-paper.pdf
 \end{thebibliography}
 
-Slovicka na ktore nepoznam preklad a ne
-\begin{itemize}
-    \item kalkul alebob kalkulus
-    \item namespace - priestor mien
-    \item universe - univerzum
-\end{itemize}
-
 \end{document}
-
-\begin{verbatim}
-    structure point :=
-      ( x : nat )
-      ( y : nat )
-
-    /-- alternative notation -/
-    structure point_alternative :=
-      mk :: (x : nat) (Y : nat)
-
-    def p1 : point :=
-    {
-      x   := 10,
-      y   := 20,
-    }
-
-    /- same point, different notation, same notation for ordered seti -/
-    def p2 : point := $\langle 10, 20 \rangle$
-
-    /- instance only one part of structure, rest implicitly from other instance
-    def p3 : point := {
-        x := 20,
-        ..p
-    }
-\end{verbatim}
-
-% sposob ukladania kodu
-
-\subsubsection{Type classes}
 
