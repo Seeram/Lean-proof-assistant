@@ -102,6 +102,33 @@
 
 %\newpage
 
+\section{Abstrakt}
+
+    Práca sa zaoberá dokazovacím asistentom Lean ktorý je založený na teórii
+závislostných typov.
+    Opisujeme základnú syntax Lean-u pre tvorbu definícii a štruktúr a prácu s typmi
+ktoré reprezentujú matematické tvrdenia a spôsoby ich dokazovania.
+    Podrobne rozoberáme náš príspevok štruktúry podzväzu do projektu mathlib a
+dôkazu vety o izomorfizme intervalov v rámcii teórie čiastočného usporiadania.
+    Súčasťou práce je aj opis prepojenia logiky a výpočtových modelov známe ako
+Curry-Howardov izomorfizmus.
+
+    \textbf{Kľúčové slová}: Lean, asistent dokazovania, teória čiastočného usporiadania, Curry-Howardov izomorfizmus
+
+~\\
+
+    This diploma thesis describes proof assistant Lean based on dependent type theory.
+    We describe basic syntax of Lean for creating and working with definitions, structures and
+types that are representing mathematical propositions and their proofs.
+    In detail we describe our contribution of structure of sublattice to project mathlib
+as well as theorem of modular lattice isomorphism.
+    Part of the work conisist of connection between logic and computational model
+known as Curry-Howard isomorphism.
+    
+    \textbf{Keywords}: Lean, proof assistant, partial order theory, Curry-Howard isomorphism
+
+\newpage
+
 \tableofcontents
 
 \newpage
@@ -113,14 +140,14 @@ používateľa tvoria formálne dôkazy.
 založený na teórii závistlostných typoch.
     V úvode práce uvádzame teoreticky nevyhnutú časť intuicionistickej logiky
 a jednoduchej teórie typov aby sme ukázali prepojenie medzi logikou a výpočtovými
-modelmi ktoré je známe ako Curry-Howardova izomorfizmus.
+modelmi ktoré je známe ako Curry-Howardov izomorfizmus.
 
     Druhá kapitola opisuje prostredie Lean-u, jeho základnú syntax a prácu s 
 typmi ktoré sú jeho základným prvkom.
     Poskytujeme pohľad na dva spôsoby dokazovania. Dopredným spôsobom ktoré je priamym
 poskytnutím $\lambda$-výrazu, a spätným v taktickom móde ktoré naplno využíva interaktívne prostredie.
     Kapitolu uzatvárame opisom syntaxe využívanej na budovanie štruktúr používanej
-pri tvorbe tých matematických a ich hierarchie.
+pri tvorbe tých matematických, a ich hierarchie.
 
     V poslednej kapitole rozoberáme našu implementáciu vety o izomorfizme modulárnych
 zväzov.
@@ -211,7 +238,7 @@ intucionistickej logiky potom odvádzame nové formuly a rozširujeme tak teóri
 dolnej $\Gamma$ ktorú nazývame záverom.
     V prípade že čítame dedkučné pravidlo alebo dedkučný strom tvorený takýmito
 pravidlami zhora nadol hovoríme o dedukcii v opačnom smere o indukcii.
-    Prirodzená intucionistická logika obsahuje nasledujúce pravidlá:
+    Prirodzená intuicionistická logika obsahuje nasledujúce pravidlá:
 \begin{center}
     \begin{prooftree}
         \infer0[(ax)]{\Gamma,A,\Gamma' \vdash A}
@@ -318,7 +345,7 @@ uvedenou na začiatku.
 
 \section{$\lambda$-kalkulus}
     $\lambda$-kalkulus je výpočtový model ktorý sa v informatike využíva pre svoju
-jednoduchosť a vypočtovú schopnosť.
+jednoduchosť a výpočtovú schopnosť.
     Napriek tomu že formálne tento model tvoria len tri výrazy je jeho výpočtová
 schopnosť rovná \emph{Turingovmu stroju}.
     To znamená že v ňom dokážeme naprogramovať všetky algoritmy ktoré dokáže
@@ -369,7 +396,7 @@ abstrakcií s jednotlivými argumentami.
     & (\lambda y.y x) (\lambda x . x) \\
 \end{align*}
 \begin{theorem}
-    O substutícii hovoríme pri nahradení jednej premenej druhou.
+    O substutícii hovoríme pri nahradení jednej premennej druhou.
     \begin{equation}
         t [ y / x ]
     \end{equation}
@@ -468,7 +495,7 @@ predstavujúci logickú podmienku.
 \begin{align*}
     if = \lambda b x y . b x y
 \end{align*}
-    Jednotlivé vetvy výpočtu potom predsatvujú ďalšie dva výrazy aplikované na celý
+    Jednotlivé vetvy výpočtu potom predstavujú ďalšie dva výrazy aplikované na celý
 výraz podmienky a výrazu.
     Po aplikácii výrazov $t,u$ cez $\beta$-redukcie dostávame na konci výraz $t$
 v prípade pravdivého vyhodnotenia a $u$ respektíve $t$ v prípade nepravdivého.
@@ -483,7 +510,7 @@ v prípade pravdivého vyhodnotenia a $u$ respektíve $t$ v prípade nepravdivé
 
 \section{Typovo jednoduchý $\lambda$-calculus}
     Typový jednoduchý $\lambda$-kalkulus je rozšírením o jednoduché typy ktoré
-priradzujeme $\lambda$-výrazom.
+priraďujeme $\lambda$-výrazom.
     Výraz $t : T$ tak môžeme interpretovať spôsobom "$t$ patrí množine $T$" alebo
 z výpočtového "výsledkom výrazu $t$ je typ $T$". Z praktického hľadiska sa s typmi
 stretávame v staticky typových programovacích jazykoch kde nám zaručujú že typovo
@@ -614,8 +641,8 @@ zatiaľ čo komunitný projekt matematickej knižnice mathlib sa stále vyvíja 
     Prostredie je dostupné pre operačné systémy Linux, Windows a MacOS.
     Interaktívne prostredie pre dokazovanie je podporované pre editory \emph{Emacs} a \emph{Visual Studio Code}.
 
-    Lean podobne ako \emph{Coq} je založené na kalkuluse konštrukcií ktorý je zovšeobecnením 
-teórie jednoduchých typov a teórii závislostných typov.
+    Lean podobne ako iný dokazovací asistent \emph{Coq} je založené na kalkuluse konštrukcií ktorý je zovšeobecnením 
+teórie jednoduchých typov a teórie závislostných typov.
 
     V úvode tejto kapitoly popisujeme interaktívne prostredie a komunitný projekt
 \emph{mathlib}. Opisujeme základnú syntax ktorá korenšponduje s jednoduchou teóriou
@@ -689,7 +716,7 @@ napríklad v prípade že sme sa dostali k dôkazu vymenovaním prípadov.
 programovania v Leane.
     Výpočtový model jednoduchého $\lambda$-kalkulu je z programovacích paradigiem najbližšie práve funkcionálnemu spôsobu programovania.
 V nasledujúcej časti predstavujeme základy funkcionálneho programovania spolu
-    s typmi a nástrojmi Lean-u na vývoj a menežment priestor mien.
+    s typmi a nástrojmi Lean-u na vývoj a menežment priestoru mien.
 \subsection{Konštanty, aplikácie}
     Deklarácia konštanty zavádza do systému novú deklaráciu bez definície.
     Z tohto dôvodu sa ich pri rozvoji teórie snažíme vyhýbať.
@@ -699,8 +726,8 @@ ktorých štruktúry sú súčasťou kontextu bez nutnosti ich importovať.
 constant m : nat
 \end{lstlisting}
     Hovorí o deklarovaní konštanty $m$ ktorej typ je \emph{nat}.
-    Alternatívny zápis pre prirodzené číslo je pomocou sekvencie \emph{\textbackslash nat}
-alebo \emph{\textbackslash N} ktorú skonvertuje leanovské rozšírenie na znak $\mathbb{N}$.
+    Alternatívny zápis pre prirodzené číslo je pomocou sekvencie $\texttt{\textbackslash}nat$
+alebo $\texttt{\textbackslash}N$ ktorú skonvertuje leanovské rozšírenie na znak $\mathbb{N}$.
     Vstavaný príkaz ktorý poskytuje typ výrazu zadaného na argumente je \emph{\#check}:
 \begin{lstlisting}
 #check m
@@ -732,7 +759,7 @@ jednoducho pripíšeme za funkciu:
 $\mathbb{N} \to \mathbb{N}$ a v treťom vidíme aplikáciu na funkciu kde bude výsledným
 typom znova jednoduchý typ $\mathbb{N}$.
     Aplikácia je asociatívna z ľavej strany a  preto je nasledujúci výraz potrebné 
-uzátvorkovať napravo inak dostávame typový error pre funkciu $g$ ktorá očakáva 
+uzátvorkovať napravo inak dostávame typovú chybu pre funkciu $g$ ktorá očakáva 
 celé číslo a nie typ funkcie f.
 \begin{lstlisting}
 constant f : ℕ → ℤ
@@ -846,7 +873,7 @@ kde meno by pôsobilo nadbytočne používame slovo \emph{example}.
     Doteraz sme uvažovali len s typmi množiny prirodzených a celých čísel
 ktoré predstavujú na pozadí Leanu konkrétne definovanú štruktúru.
     Typovanie v Lean-e ale podporuje zavedenie nového abstraktného typu ktorý patrí univerzu(universe).
-    Zavedenie týchto univerz je motivované problémom analogickým s Russelovým paradoxom 
+    Zavedenie týchto univerz je motivované problémom analogickým s Russelovým paradoxom
 a teda či množina všetkých množín obsahuje samú seba.
     V teórii typov sa jedná o Girardov paradox.
     Hierarchia týchto univerz je usporiadaná od 0 čo je univerzum tvoriace najjednoduchšie
@@ -866,7 +893,7 @@ V tejto práci a ani vo väčšine práce s Leanom nie je potrebné využívať 
 \begin{lstlisting}
 universe u v
 
-constant (a : Typu u) (b : Type v)
+constant (a : Type u) (b : Type v)
 \end{lstlisting}
 Druhou možnosťou je využiť substitučnú syntax kde \emph{*} znamená pre ľubovoľné univerzum
 a v prípade \emph{\_} necháme doplniť typ automaticky Lean-om.
@@ -924,7 +951,7 @@ musí byť deklarovaný na začiatku súboru. V súborovej hierachii sa potom od
 \begin{lstlisting}
 import order.lattice
 \end{lstlisting}
-    Sa snaží nájsť priečinok \emph{order} so súborom \emph{lattice.lean}.
+    Príkaz sa pokúsi nájsť priečinok \emph{order} so súborom \emph{lattice.lean}.
     V aktuálnej verzii Lean-u v čase písania práce sa dá zistiť zoznam prehľadávaných
 ciest prepínačom \emph{path} priamo programu \emph{lean}.
 
@@ -1012,9 +1039,9 @@ def symetria_konjukcie : p ∧ q → q ∧ p :=
     have hqp  : q ∧ p := and.intro hq hp,
   show q ∧ p, from hqp
 \end{lstlisting}
-    Konjukciu v editore je možné napísať cez \emph{\textbackslash and}.
-    Ak sa pozrieme na typ konjukcie a funkcií ktoré sme dostali cez príkaz check.
-    Dostaneme výstup:
+    Konjukciu v editore je možné napísať cez $\texttt{\textbackslash}and$.
+    Ak sa pozrieme na typ konjukcie a funkcií ktoré sme dostali cez príkaz \emph{check}
+dostaneme výstup:
 \begin{lstlisting}
 and : Prop → Prop → Prop
 and.left : ?M_1 ∧ ?M_2 → ?M_1
@@ -1022,7 +1049,7 @@ and.right : ?M_1 ∧ ?M_2 → ?M_2
 and.intro : ?M_1 → ?M_2 → ?M_1 ∧ ?M_2
 \end{lstlisting}
     Toto intuitívne korenšponduje s tým čo od týchto funkcií očakávame.
-    Tento dôkaz je rozšírený o príkaz have ktorý vytvára predpoklad z existujúcich.
+    Tento dôkaz je rozšírený o príkaz \emph{have} ktorý vytvára predpoklad z existujúcich.
     V poslednej fáze dôkazu je interaktívny výstup:
 \begin{lstlisting}
 pq: Prop
@@ -1321,8 +1348,9 @@ na rovnakom type ktorý má definovanú alebo je inštancovaný dĺžkou.
 
 \chapter{Teória čiastočného usporiadania}
     V tejto kapitole sa budeme snažiť ukázať možnosti Lean-u a využitie už existujúcich
-definícii v mathlibe pre dokázanie viet týkajúcich sa teórie čiastočného usporiadania.
-    Pre tento účel je v Lean-e možnosť definovania vlastností usporiadania, 
+definícii v mathlibe pre definovanie pojmov dokázanie viet týkajúcich sa teórie 
+čiastočného usporiadania.
+    Pre tento účel je v Lean-e možnosť definovania vlastností usporiadania,
 ktoré následne možno aplikovať na abstraktnú množinu objektov.
     Výsledný typ je potom odvodený na základe závislostných typov.
     Usporiadanie je jednoducho intuitívne pochopiteľná vlastnosť bez matematických
@@ -1336,7 +1364,7 @@ tieto "albumy sú neporovnateľné".
 otázkami ako,
 
 \begin{itemize}
-    \item Aké je horné celej množiny objektov?
+    \item Aké je horné ohraničenie celej množiny objektov?
     \item Existuje ohraničenie horné alebo dolné pre ľubovoľnú podmnožinu objektov?
     \item Ako vyzerá zobrazenie zachovávajúce usporiadanie?
 \end{itemize}
@@ -1606,14 +1634,16 @@ rw ← modular_lattice.modular_law,
     Po dokázaní druhého cieľa sme dokázali celú vetu. $\square$
 
 \section{Podzväz}
-
     V rámci príspevku do knižnice \emph{mathlib} sme implementovali štruktúru
-reprezentujúcu podzväz. Formálne je definovaný:
+reprezentujúcu podzväz. Štruktúra s jej atribútmi boli implementované podľa
+zaužívaných zvyklostí projektu. Jej predlohu tvorila štruktúra $submonoidu$.
 
+Formálne je definovaný:
 \begin{theorem}
     Nech $L$ je zväz. Množina $K \subseteq L$ je \emph{podzväz} $L$ ak pre všetky 
 $a,b \in K$ platí, že, $a \wedge b \in K$, $a \vee b \in K$.
 \end{theorem}
+Jeho stručná implementácia vyzerá nasledovne:
 \begin{lstlisting}
 import order.lattice
 
