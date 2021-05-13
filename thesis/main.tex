@@ -162,7 +162,7 @@ sú tvorené a mali by byť zahrnuté k doteraz poznanému.
     Tento filozofický smer mal vplyv aj na matematiku kde sa na jeho základe
 vytvorilo viacero "škôl" ako finitizmus, predikativizmus, intuicionizmus.
     \emph{Intuitionizmus} ako jeden z nich je teda konštruktívny prístup k matematike
-v duchu učenia Brouwera(1881-1966) a Heytinga(1898-1980).
+v duchu učenia Brouwera(1881-1966) a Heytinga(1898-1980) \cite{constructivism}.
     Filozofickým základom tohto prístupu je princíp že matematika je výtvorom mentálnej
 činnosti a nepozostáva z výsledkov formálnej manipulácie symbolov ktoré sú iba
 sekundárne.
@@ -256,17 +256,17 @@ pravidlami zhora nadol hovoríme o dedukcii v opačnom smere o indukcii.
 \begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma, A \vdash B}
-        \infer1[$\implies_{I}$]{\Gamma \vdash B}
+        \infer1[$(\implies_{I})$]{\Gamma \vdash A \implies B}
     \end{prooftree}
 \end{minipage}
 \vskip 0.2in
 \begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
-        \hypo{\Gamma, A \vdash B}
+        \hypo{\Gamma \vdash A \wedge B}
         \infer1[$(\wedge^{l}_{E})$]{\Gamma \vdash A}
     \end{prooftree}
     \begin{prooftree}
-        \hypo{\Gamma, A \vdash B}
+        \hypo{\Gamma \vdash A \wedge B}
         \infer1[$(\wedge^{r}_{E})$]{\Gamma \vdash B}
     \end{prooftree}
 \end{minipage}
@@ -310,8 +310,7 @@ pravidlami zhora nadol hovoríme o dedukcii v opačnom smere o indukcii.
 \begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma, A \vdash \bot}
-        \hypo{\Gamma \vdash A}
-        \infer2[$(\neg_{I})$]{\Gamma \vdash \neg A}
+        \infer1[$(\neg_{I})$]{\Gamma \vdash \neg A}
     \end{prooftree}
 \end{minipage}
 \vskip 0.2in
@@ -323,7 +322,7 @@ pravidlami zhora nadol hovoríme o dedukcii v opačnom smere o indukcii.
 \end{center}
     Záver pravidiel s dolným indexom $E$ majú v závere výrokové premenné.
     Pravidlá s dolným indexom $I$ úvadzajú neatomické formuly.
-    Pravidlo $\implies_{E}$ je známe ako \emph{modus ponens}.
+    Pravidlo $(\implies_{E})$ je známe ako \emph{modus ponens}.
     Fragmentom logiky nazývame, systém ktorý dostaneme ak sa obmedzíme len na niektoré
 z dedkučných pravidiel.
     My uvedieme implikačný fragment ktorý je potom použitý v Curry-Howardovom
@@ -340,8 +339,16 @@ izomorfizme.
 možné pomocou nich odvodiť väčšinu logicky ekvivalentných formúl tvorených gramatikou
 uvedenou na začiatku.
 
-% TODO spravit priklad
-% (𝐴∧𝐵)→((𝐴→𝐶)→¬(𝐵→¬𝐶))
+    Nasledujúci príklad tvorí dedukčný strom jednoduche formuly:
+
+\begin{center}
+    \begin{prooftree}
+        \hypo{}
+        \infer1[$(ax)$]{\Gamma, A, B \vdash A}
+        \infer1[$(\implies_{I})$]{\Gamma, A \vdash B \implies A}
+        \infer1[$(\implies_{I})$]{\Gamma \vdash A \implies ( B \implies A ) }
+    \end{prooftree}
+\end{center}
 
 \section{$\lambda$-kalkulus}
     $\lambda$-kalkulus je výpočtový model ktorý sa v informatike využíva pre svoju
@@ -414,6 +421,8 @@ výsledky výpočtu.
 aplikácii.
     Formálne je $\beta$-redukcia definovaná aplikovaným týchto pravidiel.
 
+~\\
+
 \begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \infer0[($\beta_{s}$)]{(\lambda x.t)u \to_{\beta} t [ u / x ]}
@@ -442,16 +451,12 @@ aplikácii.
 \end{minipage}
 \vskip 0.2in
 
+\begin{prooftree}
+    \hypo{\Gamma , x : A \vdash t : B }
+    \infer1[$(\overset{I}{\rightarrow})$]{\Gamma \lambda x^{A}.t : A \to B}
+\end{prooftree}
 
-% TODO vymysliet iny strom, tento je prevzaty
-TU TREBA VYMYSLIET INY STROM
-\begin{equation}
-    \begin{prooftree}
-        \infer0[($\beta_{s}$)]{(\lambda y.y)x \to_{\beta} x}
-        \infer1[($\beta_{l}$)]{(\lambda y.y)xz \to_{\beta} xz}
-        \infer1[($\beta_{\alpha}$)]{\lambda x.(\lambda y.y)xz \to_{\beta} \lambda x . xz}
-    \end{prooftree}
-\end{equation}
+~\\
     Pre lepšiu predstavu uvádzame komplikovanejšie príklady ktorými je možné
 zakódovať prirodzené čísla a jednoduchú podmienku z programovania.
 \begin{theorem}
@@ -559,7 +564,7 @@ postupnosti nasledujúcich pravidiel:
 \begin{minipage}[t]{0.48\textwidth}
     \begin{prooftree}
         \hypo{\Gamma , x : A \vdash t : B }
-        \infer1[$(\overset{I}{\rightarrow})$]{\Gamma \lambda x^{A}.t : A \to B}
+        \infer1[$(\overset{I}{\rightarrow})$]{\Gamma \vdash \lambda x.t : A \to B}
     \end{prooftree}
 \end{minipage}
 \hfill
@@ -569,8 +574,9 @@ postupnosti nasledujúcich pravidiel:
         \hypo{\Gamma \vdash u : A }
         \infer2[$(\overset{E}{\rightarrow})$]{\Gamma \vdash t u : B}
     \end{prooftree}
-\end{minipage}
-
+\end{minipage} \\
+\paragraph{}
+    Ktoré je možné interpretovať nasledovne:
 
 \begin{itemize}
     \item $(ax)$: v kontexte $x$ je typu $A$
@@ -580,7 +586,17 @@ postupnosti nasledujúcich pravidiel:
         a argument $u$ je typu $A$, vysledok aplikácia $t u$ je typu $B$
 \end{itemize}
 
-Príklad odvodenia typu.
+Uvádzame príklad derivačného stromu:
+
+\begin{center}
+    \begin{prooftree}
+        \hypo{\Gamma, x : A, y : B \vdash t : A}
+        \infer1[$(\overset{I}{\rightarrow})$]{\Gamma x : A \vdash \lambda y.t : B \to A}
+        \infer1[$(\overset{I}{\rightarrow})$]{\Gamma \vdash \lambda x . \lambda y.t: A \to (B \to A )}
+    \end{prooftree}
+\end{center}
+
+
 
 \section{Curry-Howardov izomorfizmus}
 
@@ -588,7 +604,7 @@ Príklad odvodenia typu.
 o nutnosti skonštruovať objekt pre dôkaz existencie.
     Teda ak chceme dokázať nejaké tvrdenie potom ho musíme zostrojiť z množiny
 predpokladov a axióm.
-    \emph{Curry} s \emph{Howard} si všimli že zostrojovanie dôkazu pripomína výpočet.
+    \emph{Curry} s \emph{Howardom} si všimli že zostrojovanie dôkazu pripomína výpočet \cite{programming_languages}.
     Pre dôkaz implikácie $a implies b$ musíme ukázať na základe predpokladu $a$
 dôsledok $b$ v konštruktivizme zostrojiť objekt $b$ z objektu $a$ a
 z výpočtového hľadiska zostrojiť funkciu s výstupom $b$ na základe vstupu $a$.
@@ -621,7 +637,7 @@ intucionistickej logiky s troma dedkučnými pravidlami $(\implies_{E})$,
 typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$ a $(ax)$.
     Ak dáme do rovnosti množinu propozičných premenných s množinou typových premenných.
 
-    Z formálneho hľadiska je:
+    Nasledujúci formálny dôkaz je prevzatý z publikácie \cite{SorensenUrzyczyn}.
 \begin{theorem}{Curry-Howard izomorfizmus}
     \begin{itemize}
         \item Ak $\Gamma \vdash M : \varphi \textrm{ potom } |\Gamma|  \vdash \varphi.$
@@ -631,6 +647,43 @@ typ pomocou pravidiel $(\overset{I}{\rightarrow})$, $(\overset{E}{\rightarrow})$
     \end{itemize}
 \end{theorem}
 
+\begin{enumerate}
+    \item Derivácia je
+        \begin{center}
+            $\Gamma, \varphi \vdash \varphi$
+        \end{center}
+        Berieme do úvahy prípady
+        \begin{enumerate}
+            \item $\varphi \in \Gamma$. Potom $\Delta \vdash x_{\varphi} : \varphi$.
+            \item $\varphi \notin \Gamma$. Potom $\Delta, x_{\varphi} : \varphi \vdash x_{\varphi} : \varphi$.
+        \end{enumerate}
+    \item Derivácia končí v prípade
+    \begin{center}
+        \begin{prooftree}
+            \hypo{\Gamma \vdash \varphi \to \psi}
+            \hypo{\Gamma \vdash \varphi}
+            \infer2[]{\Gamma \vdash \psi}
+        \end{prooftree}
+    \end{center}
+    Indukčným predpokladom $\Gamma \vdash M : \varphi \to \psi$ a $\Gamma \vdash N : \varphi$ tak
+    potom aj $\Gamma \vdash M N : \psi$.
+    \item Derivácia končí v prípade
+    \begin{center}
+        \begin{prooftree}
+            \hypo{\Gamma, \varphi \vdash \psi}
+            \infer1[]{\Gamma \vdash \varphi \to \psi}
+        \end{prooftree}
+    \end{center}
+    Berieme do úvahy 2 prípady
+    \begin{enumerate}
+        \item $\varphi \in \Gamma$. Potom podľa indukčného predpokladu $\Delta \vdash M : \varphi$.
+            Uvedením do kontextu, $\Delta, x : \varphi \vdash M : \varphi$ kde $x \notin domain(\Delta)$.
+            Tak potom taktiez $\Delta \vdash \lambda x : \varphi$. $ M : \varphi \to \psi$.
+        \item $\varphi \notin \Gamma$. Potom podľa indukčného predpokladu $\Delta, x_{\varphi} : \varphi \vdash M : \psi$
+            tak potom aj $\Delta \vdash \lambda x_{\varphi} : \varphi$. $M :  \varphi \to \psi$.
+    \end{enumerate}
+\end{enumerate}
+\qed
 \chapter{Lean dokazovací asistent}
     Lean je dokazovací asistent ktorý bol vytvorený ako otvorený softvérový projekt
 Leonardom de Mourom v Microsoft Reasearch v roku 2013.
@@ -1023,7 +1076,7 @@ hq: q
 ⊢ p
 \end{lstlisting}
     Funkcie sú asociatívne zprava $p \to ( d \to p )$.
-    Tvrdenie hovorí "ak platí $p$, potom z $d$ vyplýva $p$".
+    Tvrdenie hovorí ``ak platí $p$, potom z $d$ vyplýva $p$``.
 \begin{itemize}
     \item Predpokladajme hp,
     \item a predpokladajme hd,
@@ -1386,8 +1439,6 @@ otázkami ako,
     \includegraphics[scale=0.20]{cube.png}
     \caption{Usporiadania $\mathcal{P}(\{a,b,c\})$}
 \end{figure}
-
-    % TODO prerobit vetu % 
     Na obrázku je usporiadanie všetkých podmnožín trojprvkovej množiny $\{ a,b,c \}$
 vzhľadom na kardinalitu podmnožín.
     Za porovnateľné považujeme len tie prvky, ktoré sú "pokryté" jednosmernou cestou 
@@ -1395,7 +1446,6 @@ cez orientované hrany grafu.
 
     V Leane je usporiadanie definované ako rozšírenie triedy predusporiadania, ktorá
 je reláciou, ktorá nemá oproti čiastočnému usporiadaniu vlastnosť antisymetrie.
-
 \begin{lstlisting}
 class has_le       (α : Type u) := (le : α → α → Prop)
 class has_lt       (α : Type u) := (lt : α → α → Prop)
@@ -1466,6 +1516,7 @@ class modular_lattice(α : Type u) extends lattice α :=
 
     V nasledujúcom úseku si ukážeme vetu o izomorfizme pre modulárne zväzy a podrobne
 si rozoberieme implementáciu jej dôkazu s obsahom prostredia v Leane.
+    Dôkaz aj z je prevzatý z publikácie \cite{gratzer}
 
 \begin{theorem} \emph{Veta o izomorfizme pre modulárne zväzy}
 Nech L je modulárnym zväzom a $a, b \in L$. Potom
@@ -1587,8 +1638,8 @@ na nasledujúci, kde má $u \sqcap v$ vyššiu precedenciu
 boli dokázané pre podkladové štruktúry. Použijeme nasledujúcu definíciu, ktorá vychádza
 z kontextu \emph{semilattice\_sup}.
 \begin{lstlisting}
-% @ [simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=    / TODO NEZABUDNUT
-%  le_antisymm_iff.trans $ by simp [ le_refl ]             / ODKOMENTOVAT
+@[simp] theorem sup_eq_right : a ⊔ b = b ↔ a ≤ b :=
+le_antisymm_iff.trans $ by simp [ le_refl ]
 \end{lstlisting}
     Zaujímavosťou je, že si Lean dokáže substiuovať výraz $u \sqcap v$ za $a$ z uvedeného
 výrazu. Pri použití vety dostávame ekvivalenciu, ktorá je definovaná ako štruktúra.
@@ -1734,7 +1785,10 @@ v mathlibe v časti týkajúcej sa teórie čiastočného usporiadania.
     \bibitem{lean4} https://github.com/leanprover/lean4
     \bibitem{mathlib} https://github.com/leanprover-community/mathlib
     \bibitem{mathlib_paper} https://leanprover-community.github.io/papers/mathlib-paper.pdf
+    \bibitem{programming_languages} Types and Programming Languages, ISBN 0-262-16209-1, Benjamin C. Pierce publikované v 2002
+    \bibitem{gratzer} Lattice Theory: Foundation, 978-3-0348-0018-1, George Grätzer, 2011
+    \bibitem{constructivism} Constructivism in Mathematics, Vol 1, Volume 121 1st Edition, A.S. Troelstra D. van Dalen, eBook ISBN 978-0-0805-7088-, publikované v 1988
+
 \end{thebibliography}
 
 \end{document}
-
